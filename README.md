@@ -9,7 +9,7 @@ Objetivos Especificos:
 3. Implementar un sistema de gestión de memoria eficiente en C para el manejo de Sprites y entidades, demostrando las ventajas del control manual de recursos.
 
 Roles:  
-- Scrum master: Valentina Vilches
+- Scrum master: Valentina Vilches.
 - Product Owner: Joaquin López. 
 - Equipo: Ezequiel Ñuñez y Alexander Maluenda.
 
