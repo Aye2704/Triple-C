@@ -14,5 +14,5 @@ Roles:
 - Equipo: Ezequiel Ñuñez y Alexander Maluenda.
 
 Funcionalidades claves del codigo:
-- Nucleo para ejecutar codigo C en vivo (Escribir codigo en el juego y afecte en tiempo real)
-- Uso de vectores para un juego dibnamico de movimiento
+- Nucleo para ejecutar codigo C en vivo (Escribir codigo en el juego y afecte en tiempo real).
+- Uso de vectores para un juego dinámico de movimiento.
