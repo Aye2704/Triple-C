@@ -1,7 +1,6 @@
 #ifndef PREGUNTAS_H
 #define PREGUNTAS_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,14 +26,14 @@ typedef struct {
 } Pregunta;
 
 typedef struct {
-    int vidasAcual;
+    int vidasActual;
     int nivelActual;
     int pistasRes; //numero de pistas que puedes pedir
     int puntaje; //Cuantas respuestas correctas hay en un nivel
+    int puntajeNivel;
 }Jugador;
 
 //Prototipos para el enginePreg
-void limpiar_pantalla (); //Limplia la pantalla de la terminal para cada pregunta
 
 void mostrar_encabezado (Jugador* j); //Muestra stats (vidas y pistas)
 
