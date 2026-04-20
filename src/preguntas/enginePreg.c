@@ -64,7 +64,7 @@ void pantalla_transmicion (int tipo , int nivelActual){
         case 2:
             printf("¡GAME OVER!");
             printf("Te has quedado sin vidas en el Nivel %d.\n", nivelActual);
-            prnitf("Regresaras al menu principal");
+            printf("Regresaras al menu principal");
             break;
         case 3:
             printf("¡FELICIDADES, SE TERMINO EL JUEGO! \n");
