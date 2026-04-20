@@ -15,8 +15,6 @@
 #define PISTAS_NIVEL 2
 #define PREGUNTAS_PARA_SUBIR 5
 
-
-
 typedef struct {
     char enunciado[MAX_TEXTO]; //Texto que se mostrara en cada pregunta
     char opciones[MAX_OPCIONES][MAX_TEXTO]; //numero de opciones posibles
@@ -34,7 +32,9 @@ typedef struct {
     int puntajeNivel;
 }Jugador;
 
-//Prototipos para el enginePreg
+//Prototipos para la presentacion
+
+void limpiar_patalla();
 
 void mostrar_encabezado (Jugador* j); //Muestra stats (vidas y pistas)
 
@@ -44,9 +44,16 @@ char obtener_respuesta (); //Captura y filtra el teclado
 
 void mostrar_feadback (int esCorrecto, char respuesta_real); //Reaccion visual a la respuesta
 
-void pantalla_transmicion (int tipo , int nivelactual); //Pantalla de si pasaste al siguiente nivel o perdiste
+void pantalla_transicion (int tipo , int nivelactual); //Pantalla de si pasaste al siguiente nivel o perdiste
 
-//TODO: Prototipos del backend de las preguntas 
-int cargar_preguntas(const char *archivo, Pregunta *p, int max);
+//Prototipos para el Backend
+
+Pregunta* cargar_preguntas(const char *archivo, int maxPreg); // Funcion para cargar las preguntas dentro de una estructura de datos
+
+int seleccionar_pregunta_aleatoria(Pregunta* b, int total, int nivelActual); //Funcion nueva con la intencion de elegir pregunta random
+
+int validar_respuesta(Jugador* j, Pregunta* p, char respuesta); // Funcion nueva que ve si la respuesta es correcta y actualiza el estado
+
+void resetear_preguntas_nivel(Pregunta* p, int total, int nivel); // Funcion nueva para reiniciar los flags de estado
 
 #endif 

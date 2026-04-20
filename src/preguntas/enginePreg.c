@@ -1,32 +1,72 @@
 #include "preguntas.h"
 
-int cargar_preguntas(const char* archivo, Pregunta *p, int max){
-    FILE *f = fopen(archivo, "r");
-
+//Funciones para el Backend
+Pregunta* cargar_preguntas(const char* archivopreg, int* maxPreg) {
+    FILE *f = fopen(archivopreg, "r");
     if (f==NULL){
         printf("Error (no abrió archivo)\n");
-        return 0;
+        return NULL;
     }
-    int i=0; 
-    while (i <max &&
-        fscanf(f, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]| %c |%[^|]|%d|%d\n",
-        p[i].enunciado,
-        p[i].opciones[0],
-        p[i].opciones[1],
-        p[i].opciones[2],
-        p[i].opciones[3],
-        &p[i].respuesta_correcta,
-        p[i].pista,
-        &p[i].nivel,
-        &p[i].estado
-    )==9)
-{
-    i++;        
-}
+    char linea[1024];
+    int c=0; 
+    //primera pasada: contar cuantas preguntas tiene el archivo
+    while (fgets(linea, sizeoof(linea), f)){
+        if (strlen(linea) > 10) c++;
+    }
+    if (c==0) {
+        fclose(f);
+        return NULL;
+    }
+
+    //pedimos memoria dinamica para el array de estructuras
+    Pregunta* b= (Pregunta*)malloc(sizeof(Pregunta)*c);
+    if (b==0){
+        fclose(f);
+        return NULL;
+    }
+    //Volver al inicio y leer los datos
+    rewind(f);
+    for (int i = 0; i<c; i++){
+        int leidos = fscanf(f,
+            " %255[^|]|%255[^|]|%255[^|]|%255[^|]|%255[^|]| %c |%255[^|]|%d|%d ",
+            b[i].enunciado,
+            b[i].opciones[0],
+            b[i].opciones[1],
+            b[i].opciones[2],
+            b[i].opciones[3],
+            &b[i].respuesta_correcta,
+            b[i].pista,
+            &b[i].nivel,
+            &b[i].estado);
+        if (leidos < 9){
+            printf("Error en el formato en la linea%d\n", i+1);
+        }
+    }
     fclose(f);
-    return i;  
+    *maxPreg = c;
+    return b;  
 }
 
+int seleccionar_pregunta_aleatoria(Pregunta* banco, int total, int nivel_jugador){
+
+    //Funcion nueva con la intencion de elegir pregunta random
+}
+int validar_respuesta(Jugador* j, Pregunta* p, char respuesta_usuario){
+    // Funcion nueva que ve si la respuesta es correcta y actualiza el estado
+}
+void resetear_preguntas_nivel(Pregunta* banco, int total, int nivel){
+    // Funcion nueva para reiniciar los flags de estado
+}
+
+
+//Funciones para el Frontend
+void limpiar_patalla(){
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
 
 void mostrar_encabezado (Jugador* j){
     printf("============================================================\n");
@@ -73,15 +113,13 @@ void mostrar_feadback (int esCorrecto, char respuesta_real){
     }
     printf("------------------------------------------------------------\n");
 
-    // Pausa dramática para que el usuario pueda leer el resultado
-    printf("\n  Cargando siguiente paso...");
-    fflush(stdout); // Asegura que el texto se imprima antes de dormir el programa
-    
-    // Pausa de 1.5 a 2 segundos
-    Sleep(3000); // Windows usa milisegundos
+    printf("\n\n  Presiona [ENTER] para continuar...");
+    fflush(stdout); // Limpieza de buffer y espera de entrada
+    while (getchar() != '\n'); // Consume el Enter residual si existe
+    getchar();                 // Espera el nuevo Enter del usuario
 }
-void pantalla_transmicion (int tipo , int nivelActual){
-    system("cls");
+void pantalla_transicion (int tipo , int nivelActual){
+    limpiar_patalla();
     printf("\n\n");
     switch (tipo) {
         case 1:
@@ -96,11 +134,10 @@ void pantalla_transmicion (int tipo , int nivelActual){
             break;
         case 3:
             printf("¡FELICIDADES, SE TERMINO EL JUEGO! \n");
-            break;
+            break; 
     }
     printf("\n\n  Presiona [ENTER] para continuar...");
-    // Limpieza de buffer y espera de entrada
-    fflush(stdout);
+    fflush(stdout); // Limpieza de buffer y espera de entrada
     while (getchar() != '\n'); // Consume el Enter residual si existe
     getchar();                 // Espera el nuevo Enter del usuario
 }
