@@ -1,0 +1,50 @@
+¿C usa printf para imprimir en pantalla?|Si|No|Solo en Python|Solo en Java|A|Es la función estándar de salida|1
+¿int es un tipo de dato en C?|Si|No|Solo en C++|Solo en Python|A|Se usa para números enteros|1
+¿scanf sirve para leer datos del usuario?|Si|No|Solo imprime|No existe|A|Permite entrada por teclado|1
+¿C es un lenguaje interpretado?|Si|No|A veces|Depende del sistema|B|Se compila antes de ejecutarse|1
+¿float se usa para qué tipo de números?|Enteros|Texto|Decimales|Caracteres|C|Ejemplo: 3.14|1
+¿main es qué en un programa en C?|Variable|Función principal|Comentario|Librería|B|El programa comienza ahí|1
+¿Qué símbolo termina una instrucción en C?|.|,|;|:|C|Es obligatorio al final de cada línea|1
+¿C distingue mayúsculas y minúsculas?|No|A veces|Solo en variables|Si|D|int y INT son distintos|1
+¿Qué librería contiene printf?|stdlib.h|math.h|stdio.h|string.h|C|Es estándar para entrada/salida|1
+¿Qué tipo de dato guarda un solo carácter?|int|char|float|double|B|Ejemplo: 'a'|1
+¿Qué estructura se usa para tomar decisiones en C?|for|if|while|switch|B|Permite ejecutar código según una condición|2
+¿Cuál operador se usa para comparar igualdad?|=|==|!=|<=|B|Se usa en condiciones como if|2
+¿Qué hace un bucle for?|Declara variables|Repite instrucciones|Imprime texto|Termina el programa|B|Se usa para repetir código varias veces|2
+¿Qué tipo de dato devuelve una comparación?|int|char|float|void|A|0 = falso, 1 = verdadero|2
+¿Qué operador significa "distinto de"?|==|!=|>=|=|B|Se usa en comparaciones|2
+¿Qué hace el while?|Ejecuta una vez|Repite mientras se cumpla una condición|Termina el programa|Declara variables|B|Puede ejecutarse muchas veces|2
+¿Qué ocurre si una condición en if es falsa?|Se ejecuta igual|Se ignora el bloque|Da error|Reinicia programa|B|No entra al bloque if|2
+¿Cuál es un operador lógico AND?|&&||| |B|Se usa para combinar condiciones|2
+¿Cuál es un operador lógico OR?|&&|||!|||C|Permite que una de varias condiciones sea verdadera|2
+¿Qué hace break en un bucle?|Repite|Ignora|Sale del bucle|Reinicia|C|Termina el ciclo inmediatamente|2
+¿Qué es un array en C?|Una función|Una variable única|Un conjunto de datos del mismo tipo|Un ciclo|C|Permite guardar múltiples valores del mismo tipo|3
+¿Cómo se accede al primer elemento de un array?|[1]|[0]|(0)|<0>|B|Los arrays comienzan en índice 0|3
+¿Qué tipo se usa para strings en C?|string|char[]|text|str|B|Los strings son arreglos de caracteres|3
+¿Qué indica el final de un string en C?|\0|\n|EOF|;|A|Es el carácter nulo|3
+¿Qué hace strlen?|Cuenta palabras|Cuenta caracteres|Imprime texto|Copia strings|B|Devuelve la longitud de un string|3
+¿Qué librería contiene funciones de strings?|math.h|string.h|stdio.h|stdlib.h|B|Incluye strlen, strcpy, etc|3
+¿Cómo se define un array de 5 enteros?|int a(5)|int a[5]|array a[5]|int[5] a|B|Sintaxis correcta de array|3
+¿Qué hace una función en C?|Guarda datos|Repite código|Ejecuta un bloque reutilizable|Declara variables|C|Permite reutilizar código|3
+¿Cómo se retorna un valor en una función?|break|exit|return|printf|C|Devuelve un valor al llamador|3
+¿Qué pasa si accedes fuera del array?|Nada|Error seguro|Comportamiento indefinido|Se reinicia|C|Puede causar errores graves|3
+¿Qué es un struct en C?|Una función|Un tipo de dato compuesto|Un ciclo|Una librería|B|Permite agrupar variables diferentes|4
+¿Cómo se accede a un campo de un struct?|->|.|:|#|B|Se usa el punto si no es puntero|4
+¿Qué función abre un archivo en C?|open|file|fopen|read|C|Permite abrir archivos|4
+¿Qué función cierra un archivo?|close|fclose|end|stop|B|Libera el archivo abierto|4
+¿Qué devuelve fopen si falla?|0|NULL|EOF|1|B|Indica error al abrir archivo|4
+¿Qué significa FILE *f?|Una variable normal|Un puntero a archivo|Un array|Un entero|B|Se usa para manejar archivos|4
+¿Qué modo se usa para leer un archivo?|w|r|a|rw|B|Modo lectura|4
+¿Qué hace fprintf?|Lee archivo|Escribe en archivo|Cierra archivo|Borra archivo|B|Permite escribir en archivos|4
+¿Qué hace fscanf?|Imprime texto|Lee datos formateados|Cierra archivo|Declara variables|B|Lee datos desde archivo|4
+¿Qué pasa si no cierras un archivo?|Nada|Error inmediato|Posibles problemas de memoria|Se borra solo|C|Mala práctica en C|4
+¿Qué es un puntero en C?|Una función|Una variable que guarda direcciones de memoria|Un tipo de ciclo|Una librería|B|Apunta a otra variable|5
+¿Qué operador obtiene la dirección de una variable?|*|&|#|%|B|Se usa antes de una variable|5
+¿Qué operador accede al valor de un puntero?|&|*|->|%|B|Desreferencia el puntero|5
+¿Qué hace malloc?|Libera memoria|Reserva memoria dinámica|Cierra archivos|Declara variables|B|Se usa para asignar memoria en tiempo de ejecución|5
+¿Qué librería contiene malloc?|stdio.h|string.h|stdlib.h|math.h|C|Incluye funciones de memoria dinámica|5
+¿Qué hace free?|Reserva memoria|Libera memoria|Duplica memoria|Cierra programa|B|Evita fugas de memoria|5
+¿Qué pasa si no usas free?|Nada|Error inmediato|Fugas de memoria|Se reinicia el programa|C|Consume memoria innecesariamente|5
+¿Qué tipo devuelve malloc?|int|void*|char|float|B|Se debe convertir al tipo necesario|5
+¿Qué es un puntero NULL?|Un error|Un puntero vacío|Una variable normal|Un número|B|No apunta a ninguna dirección válida|5
+¿Qué pasa si accedes a memoria no válida?|Nada|Error de compilación|Comportamiento indefinido|Se corrige solo|C|Puede causar fallos graves|5
