@@ -1,8 +1,8 @@
 #include "preguntas.h"
 
 //Funciones para el Backend
-Pregunta* cargar_preguntas(const char* archivopreg, int* maxPreg) {
-    FILE *f = fopen(archivopreg, "r");
+Pregunta* cargar_preguntas(const char* archivo, int* maxPreg) {
+    FILE *f = fopen(archivo, "r");
     if (f==NULL){
         printf("Error (no abrió archivo)\n");
         return NULL;
@@ -10,7 +10,7 @@ Pregunta* cargar_preguntas(const char* archivopreg, int* maxPreg) {
     char linea[1024];
     int c=0; 
     //primera pasada: contar cuantas preguntas tiene el archivo
-    while (fgets(linea, sizeoof(linea), f)){
+    while (fgets(linea, sizeof(linea), f)){
         if (strlen(linea) > 10) c++;
     }
     if (c==0) {
@@ -47,15 +47,34 @@ Pregunta* cargar_preguntas(const char* archivopreg, int* maxPreg) {
     return b;  
 }
 
-int seleccionar_pregunta_aleatoria(Pregunta* banco, int total, int nivel_jugador){
+int seleccionar_pregunta_aleatoria(Pregunta* b, int maxPreg, int nivel_jugador){
+    int inicio = rand() % maxPreg; // punto de inicio dentro del array
+    for (int i = 0; i<maxPreg; i++){
+        int indiceAct = (inicio +i) % maxPreg;
 
-    //Funcion nueva con la intencion de elegir pregunta random
+        if (b[indiceAct].nivel == nivel_jugador && 
+            b[indiceAct].estado == 0) { // verificar si la pregunta cumple los requisitos
+            return indiceAct;
+            }
+    }
+    return -1;
 }
-int validar_respuesta(Jugador* j, Pregunta* p, char respuesta_usuario){
-    // Funcion nueva que ve si la respuesta es correcta y actualiza el estado
+int validar_respuesta(Jugador* j, Pregunta* p, char respuesta){
+    if (toupper(respuesta) == toupper(p->respuesta_correcta)) {
+        j->puntajeNivel +=1;
+        j->puntaje += 1;
+        return 1;
+    } else {
+        j->vidasActual -=1;
+        return 0;
+    }
 }
-void resetear_preguntas_nivel(Pregunta* banco, int total, int nivel){
-    // Funcion nueva para reiniciar los flags de estado
+void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel){
+    for (int i = 0; i<maxPreg; i++) {
+        if (b[i].nivel == nivel) {
+            b[i].estado = 0;
+        }
+    }
 }
 
 

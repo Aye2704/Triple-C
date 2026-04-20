@@ -48,12 +48,12 @@ void pantalla_transicion (int tipo , int nivelactual); //Pantalla de si pasaste 
 
 //Prototipos para el Backend
 
-Pregunta* cargar_preguntas(const char *archivo, int maxPreg); // Funcion para cargar las preguntas dentro de una estructura de datos
+Pregunta* cargar_preguntas(const char *archivo, int* maxPreg); // Funcion para cargar las preguntas dentro de una estructura de datos
 
-int seleccionar_pregunta_aleatoria(Pregunta* b, int total, int nivelActual); //Funcion nueva con la intencion de elegir pregunta random
+int seleccionar_pregunta_aleatoria(Pregunta* b, int maxPreg, int nivelActual); //Funcion nueva con la intencion de elegir pregunta random
 
 int validar_respuesta(Jugador* j, Pregunta* p, char respuesta); // Funcion nueva que ve si la respuesta es correcta y actualiza el estado
 
-void resetear_preguntas_nivel(Pregunta* p, int total, int nivel); // Funcion nueva para reiniciar los flags de estado
+void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel); // Funcion nueva para reiniciar los flags de estado
 
 #endif 

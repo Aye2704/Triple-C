@@ -2,11 +2,12 @@
 #include "preguntas.h"
 
 int main (){ 
+    srand(time(NULL));
     int opcion_menu;
     char opcion_juego;
-    int maxPreg;
+    int maxPreg=0;
 
-    Pregunta* b=cargar_preguntas("archivopregs.txt", maxPreg);
+    Pregunta* b=cargar_preguntas("archivopregs.txt", &maxPreg);
     if (b==NULL){
         printf("Error: no se pudo cargar el archivo");
         return 1;
@@ -53,7 +54,7 @@ int main (){
                     }
                 } else {
                     int esCorrecto = validar_respuesta(&j, &b[indice], opcion_juego);
-                    mostrar_feadback(esCorrecto, &b[indice].respuesta_correcta);
+                    mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
                     b[indice].estado=1;
                 }
 
