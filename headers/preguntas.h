@@ -47,5 +47,6 @@ void mostrar_feadback (int esCorrecto, char respuesta_real); //Reaccion visual a
 void pantalla_transmicion (int tipo , int nivelactual); //Pantalla de si pasaste al siguiente nivel o perdiste
 
 //TODO: Prototipos del backend de las preguntas 
+int cargar_preguntas(const char *archivo, Pregunta *p, int max);
 
 #endif 
