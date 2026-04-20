@@ -2,9 +2,6 @@
 #include "preguntas.h"
 
 int main (){ 
-    
-
-
     Pregunta* p=(Pregunta*) malloc(sizeof(Pregunta));
     p->enunciado;
     p->estado;
