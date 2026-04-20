@@ -1,5 +1,33 @@
 #include "preguntas.h"
 
+int cargar_preguntas(const char* archivo, Pregunta *p, int max){
+    FILE *f = fopen(archivo, "r");
+
+    if (f==NULL){
+        printf("Error (no abrió archivo)\n");
+        return 0;
+    }
+    int i=0; 
+    while (i <max &&
+        fscanf(f, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]| %c |%[^|]|%d|%d\n",
+        p[i].enunciado,
+        p[i].opciones[0],
+        p[i].opciones[1],
+        p[i].opciones[2],
+        p[i].opciones[3],
+        &p[i].respuesta_correcta,
+        p[i].pista,
+        &p[i].nivel,
+        &p[i].estado
+    )==9)
+{
+    i++;        
+}
+    fclose(f);
+    return i;  
+}
+
+
 void mostrar_encabezado (Jugador* j){
     printf("============================================================\n");
     printf("        Nivel: %d  |   PUNTAJE: %d   |   PROGRESO: %d/%d\n",
