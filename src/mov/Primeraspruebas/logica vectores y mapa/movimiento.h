@@ -1,0 +1,1 @@
+/*DEFINIR LAS VARIABLES DEL MOV AQUI pa mas orden*/
