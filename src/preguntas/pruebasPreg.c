@@ -18,6 +18,7 @@ int main (){
     j ->pistasRes= PISTAS_NIVEL;
 
     int opcion_menu;
+    char opcion_juego;
 
     printf("Hola y bienvenido a en juego de preguntas para aprender C\n");
     do {
@@ -31,7 +32,9 @@ int main (){
         switch (opcion_menu) {
             case 1:
                 printf("Pues que comience el juego!\n");
-                mostrar_encabezado(j);
+                    mostrar_encabezado(j);
+                    //mostrar_pregunta(p); por razones de que no tengo las preguntas del Backend no se me ocurre como encontrar las respuestas
+                    opcion_juego=obtener_respuesta();
                 break;
             case 2:
                 printf("fin del programa\n");

@@ -12,14 +12,28 @@ void mostrar_encabezado (Jugador* j){
     printf("    |   PISTAS: %d\n", j->pistasRes);
     printf("============================================================\n\n");
 }
-void mostrar_pregunta (Pregunta* p){
 
-    //TODO: Muestra la pregunta (BRUH)
+void mostrar_pregunta (Pregunta* p){
+    printf("%s\n\n", p->enunciado);
+    for (int i = 0; i < MAX_OPCIONES; i++) {
+        printf("    [%c] %s\n", (char)('A'+i), p->opciones[i]);
+    }
 }
 char obtener_respuesta (){
-    //TODO: Captura y filtra el teclado
-    char nig = 'n';
-    return nig;
+    char respuesta;
+    int validar=0;
+    printf("\n------------------------------------------------------------\n");
+    printf(" Escribe A, B, C, D para responder o'H' para pedir una PISTA\n");
+    do{
+        printf("    >> Tu eleccion: ");
+        scanf("%c", &respuesta);
+        if ((respuesta>= 'A' && respuesta <= 'D') || respuesta =='H'){
+            validar=1;
+        } else{
+            printf("Caracter incorrecto\n presiona Enter para intentar de nuevo\n");
+        }
+    } while (!validar);
+    return respuesta;
 }
 void mostrar_feadback (int esCorrecto, char respuesta_real){
     //TODO: Reaccion visual a la respuesta

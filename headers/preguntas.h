@@ -18,7 +18,7 @@
 
 typedef struct {
     char enunciado[MAX_TEXTO]; //Texto que se mostrara en cada pregunta
-    char opciones[MAX_OPCIONES][MAX_TEXTO]; //numero de opciones posibles (Responder, pedir pistas o salir)
+    char opciones[MAX_OPCIONES][MAX_TEXTO]; //numero de opciones posibles
     char respuesta_correcta; //Texto de la respuesta correcta
     char pista[MAX_TEXTO];
     int nivel; //nivel al que pertenece la pregunta
