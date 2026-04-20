@@ -15,8 +15,6 @@
 ¿Qué operador significa "distinto de"?|==|!=|>=|=|B|Se usa en comparaciones|2|0
 ¿Qué hace el while?|Ejecuta una vez|Repite mientras se cumpla una condición|Termina el programa|Declara variables|B|Puede ejecutarse muchas veces|2|0
 ¿Qué ocurre si una condición en if es falsa?|Se ejecuta igual|Se ignora el bloque|Da error|Reinicia programa|B|No entra al bloque if|2|0
-¿Cuál es un operador lógico AND?|&&||| |B|Se usa para combinar condiciones|2|0
-¿Cuál es un operador lógico OR?|&&|||!|||C|Permite que una de varias condiciones sea verdadera|2|0
 ¿Qué hace break en un bucle?|Repite|Ignora|Sale del bucle|Reinicia|C|Termina el ciclo inmediatamente|2|0
 ¿Qué es un array en C?|Una función|Una variable única|Un conjunto de datos del mismo tipo|Un ciclo|C|Permite guardar múltiples valores del mismo tipo|3|0
 ¿Cómo se accede al primer elemento de un array?|[1]|[0]|(0)|<0>|B|Los arrays comienzan en índice 0|3|0

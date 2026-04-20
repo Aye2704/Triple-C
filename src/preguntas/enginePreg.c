@@ -113,7 +113,7 @@ char obtener_respuesta (){
     printf(" Escribe A, B, C, D para responder o'H' para pedir una PISTA\n");
     do{
         printf("    >> Tu eleccion: ");
-        scanf("%c", &respuesta);
+        scanf(" %c", &respuesta);
         if ((respuesta>= 'A' && respuesta <= 'D') || respuesta =='H'){
             validar=1;
         } else{

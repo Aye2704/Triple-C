@@ -13,7 +13,7 @@ int main (){
         return 1;
     }
 
-    Jugador j= {MAX_VIDAS, 0, PISTAS_NIVEL, 0, 0};
+    Jugador j= {MAX_VIDAS, 1, PISTAS_NIVEL, 0, 0};
 
     printf("Hola y bienvenido a en juego de preguntas para aprender C\n"); // estos textos se van a ir para la fusion con el apartadodo de mov
     do {
