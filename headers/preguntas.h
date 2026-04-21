@@ -46,6 +46,8 @@ void mostrar_feadback (int esCorrecto, char respuesta_real); //Reaccion visual a
 
 void pantalla_transicion (int tipo , int nivelactual); //Pantalla de si pasaste al siguiente nivel o perdiste
 
+int menu_principal(int opcion_menu);
+
 //Prototipos para el Backend
 
 Pregunta* cargar_preguntas(const char *archivo, int* maxPreg); // Funcion para cargar las preguntas dentro de una estructura de datos

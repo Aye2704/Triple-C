@@ -3,7 +3,7 @@
 
 int main (){ 
     srand(time(NULL));
-    int opcion_menu;
+    int opcion_menu=0;
     char opcion_juego;
     int maxPreg=0;
 
@@ -16,17 +16,12 @@ int main (){
     Jugador j= {MAX_VIDAS, 1, PISTAS_NIVEL, 0, 0};
 
     printf("Hola y bienvenido a en juego de preguntas para aprender C\n"); // estos textos se van a ir para la fusion con el apartadodo de mov
+    printf("Presina ENTER para continuar... ");
+    getchar();
     do {
-        printf("============================================================\n");
-        printf("                    MENU PRINCIPA\n");
-        printf("                      1. Jugar\n");
-        printf("                      2. Salir\n");
-        printf("============================================================\n");
-        scanf("%d", &opcion_menu);
-        limpiar_patalla();
+        if(opcion_menu==0) opcion_menu = menu_principal(opcion_menu);
         switch (opcion_menu) {
             case 1:
-                printf("Pues que comience el juego!\n");
                 int indice;
                 do {
                     indice = seleccionar_pregunta_aleatoria(b, maxPreg, j.nivelActual);
@@ -41,17 +36,21 @@ int main (){
                     if (j.pistasRes > 0){
                         printf("PISTA: %s\n", b[indice].pista);
                         j.pistasRes--;
-                        printf("\n\n  Presiona [ENTER] para continuar...");
+                        printf("Presiona [ENTER] para continuar...");
                         fflush(stdout); // Limpieza de buffer y espera de entrada
                         while (getchar() != '\n'); // Consume el Enter residual si existe
-                        getchar();    
+                        getchar();
+                        limpiar_patalla();
                     } else {
-                        printf("\n!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
-                        printf("\n\n  Presiona [ENTER] para continuar...");
+                        printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
+                        printf("Presiona [ENTER] para continuar...");
                         fflush(stdout); // Limpieza de buffer y espera de entrada
                         while (getchar() != '\n'); // Consume el Enter residual si existe
-                        getchar();  
+                        getchar();
+                        limpiar_patalla();  
                     }
+                } else if (opcion_juego=='Q') {
+                    opcion_menu = menu_principal(opcion_menu);
                 } else {
                     int esCorrecto = validar_respuesta(&j, &b[indice], opcion_juego);
                     mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
@@ -60,11 +59,16 @@ int main (){
 
                 //Pasar de nivel
                 if(j.puntajeNivel>=PREGUNTAS_PARA_SUBIR){
-                    pantalla_transicion(1, j.nivelActual);
-                    j.nivelActual++;
-                    j.vidasActual = MAX_VIDAS;
-                    j.pistasRes = PISTAS_NIVEL;
-                    j.puntajeNivel = 0;
+                    if (j.nivelActual>=MAX_NIVELES){
+                        pantalla_transicion(3, j.nivelActual);
+                        opcion_menu=2;
+                    } else{
+                        pantalla_transicion(1, j.nivelActual);
+                        j.nivelActual++;
+                        j.vidasActual = MAX_VIDAS;
+                        j.pistasRes = PISTAS_NIVEL;
+                        j.puntajeNivel = 0;                        
+                    }
                 }
 
                 //Preder
@@ -75,15 +79,16 @@ int main (){
                     j.pistasRes = PISTAS_NIVEL;
                     j.puntajeNivel = 0;
                     j.puntaje=0;
+                    opcion_menu=0;
                 }
                 break;
-            case 2:
-                printf("fin del programa\n");
+            case 2: //fin del programa
                 break;
             default:
                 printf("opcion invalida\n");
         }
     } while (opcion_menu != 2);
+    printf("fin del programa\n");
     free(b);
     b=NULL;
     return 0;

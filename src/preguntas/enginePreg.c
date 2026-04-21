@@ -110,36 +110,38 @@ char obtener_respuesta (){
     char respuesta;
     int validar=0;
     printf("\n------------------------------------------------------------\n");
-    printf(" Escribe A, B, C, D para responder o'H' para pedir una PISTA\n");
+    printf(" Escribe A, B, C, D para responder,'H' para pedir una PISTA\n");
+    printf("Salir con 'Q'");
     do{
         printf("    >> Tu eleccion: ");
         scanf(" %c", &respuesta);
-        if ((respuesta>= 'A' && respuesta <= 'D') || respuesta =='H'){
+        respuesta = toupper(respuesta);
+        if ((respuesta>= 'A' && respuesta <= 'D') || respuesta =='H' || respuesta == 'Q'){
             validar=1;
         } else{
-            printf("Caracter incorrecto\n presiona Enter para intentar de nuevo\n");
+            printf("Caracter incorrecto, presiona Enter para intentar de nuevo\n");
+            getchar();
         }
     } while (!validar);
     return respuesta;
 }
 void mostrar_feadback (int esCorrecto, char respuesta_real){
-    printf("\n------------------------------------------------------------\n");
     if (esCorrecto) {
         printf("        ¡CORRECTO!\n");
     } else {
         printf("        ¡INCORRECTO!\n");
         printf("    La respuesta correcta era la opcion: %c\n", respuesta_real);
     }
-    printf("------------------------------------------------------------\n");
 
-    printf("\n\n  Presiona [ENTER] para continuar...");
+    printf("Presiona [ENTER] para continuar...");
     fflush(stdout); // Limpieza de buffer y espera de entrada
     while (getchar() != '\n'); // Consume el Enter residual si existe
     getchar();                 // Espera el nuevo Enter del usuario
+    limpiar_patalla();
 }
 void pantalla_transicion (int tipo , int nivelActual){
     limpiar_patalla();
-    printf("\n\n");
+    printf("\n");
     switch (tipo) {
         case 1:
             printf("¡OBJETIVO LOGRADO!\n ");
@@ -153,10 +155,23 @@ void pantalla_transicion (int tipo , int nivelActual){
             break;
         case 3:
             printf("¡FELICIDADES, SE TERMINO EL JUEGO! \n");
-            break; 
+            break;
     }
     printf("\n\n  Presiona [ENTER] para continuar...");
     fflush(stdout); // Limpieza de buffer y espera de entrada
     while (getchar() != '\n'); // Consume el Enter residual si existe
     getchar();                 // Espera el nuevo Enter del usuario
+    limpiar_patalla();
+}
+
+int menu_principal(int opcion_menu){
+    limpiar_patalla();
+    printf("============================================================\n");
+    printf("                    MENU PRINCIPAL\n");
+    printf("                      1. Jugar\n");
+    printf("                      2. Salir\n");
+    printf("============================================================\n");
+    scanf(" %d", &opcion_menu);
+    limpiar_patalla();
+    return opcion_menu;
 }
