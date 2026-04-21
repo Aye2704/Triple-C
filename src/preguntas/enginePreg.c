@@ -1,4 +1,4 @@
-#include "preguntas.h"
+#include "preguntas.h" 
 
 //Funciones para el Backend
 Pregunta* cargar_preguntas(const char* archivo, int* maxPreg) {
