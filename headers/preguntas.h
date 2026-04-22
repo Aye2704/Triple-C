@@ -48,6 +48,8 @@ void pantalla_transicion (int tipo , int nivelactual); //Pantalla de si pasaste 
 
 int menu_principal(int opcion_menu);
 
+void presionar_enter(); //Funcion para arreglar problema en el cual se pedia apretar dos veces Enter
+
 //Prototipos para el Backend
 
 Pregunta* cargar_preguntas(const char *archivo, int* maxPreg); // Funcion para cargar las preguntas dentro de una estructura de datos
@@ -57,5 +59,7 @@ int seleccionar_pregunta_aleatoria(Pregunta* b, int maxPreg, int nivelActual); /
 int validar_respuesta(Jugador* j, Pregunta* p, char respuesta); // Funcion nueva que ve si la respuesta es correcta y actualiza el estado
 
 void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel); // Funcion nueva para reiniciar los flags de estado
+
+void barajar_preguntas(Pregunta* b, int maxPreg); //Funcion para barajar las preguntas y no sigan el mismo orden del archivo.txt
 
 #endif 

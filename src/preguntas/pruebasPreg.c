@@ -19,6 +19,7 @@ int main (){
         printf("Error: no se pudo cargar el archivo");
         return 1;
     }
+    barajar_preguntas(b, maxPreg);
 
     Jugador j= {MAX_VIDAS, 1, PISTAS_NIVEL, 0, 0};
 
@@ -43,18 +44,10 @@ int main (){
                     if (j.pistasRes > 0){
                         printf("PISTA: %s\n", b[indice].pista);
                         j.pistasRes--;
-                        printf("Presiona [ENTER] para continuar...");
-                        fflush(stdout); // Limpieza de buffer y espera de entrada
-                        while (getchar() != '\n'); // Consume el Enter residual si existe
-                        getchar();
-                        limpiar_patalla();
+                        presionar_enter();
                     } else {
                         printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
-                        printf("Presiona [ENTER] para continuar...");
-                        fflush(stdout); // Limpieza de buffer y espera de entrada
-                        while (getchar() != '\n'); // Consume el Enter residual si existe
-                        getchar();
-                        limpiar_patalla();  
+                        presionar_enter();  
                     }
                 } else if (opcion_juego=='Q') {
                     opcion_menu = menu_principal(opcion_menu);

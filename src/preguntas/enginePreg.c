@@ -77,6 +77,17 @@ void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel){
     }
 }
 
+void barajar_preguntas(Pregunta *b, int maxPreg){
+    if (maxPreg <=1) return; //nada que barajar
+    for(int i= maxPreg -1; i > 0; i--) {
+        int j = rand() % (i+1); // Elegir un indice aleatorio entre 0 e i
+
+        //initercambiar b[i] y b[j]
+        Pregunta temp =b[i];
+        b[i]=b[j];
+        b[j]= temp;
+    }
+}
 
 //Funciones para el Frontend
 void limpiar_patalla(){
@@ -119,8 +130,7 @@ char obtener_respuesta (){
         if ((respuesta>= 'A' && respuesta <= 'D') || respuesta =='H' || respuesta == 'Q'){
             validar=1;
         } else{
-            printf("Caracter incorrecto, presiona Enter para intentar de nuevo\n");
-            getchar();
+            printf("Caracter incorrecto\n");
         }
     } while (!validar);
     return respuesta;
@@ -132,12 +142,7 @@ void mostrar_feadback (int esCorrecto, char respuesta_real){
         printf("        ¡INCORRECTO!\n");
         printf("    La respuesta correcta era la opcion: %c\n", respuesta_real);
     }
-
-    printf("Presiona [ENTER] para continuar...");
-    fflush(stdout); // Limpieza de buffer y espera de entrada
-    while (getchar() != '\n'); // Consume el Enter residual si existe
-    getchar();                 // Espera el nuevo Enter del usuario
-    limpiar_patalla();
+    presionar_enter();
 }
 void pantalla_transicion (int tipo , int nivelActual){
     limpiar_patalla();
@@ -157,11 +162,7 @@ void pantalla_transicion (int tipo , int nivelActual){
             printf("¡FELICIDADES, SE TERMINO EL JUEGO! \n");
             break;
     }
-    printf("\n\n  Presiona [ENTER] para continuar...");
-    fflush(stdout); // Limpieza de buffer y espera de entrada
-    while (getchar() != '\n'); // Consume el Enter residual si existe
-    getchar();                 // Espera el nuevo Enter del usuario
-    limpiar_patalla();
+    presionar_enter();
 }
 
 int menu_principal(int opcion_menu){
@@ -178,4 +179,13 @@ int menu_principal(int opcion_menu){
     }
     limpiar_patalla();
     return opcion_menu;
+}
+
+void presionar_enter(){
+    printf("\n  Presiona [ENTER] para continuar...");
+    fflush(stdout); // Limpieza de buffer y espera de entrada
+    int c;
+    while ((c=getchar()) != '\n' && c != EOF); // Consume todo lo que hay en el bufer con el \n incluido
+    getchar();                 // Espera el nuevo Enter del usuario
+    limpiar_patalla();
 }
