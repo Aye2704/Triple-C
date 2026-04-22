@@ -171,7 +171,11 @@ int menu_principal(int opcion_menu){
     printf("                      1. Jugar\n");
     printf("                      2. Salir\n");
     printf("============================================================\n");
-    scanf(" %d", &opcion_menu);
+    // Verificamos si scanf NO logro leer 1 numero
+    if (scanf(" %d", &opcion_menu) != 1) {
+        while (getchar() != '\n'); 
+        opcion_menu = 0; 
+    }
     limpiar_patalla();
     return opcion_menu;
 }

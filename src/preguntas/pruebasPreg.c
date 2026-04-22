@@ -3,6 +3,13 @@
 
 int main (){ 
     srand(time(NULL));
+
+    // Configurar la consola de Windows para que entienda UTF-8
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8); // Opcional, pero util si el usuario debe ingresar tildes
+    #endif
+
     int opcion_menu=0;
     char opcion_juego;
     int maxPreg=0;
@@ -86,6 +93,8 @@ int main (){
                 break;
             default:
                 printf("opcion invalida\n");
+                getchar();
+                opcion_menu=0;
         }
     } while (opcion_menu != 2);
     printf("fin del programa\n");
