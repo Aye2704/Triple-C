@@ -37,26 +37,32 @@ int main (){
                        resetear_preguntas_nivel(b, maxPreg, j.nivelActual);
                     }
                 } while(indice==-1);
-                mostrar_encabezado(&j);
-                mostrar_pregunta(&b[indice]);
-                opcion_juego=obtener_respuesta();
-                if (opcion_juego=='H'){
-                    if (j.pistasRes > 0){
-                        printf("PISTA: %s\n", b[indice].pista);
-                        j.pistasRes--;
-                        presionar_enter();
-                    } else {
-                        printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
-                        presionar_enter();  
-                    }
-                } else if (opcion_juego=='Q') {
-                    opcion_menu = menu_principal(opcion_menu);
-                } else {
-                    int esCorrecto = validar_respuesta(&j, &b[indice], opcion_juego);
-                    mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
-                    b[indice].estado=1;
-                }
 
+                int respondio =0;
+                while (!respondio){
+                    mostrar_encabezado(&j);
+                    mostrar_pregunta(&b[indice]);
+                    opcion_juego=obtener_respuesta();
+                    if (opcion_juego=='H'){
+                        if (j.pistasRes > 0){
+                            printf("PISTA: %s\n", b[indice].pista);
+                            j.pistasRes--;
+                            presionar_enter();
+                        } else {
+                            printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
+                            presionar_enter();  
+                        }
+                    } else if (opcion_juego=='Q') {
+                    opcion_menu = menu_principal(opcion_menu);
+                    if (opcion_menu==2) break;
+                    } else {
+                        int esCorrecto = validar_respuesta(&j, &b[indice], opcion_juego);
+                        mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
+                        b[indice].estado=1;
+
+                        respondio = 1;
+                    }
+                }
                 //Pasar de nivel
                 if(j.puntajeNivel>=PREGUNTAS_PARA_SUBIR){
                     if (j.nivelActual>=MAX_NIVELES){
