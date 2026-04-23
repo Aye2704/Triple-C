@@ -89,6 +89,69 @@ void barajar_preguntas(Pregunta *b, int maxPreg){
     }
 }
 
+// Funciones para integración con el juego principal
+int jugar_sesion_preguntas(Jugador* j, Pregunta* b, int maxPreg) {
+    int indice;
+    do {
+        indice = seleccionar_pregunta_aleatoria(b, maxPreg, j->nivelActual);
+        if (indice == -1) {
+            resetear_preguntas_nivel(b, maxPreg, j->nivelActual);
+        }
+    } while (indice == -1);
+
+    int respondio = 0;
+    while (!respondio) {
+        mostrar_encabezado(j);
+        mostrar_pregunta(&b[indice]);
+        char opcion_juego = obtener_respuesta();
+        if (opcion_juego == 'H') {
+            if (j->pistasRes > 0) {
+                printf("PISTA: %s\n", b[indice].pista);
+                j->pistasRes--;
+                presionar_enter();
+            } else {
+                printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
+                presionar_enter();
+            }
+        } else if (opcion_juego == 'Q') {
+            return 2; // Salir
+        } else {
+            int esCorrecto = validar_respuesta(j, &b[indice], opcion_juego);
+            mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
+            b[indice].estado = 1;
+            respondio = 1;
+        }
+    }
+
+    // Verificar si completó el nivel
+    if (j->puntajeNivel >= PREGUNTAS_PARA_SUBIR) {
+        if (j->nivelActual >= MAX_NIVELES) {
+            pantalla_transicion(3, j->nivelActual);
+            return 0; // Juego terminado
+        } else {
+            pantalla_transicion(1, j->nivelActual);
+            j->nivelActual++;
+            j->vidasActual = MAX_VIDAS;
+            j->pistasRes = PISTAS_NIVEL;
+            j->puntajeNivel = 0;
+            return 0; // Nivel completado
+        }
+    }
+
+    // Verificar si perdió
+    if (j->vidasActual <= 0) {
+        pantalla_transicion(2, j->nivelActual);
+        j->nivelActual = 1;
+        j->vidasActual = MAX_VIDAS;
+        j->pistasRes = PISTAS_NIVEL;
+        j->puntajeNivel = 0;
+        j->puntaje = 0;
+        return 1; // Perdido
+    }
+
+    return 3; // Continuar (no completado ni perdido)
+}
+
 //Funciones para el Frontend
 void limpiar_patalla(){
     #ifdef _WIN32

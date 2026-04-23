@@ -11,7 +11,6 @@ int main (){
     #endif
 
     int opcion_menu=0;
-    char opcion_juego;
     int maxPreg=0;
 
     Pregunta* b=cargar_preguntas("archivopregs.txt", &maxPreg);
@@ -30,62 +29,20 @@ int main (){
         if(opcion_menu==0) opcion_menu = menu_principal(opcion_menu);
         switch (opcion_menu) {
             case 1:
-                int indice;
-                do {
-                    indice = seleccionar_pregunta_aleatoria(b, maxPreg, j.nivelActual);
-                    if (indice==-1){
-                       resetear_preguntas_nivel(b, maxPreg, j.nivelActual);
-                    }
-                } while(indice==-1);
-
-                int respondio =0;
-                while (!respondio){
-                    mostrar_encabezado(&j);
-                    mostrar_pregunta(&b[indice]);
-                    opcion_juego=obtener_respuesta();
-                    if (opcion_juego=='H'){
-                        if (j.pistasRes > 0){
-                            printf("PISTA: %s\n", b[indice].pista);
-                            j.pistasRes--;
-                            presionar_enter();
-                        } else {
-                            printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
-                            presionar_enter();  
+                // Usar la nueva función modular para manejar la sesión de preguntas
+                while (opcion_menu!=0) {
+                    int resultado = jugar_sesion_preguntas(&j, b, maxPreg);
+                    if (resultado == 0) {  // Nivel completado o juego terminado
+                        if (j.nivelActual > MAX_NIVELES) {
+                            opcion_menu = 2;  // Fin del juego
+                            break;
                         }
-                    } else if (opcion_juego=='Q') {
-                    opcion_menu = menu_principal(opcion_menu);
-                    if (opcion_menu==2) break;
-                    } else {
-                        int esCorrecto = validar_respuesta(&j, &b[indice], opcion_juego);
-                        mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
-                        b[indice].estado=1;
-
-                        respondio = 1;
+                    } else if (resultado == 1) {  // Perdido
+                        opcion_menu = 0;  // Volver al menú
+                    } else if (resultado == 2) {  // Salir voluntario
+                        opcion_menu = 0;  // Volver al menú
                     }
-                }
-                //Pasar de nivel
-                if(j.puntajeNivel>=PREGUNTAS_PARA_SUBIR){
-                    if (j.nivelActual>=MAX_NIVELES){
-                        pantalla_transicion(3, j.nivelActual);
-                        opcion_menu=2;
-                    } else{
-                        pantalla_transicion(1, j.nivelActual);
-                        j.nivelActual++;
-                        j.vidasActual = MAX_VIDAS;
-                        j.pistasRes = PISTAS_NIVEL;
-                        j.puntajeNivel = 0;                        
-                    }
-                }
-
-                //Preder
-                if(j.vidasActual<=0){
-                    pantalla_transicion(2, j.nivelActual);
-                    j.nivelActual=1;
-                    j.vidasActual = MAX_VIDAS;
-                    j.pistasRes = PISTAS_NIVEL;
-                    j.puntajeNivel = 0;
-                    j.puntaje=0;
-                    opcion_menu=0;
+                    // Si resultado == 3, continuar con más preguntas
                 }
                 break;
             case 2: //fin del programa
