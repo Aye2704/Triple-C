@@ -54,6 +54,7 @@ for(int i= p2->dimension-1 ;i>=0 ;i--){
 void procesomov(movjug*p1,char comandou, map *p2){
     int nx= p1->posicion.x;
     int ny= p1->posicion.y;
+    
 /*trabajo con variables locales de la funcion ya que necesito
 hacer las verificaciones de si toca o no la pared  y luego de que se hagan las verificaciones
 hago el cambio en el mov original trabajando todo con punteros */
