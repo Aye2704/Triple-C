@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include "movi.h"
 
-/*VER PUNTEROS */
-
 /*Trabajare con punteros para hacer paso por referencia y afectar a las variables
 fuera de mi funcion*/
 
@@ -49,8 +47,7 @@ for(int i= p2->dimension-1 ;i>=0 ;i--){
 		printf("%c",p2->mapa[i][j]);}
     }printf("\n");}}
 
-/*me aparece una columna de mas al imprimirlo en la terminal y segun yo esta logica esta buena
-ya que la reutilzie de mi codigo original que no tenia problema*/
+
 
 
 

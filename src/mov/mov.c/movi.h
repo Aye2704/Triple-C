@@ -9,9 +9,9 @@ typedef struct{
     int y;
 }vector;
 
-/*Aqui el el movimiento podria ser int o float pero lo dejare como float para que el moviemiento
-no sea discreta y sea mas fluido al momento de migrar(osea que cuando lo grafiquemos
-no se mueva tepeandose sino fluido)*/
+/*Aqui el el movimiento podria ser int o float pero lo dejare como int para que el moviemiento
+sea discreto y sea en la terminal se nota
+mejor, a futuro podriamos cambiar esto*/
 
 typedef struct
 {vector posicion;
