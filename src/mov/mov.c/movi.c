@@ -1,5 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include "movi.h"
 
 /*Trabajare con punteros para hacer paso por referencia y afectar a las variables

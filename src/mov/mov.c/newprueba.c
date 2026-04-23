@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "movi.h"
 
 /*FALTA AGREGARLE LA LOGICA DE IR AUMENTADO EL NIVEL Y LA DE LA GENERACION DE ENEMIGOS
@@ -20,13 +18,8 @@ int main() {
     // 3. Bucle de juego
     while (tecla != 'q') {
         // Limpiamos pantalla según el sistema
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
-
-
+        limpiar_patalla();
+        
         printf("NIVEL: %d | WASD para mover | 'q' para salir\n", nivel_actual);
                 if(tecla=='p'){
             printf("Su posiciones:x=%d,y=%d\n",p1.posicion.x,p1.posicion.y-1);
