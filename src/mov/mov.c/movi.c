@@ -87,7 +87,7 @@ hago el cambio en el mov original trabajando todo con punteros */
     if (destino==' '){
         p1->posicion.x=nx;
         p1->posicion.y= ny;}
-    else if(destino=='E'){
+    else if(destino=='C'){
         /*LOGICA PREGUNTAS*/}
     if(comandou=='p'){
         printf("x=%d,y=%d",p1->posicion.x,p1->posicion.y);
