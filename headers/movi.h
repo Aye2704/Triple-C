@@ -27,10 +27,7 @@ typedef struct{
 
 
 /*defino las funciones (Recordar que reciben direcciones de memoria)*/
-void movderecha(movjug *p1);
-void movizquierda(movjug *p1);
-void movarriba(movjug *p1);
-void movabajo(movjug *p1);
+
 void procesomov(movjug *p1,char comandou,map *p2);
 void procesomovE(movjug *PE,map*p2);
 void iniciarmapa(map *p2,int nivel);
