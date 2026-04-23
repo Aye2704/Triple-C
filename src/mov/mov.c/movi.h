@@ -32,8 +32,9 @@ void movizquierda(movjug *p1);
 void movarriba(movjug *p1);
 void movabajo(movjug *p1);
 void procesomov(movjug *p1,char comandou,map *p2);
+void procesomovE(movjug *PE,map*p2);
 void iniciarmapa(map *p2,int nivel);
-void dibujarmapa(movjug *p1,int nivel,map *p2);
+void dibujarmapa(movjug *p1,movjug*PE,int nivel,map *p2);
 
 
 

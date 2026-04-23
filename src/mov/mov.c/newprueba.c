@@ -9,7 +9,8 @@ int main() {
     // 1. Inicializamos las estructuras
     map m1;
     // Empezamos al jugador en la posición 1,1 para que no aparezca sobre un muro
-    movjug p1 = {{1, 1}, 1}; 
+    movjug p1 = {{1, 1}, 1};
+    movjug PE ={{7,9},1} ;
     char tecla = ' ';
     int nivel_actual = 1;
 
@@ -32,7 +33,7 @@ int main() {
         }
         
         // Dibujamos el estado actual
-        dibujarmapa(&p1, nivel_actual, &m1);
+        dibujarmapa(&p1,&PE, nivel_actual, &m1);
 
         // Leemos la entrada del usuario
         // El espacio antes de %c es vital para ignorar el 'Enter' anterior
@@ -41,6 +42,7 @@ int main() {
 
         // Procesamos el movimiento
         procesomov(&p1, tecla, &m1);
+        procesomovE(&PE,&m1);
     }
 
     printf("Juego finalizado.\n");

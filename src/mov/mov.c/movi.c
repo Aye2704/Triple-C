@@ -7,25 +7,6 @@
 /*Trabajare con punteros para hacer paso por referencia y afectar a las variables
 fuera de mi funcion*/
 
-void movderecha(movjug *p1){
-    p1->posicion.x += p1->avanzar;
-
-}
-void movizquierda(movjug *p1){
-    p1->posicion.x -= p1->avanzar;
-
-}
-void movarriba(movjug *p1){
-    p1->posicion.y += p1->avanzar;
-}
-void movabajo(movjug *p1){
-    p1->posicion.y -= p1->avanzar;
-}
-
-/*Termino descartando primeras funciones RECUERDAAAAAAAAA*/
-
-
-
 /*Reutilizo las funciones que ocupe pa el primer codigo corrigiendo variables*/
 
 
@@ -51,14 +32,21 @@ dependiendo del nivel en el que estemos*/
 
 /*con la primera creo el espacio y luego con este lo dibujo en la terminal
 */
-void dibujarmapa(movjug *p1,int nivel,map *p2){
+void dibujarmapa(movjug *p1,movjug *PE,int nivel,map *p2){
     p2->dimension = MAX-(nivel*2);
 
 for(int i= p2->dimension-1 ;i>=0 ;i--){
 	for(int j=0; j<p2->dimension;j++){
-		if(j==p1->posicion.x && i==p1->posicion.y){
+        if(j==PE->posicion.x && j==p1->posicion.x && i==PE->posicion.y&& i== p1->posicion.y){
+        printf("C");
+        }
+		else if(j==p1->posicion.x && i==p1->posicion.y){
 			printf("P");}
-		printf("%c",p2->mapa[i][j]);
+        else if(j==PE->posicion.x && i==PE->posicion.y){
+            printf("E");
+        }
+        else{
+		printf("%c",p2->mapa[i][j]);}
     }printf("\n");}}
 
 /*me aparece una columna de mas al imprimirlo en la terminal y segun yo esta logica esta buena
@@ -111,7 +99,59 @@ hago el cambio en el mov original trabajando todo con punteros */
 
     }
 
+    /*reutilizare gran parte de procesomov*/
+void procesomovE(movjug*PE, map*p2){
+    int nx= PE->posicion.x;
+    int ny= PE->posicion.y;
+
+    int direccion= rand() %4;
+    char comandoe;
+    if (direccion==1){
+        comandoe='w';
+    }
+    if (direccion==2){
+        comandoe='d';
+    }
+    if (direccion==3){
+        comandoe='a';
+    }
+    if (direccion==0){
+        comandoe='s';
+    }
     
+    
+
+    if(comandoe=='w'){
+        ny+= PE->avanzar;
+    }
+    if(comandoe=='a'){
+        nx-= PE->avanzar;
+    }
+    if(comandoe=='s'){
+        ny-= PE->avanzar;
+    }
+    if(comandoe=='d'){
+        nx+= PE->avanzar;
+    }
+    
+/*hago limites para el mapa*/
+    if(nx>=p2->dimension){
+        nx-=1;
+    }
+    if (nx==0){
+        nx+=1;
+    }
+    if(ny>=p2->dimension){
+        ny+=1;
+    }
+    if(ny==0){
+        ny-=1;
+}
+    char destino = p2->mapa[ny][nx];
+    if (destino==' '){
+        PE->posicion.x=nx;
+        PE->posicion.y= ny;}
+}
 
         
     /*CODIGO QUE TENIA ANTES DEJO COMENTADO EN CASO DE VOLVER A NECESITARLO*/
