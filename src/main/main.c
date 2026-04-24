@@ -26,8 +26,6 @@ int main(){
     movjug p1 = {{1, 1}, 1};  // Jugador
     movjug PE = {{7, 9}, 1};  // Enemigo
     char tecla = ' ';
-    int nivel_actual = 1;
-    int preguntas_correctas_nivel = 0;  // Contador de preguntas correctas en el nivel actual
 
     printf("Hola y bienvenido a Triple-C: El juego de preguntas para aprender C\n");
     printf("Presiona ENTER para continuar...");
@@ -41,13 +39,11 @@ int main(){
         switch (opcion_menu) {
             case 1:
                 // Reiniciar estado del juego al comenzar
-                nivel_actual = 1;
                 j.nivelActual = 1;
                 j.vidasActual = MAX_VIDAS;
                 j.pistasRes = PISTAS_NIVEL;
                 j.puntaje = 0;
                 j.puntajeNivel = 0;
-                preguntas_correctas_nivel = 0;
 
                 // Reiniciar preguntas del nivel 1
                 resetear_preguntas_nivel(b, maxPreg, 1);
@@ -55,7 +51,7 @@ int main(){
                 // Loop principal del juego
                 while (opcion_menu == 1) {
                     // Inicializar mapa según el nivel actual
-                    iniciarmapa(&m1, nivel_actual);
+                    iniciarmapa(&m1, j.nivelActual);
 
                     // Reiniciar posiciones del jugador y enemigo
                     p1.posicion.x = 1;
@@ -68,11 +64,11 @@ int main(){
                         limpiar_patalla();
 
                         printf("NIVEL: %d | Preguntas correctas: %d/%d | Vidas: %d\n",
-                               nivel_actual, preguntas_correctas_nivel, PREGUNTAS_PARA_SUBIR, j.vidasActual);
+                               j.nivelActual, j.puntajeNivel, PREGUNTAS_PARA_SUBIR, j.vidasActual);
                         printf("WASD para mover | 'm' para menu | 'q' para salir\n");
 
                         // Dibujar el mapa
-                        dibujarmapa(&p1, &PE, nivel_actual, &m1);
+                        dibujarmapa(&p1, &PE, j.nivelActual, &m1);
 
                         // Leer movimiento
                         printf("\nSiguiente movimiento: ");
@@ -93,37 +89,50 @@ int main(){
                             getchar();
 
                             // Jugar las 5 preguntas del nivel seguidas
-                            while (preguntas_correctas_nivel < PREGUNTAS_PARA_SUBIR && j.vidasActual > 0) {
+                            // Ahora cada pregunta es independiente - main.c controla el loop
+                            // NOTA: validar_respuesta (llamada por jugar_una_pregunta) ya modifica
+                            // puntajeNivel, puntaje y vidasActual - NO duplicar aquí
+                            while (j.puntajeNivel < PREGUNTAS_PARA_SUBIR && j.vidasActual > 0) {
                                 limpiar_patalla();
-                                int resultado = jugar_sesion_preguntas(&j, b, maxPreg);
+                                // Llamar a jugar_una_pregunta que solo maneja UNA pregunta
+                                // Esta función llama a validar_respuesta que ya actualiza el estado
+                                int resultado = jugar_una_pregunta(&j, b, maxPreg);
 
-                                if (resultado == 0 || resultado == 1 || resultado == 2) {
-                                    // Si terminó el nivel, perdió o salió
+                                if (resultado == 2) {
+                                    // Salir del minijuego
+                                    break;
+                                } else if (resultado == -1) {
+                                    // Pista pedida - continuar con la siguiente pregunta sin contar
+                                    continue;
+                                }
+                                // Si resultado == 1 (correcta) o 0 (incorrecta), 
+                                // validar_respuesta ya actualizó el estado - no hacer nada aquí
+
+                                // Verificar si perdió por vidas
+                                if (j.vidasActual <= 0) {
                                     break;
                                 }
-                                // Si respondió correctamente (resultado == 3), continuar con la siguiente pregunta
-                                preguntas_correctas_nivel++;
                             }
 
                             // Después de terminar las preguntas, verificar el estado
                             if (j.vidasActual <= 0) {
                                 // Game over
-                                pantalla_transicion(2, nivel_actual);
+                                pantalla_transicion(2, j.nivelActual);
                                 opcion_menu = 0;  // Volver al menú
                                 break;
                             }
 
-                            if (preguntas_correctas_nivel >= PREGUNTAS_PARA_SUBIR) {
+                            if (j.puntajeNivel >= PREGUNTAS_PARA_SUBIR) {
                                 // Nivel completado
-                                preguntas_correctas_nivel = 0;
-                                nivel_actual++;
+                                j.puntajeNivel = 0;
+                                j.nivelActual++;
 
-                                if (nivel_actual > MAX_NIVELES) {
-                                    pantalla_transicion(3, nivel_actual - 1);
+                                if (j.nivelActual > MAX_NIVELES) {
+                                    pantalla_transicion(3, j.nivelActual - 1);
                                     opcion_menu = 2;
                                 } else {
-                                    pantalla_transicion(1, nivel_actual - 1);
-                                    resetear_preguntas_nivel(b, maxPreg, nivel_actual);
+                                    pantalla_transicion(1, j.nivelActual - 1);
+                                    resetear_preguntas_nivel(b, maxPreg, j.nivelActual);
                                 }
                             }
                             break;  // Salir del loop del mapa

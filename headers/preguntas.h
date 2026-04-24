@@ -63,6 +63,7 @@ void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel); // Funcion n
 void barajar_preguntas(Pregunta* b, int maxPreg); //Funcion para barajar las preguntas y no sigan el mismo orden del archivo.txt
 
 // Funciones para integración con el juego principal
-int jugar_sesion_preguntas(Jugador* j, Pregunta* b, int maxPreg); // Maneja una sesión completa de preguntas hasta completar nivel o perder
+// Juega una sola pregunta y devuelve: 1=correcta, 0=incorrecta, 2=salir, -1=pista
+int jugar_una_pregunta(Jugador* j, Pregunta* b, int maxPreg);
 
 #endif 

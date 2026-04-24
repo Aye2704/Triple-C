@@ -90,7 +90,9 @@ void barajar_preguntas(Pregunta *b, int maxPreg){
 }
 
 // Funciones para integración con el juego principal
-int jugar_sesion_preguntas(Jugador* j, Pregunta* b, int maxPreg) {
+// Juega una sola pregunta y devuelve el resultado
+// Devuelve: 1 = correcta, 0 = incorrecta, 2 = salió, -1 = pista pedida
+int jugar_una_pregunta(Jugador* j, Pregunta* b, int maxPreg) {
     int indice;
     do {
         indice = seleccionar_pregunta_aleatoria(b, maxPreg, j->nivelActual);
@@ -113,6 +115,7 @@ int jugar_sesion_preguntas(Jugador* j, Pregunta* b, int maxPreg) {
                 printf("!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!\n");
                 presionar_enter();
             }
+            return -1; // Pista pedida, no cuenta como respondida
         } else if (opcion_juego == 'Q') {
             return 2; // Salir
         } else {
@@ -120,36 +123,10 @@ int jugar_sesion_preguntas(Jugador* j, Pregunta* b, int maxPreg) {
             mostrar_feadback(esCorrecto, b[indice].respuesta_correcta);
             b[indice].estado = 1;
             respondio = 1;
+            return esCorrecto ? 1 : 0;
         }
     }
-
-    // Verificar si completó el nivel
-    if (j->puntajeNivel >= PREGUNTAS_PARA_SUBIR) {
-        if (j->nivelActual >= MAX_NIVELES) {
-            pantalla_transicion(3, j->nivelActual);
-            return 0; // Juego terminado
-        } else {
-            pantalla_transicion(1, j->nivelActual);
-            j->nivelActual++;
-            j->vidasActual = MAX_VIDAS;
-            j->pistasRes = PISTAS_NIVEL;
-            j->puntajeNivel = 0;
-            return 0; // Nivel completado
-        }
-    }
-
-    // Verificar si perdió
-    if (j->vidasActual <= 0) {
-        pantalla_transicion(2, j->nivelActual);
-        j->nivelActual = 1;
-        j->vidasActual = MAX_VIDAS;
-        j->pistasRes = PISTAS_NIVEL;
-        j->puntajeNivel = 0;
-        j->puntaje = 0;
-        return 1; // Perdido
-    }
-
-    return 3; // Continuar (no completado ni perdido)
+    return 0;
 }
 
 //Funciones para el Frontend
