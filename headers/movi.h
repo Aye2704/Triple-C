@@ -24,7 +24,7 @@ typedef struct{
     int dimension;
 }map;
 /*VER SI CONSIDERO O NO ESTA DECLARACION*/
-/*extern char mapa[MAX][MAX];*/
+
 
 
 /*defino las funciones (Recordar que reciben direcciones de memoria)*/
