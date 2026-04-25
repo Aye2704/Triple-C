@@ -98,4 +98,51 @@ for (int i = FILAS - 1; i >= 0; i--) {    // Empezamos desde la última fila hac
     printf("\n");
 }
 
+#LOGICA DE PREGUNTAS
+1. Herramientas y Modelos Utilizados
+•	Modelo Core: Gemini 3 Flash.
+•	Interfaz: Chat interactivo (Web/App).
+•	Capacidades empleadas: Generación de código fuente en C, diseño de arquitectura de software, documentación técnica y asesoría de despliegue multiplataforma.
+
+
+3. Metodología de Prompts (Ingeniería de Instrucciones)
+El desarrollo se basó en una estrategia de prompts incrementales y modulares, donde se solicitó:
+•	Definición de Interfaz: Creación de archivos de cabecera (.h) para establecer un contrato de funciones entre dos desarrolladores (Persona A y Persona B).
+•	Implementación Específica: Solicitudes individuales para cada función definida (mostrar_pregunta, cargar_base_datos, etc.), asegurando que cada bloque de código fuera funcional y coherente con el anterior.
+•	Refinamiento Técnico: Ajustes sobre el formato de lectura de archivos (cambio de separadores ; a |) y manejo de errores (prevención de Segmentation Faults).
+•	Asesoría de Entorno: Consultas sobre rutas de archivos, gestión del Directorio de Trabajo Actual (CWD) y requisitos de compilación.
+
+
+4. Observaciones y Limitaciones
+Durante el desarrollo, se identificaron y mitigaron las siguientes limitaciones propias de la IA generativa:
+-	Contexto de Archivos: La IA no puede ver tu carpeta local o dónde está el .exe.
+-	Rrigidez de Formato: Modelos como fscanf son sensibles a errores en el .txt.
+-	Dependencia de OS: Funciones como system("cls") o sleep varían por sistema.
+-	Gestión de Memoria: La IA puede sugerir código que olvida liberar memoria.
+
+
+4. Contribución de la IA vs. Usuario
+•	IA: Proporcionó la sintaxis correcta de funciones estándar de C, lógica de algoritmos (recorrido circular, scansets de fscanf) y estructura modular del proyecto.
+•	Usuario (Estudiante): Definió los requisitos del juego, la lógica de niveles, el formato de la base de datos de preguntas y realizó la integración/pruebas en el entorno local de compilación.
+
+
+# Fusion de codigos
+1. Herramientas de IA Generativa Utilizadas (Copilot)
+- Google Gemini: Utilizado como modelo principal de IA generativa para asistencia en el desarrollo del código.
+
+- 
+2. Prompts Principales
+- "entender como funciona la matriz para plantear el mapa" - Para comprender la estructura de datos de la matriz
+- "ahi esta mi codigo estructurado dame un main sencillo para solo probar que tal se ve y ver que me falta" - Para generar un archivo de prueba
+- Solicitudes de ayuda para entender la formación del struct del mapa
+- Solicitudes de ayuda para corrección de errores en general
+- 
+
+3. Observaciones y Limitaciones
+- Gemini proporcionó una implementación funcional del struct `map` y el código de prueba en `newprueba.c`
+- La herramienta fue útil para explicar conceptos de estructuras de datos (matrices)
+- Como cualquier modelo de IA generativa, el código generado requiere revisión y pruebas por parte del desarrollador
+- Las sugerencias de código pueden necesitar ajustes según los requisitos específicos del proyecto
+
+
 
