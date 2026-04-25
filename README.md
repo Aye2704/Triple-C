@@ -93,7 +93,8 @@ Función para modularizar en el cual se muestra la pantalla del menú que debe d
 •	void presionar_enter():
 Función simple, en la cual funciona como pantalla de transición mientras el usuario lee un mensaje y luego presionar [ENTER] sin necesidad de un temporizador.
 
-Funcionamiento de las pruebas:
+
+//Funcionamiento de las pruebas:
 Para comprobar el funcionamiento del minijuego de las preguntas antes de fusionar  con el código de movimiento, se decido trabajar en distintas ramas en la cual la idea original era tener en ramas distintas también el Frontend y el Backend de las preguntas, pero luego por conveniencia al final se mantuvieron ambas en la misma rama. 
 
 Dentro de la rama frontPreg y como se puede ver en la rama main existe un archivo llamado pruebasPreg.c en el cual se utilizo para comprobar el funcionamiento del minijuego como si fuera un juego por separado para hacer pruebas sin necesidad de depender de las funciones del movimiento. pruebasPreg.c comienza preparando la terminal para leer los caracteres del español, luego declarar las variables utilizadas y prepara las estructuras del banco de preguntas con punteros y los datos del jugados, después empieza el bucle principal del código en el cual dependiendo de la opción elegida en el menú principal este se acabara o continuara, dentro del bucle se crea un switch case para las opciones del menú para poder empezar el juego de las preguntas.
