@@ -92,3 +92,15 @@ Función para modularizar en el cual se muestra la pantalla del menú que debe d
 
 •	void presionar_enter():
 Función simple, en la cual funciona como pantalla de transición mientras el usuario lee un mensaje y luego presionar [ENTER] sin necesidad de un temporizador.
+
+
+//ANEXOS
+
+https://pypl.github.io/PYPL.html
+
+https://www.tiobe.com/tiobe-index/
+TIOBE
+
+- Referencias
+Alzahrani, N., Vahid, F., et al. (2018). Python Versus C++: An Analysis of Student Struggle on Small Coding Exercises in Introductory Programming Courses. SIGCSE '18. DOI: 10.1145/3159450.3160586.
+
