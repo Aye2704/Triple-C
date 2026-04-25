@@ -19,6 +19,7 @@ typedef struct{
 -se le solicito ayuda para ver si el codigo hecho por la parte logica de mov y de preguntas seria compatible
 --"t acabo de enviar los archivos con las preguntas todo lo que son las prubeas de la logica preguntas las definiciones y funciones y tmb mis definiciones mis funciones y mis pruebas , segun yo lo veo bastante unible solo faltaria agregarle al main de prueba de logica preguntas un intermedio para que entrara el movimiento no¿"-
 devolvio:
+
 #include "movi.h"
 #include "preguntas.h" // Importante incluir ambos
 
@@ -80,6 +81,8 @@ este archivo de prueba para hacer una aproximacion a lo que seria el main.c fina
 - se tuvo un problema con lo que era el como se dibujaba el mapa por lo que se le solicito ayuda a gemini para entender pq el eje y se invertia
 - "Necesito hacer un mapa en C usando una matriz para mover un personaje con WASD. ¿Cómo manejo las coordenadas? Porque me confunde que en la matriz las filas van hacia abajo pero en un plano el eje Y va hacia arriba."
  y luego devolvio:
+
+
 #define FILAS 10
 #define COLS 10
 
@@ -94,8 +97,5 @@ for (int i = FILAS - 1; i >= 0; i--) {    // Empezamos desde la última fila hac
     }
     printf("\n");
 }
-
-explicando el pq se invertia el eje y y un codigo sugerente 
-
 
 
