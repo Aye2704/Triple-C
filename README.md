@@ -93,6 +93,51 @@ Función para modularizar en el cual se muestra la pantalla del menú que debe d
 •	void presionar_enter():
 Función simple, en la cual funciona como pantalla de transición mientras el usuario lee un mensaje y luego presionar [ENTER] sin necesidad de un temporizador.
 
+Funcionamiento de las pruebas:
+Para comprobar el funcionamiento del minijuego de las preguntas antes de fusionar  con el código de movimiento, se decido trabajar en distintas ramas en la cual la idea original era tener en ramas distintas también el Frontend y el Backend de las preguntas, pero luego por conveniencia al final se mantuvieron ambas en la misma rama. 
+
+Dentro de la rama frontPreg y como se puede ver en la rama main existe un archivo llamado pruebasPreg.c en el cual se utilizo para comprobar el funcionamiento del minijuego como si fuera un juego por separado para hacer pruebas sin necesidad de depender de las funciones del movimiento. pruebasPreg.c comienza preparando la terminal para leer los caracteres del español, luego declarar las variables utilizadas y prepara las estructuras del banco de preguntas con punteros y los datos del jugados, después empieza el bucle principal del código en el cual dependiendo de la opción elegida en el menú principal este se acabara o continuara, dentro del bucle se crea un switch case para las opciones del menú para poder empezar el juego de las preguntas.
+Se ejecuta la función jugar_una_pregunta para comenzar el minijuego y dependiendo de las respuestas elegidas en el minijuego se verifica la reacción de del programa en función a su elección. Una vez terminado un nivel ya sea por perder todas las vidas o completar todas las preguntas para subir de nivel se verifica y se cambian los datos del jugador en función a ello. Una vez terminado el juego se libera la memoria del heap al cual el puntero del banco guardaba sus preguntas y luego se limpia este puntero para evitar memory leak y dangling pointer. 
+
+
+El newprueba.c se encargara de ejecutar el codigo de movi.c para ver si todo lo que es lógica de movimiento está funcionando correctamente
+-comienza inicializando las variables correspondientes el movimiento del enemigo y el jugador , el mapa la tecla que irá poniendo el usuario y el nivel actual en el cual nos encontramos, luego se llama a la función iniciar mapa para que luego dibujar mapa sepa que poner en cada espacio, luego hacemos un ciclo while mientras la tecla que el usuario presione sea distinta de q luego se muestra un mini menú en la parte superior de la terminal y abajo se realizara la función dibujar mapa de la cual aparecerá el mapa en el cual se moverá tanto el enemigo como el personaje  luego se agrega unos printf para señalar ciertas acciones y se procesa el movimiento con las funciones procesomov y procesomovE y finalmente cuando el ciclo while termina se imprimirá “juego finalizado”.
+
+
+Compilación del código:
+Comando de compilación en el directorio Triple-C: gcc -I headers src/main/main.c src/preguntas/enginePreg.c src/mov/mov.c/movi.c -o build/triplec
+Comando de compilación en el directorio Triple-C/build: gcc -I../headers ../src/main/main.c ../src/preguntas/enginePreg.c ../src/mov/mov.c/movi.c -o triplec
+//Atención: el ejecutable debe de ser compilado en el directorio build, ya que el ejecutable debe de estar en el mismo directorio que archivopregs.txt (no se dio la dirección de este archivo al código por lo cual buscara en el mismo directorio en el cual el ejecutable este).
+
+Requerimientos:
+Descarga el repositorio presionando code<> y luego Download ZIP.
+Descomprime el archivo zip e identifica el directorio del archivo descomprimido.
+A continuación se explicara paso a paso como compilar el código para todos los Sistemas operativos.
+
+Linux:
+Instalar GCC: Abrir terminal y escribir: (sudo apt install build-essential).
+Navegar y compilar: entra en la carpeta y ejecuta los comandos de compilación dependiendo en que directorio lo compiles.
+Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
+
+MAC:
+Instalar Terminal tolos: Abrir la aplicación "Terminal" y escribir: xcode-select --install. para luego dale a "instalar".
+Navegar: en la terminal escribe cd seguido de un espacio y arrastrar la carpeta del repositorio descomprimido dentro de la terminal y luego presiona ENTER.
+Compilar: escribir los comandos de compilación dependiendo de el directorio en el que compiles.
+Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
+
+Windows:
+Instalar el Compilador: Descargar e instalar VS Code. y una vez echo esto instala la extencion dentro de VS Code C/C++, esto instala el programa para escribir código y el GCC al mismo tiempo.
+Abrir la carpeta descomprimida del repositorio: En VS Code busca la carpeta instalada File > Open Folder > Triple-C
+Compilar y correr: Abres una nueva terminal con Terminal > New Terminal y compilas el código con el comando dado dependiendo en que directorio estes.
+Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
+
+
+Cambios:
+Cambiamos los objetivos clave del proyecto al encontrarnos con varias dificultades con los tiempos y nuestras capacidades. por lo cual fueron cambiadas a unas mas básicas y simples para implementar.
+Problemática fue cambiada, no cambiando el problema planteado pero si añadiéndole contexto y profundidad para una mayor compresión.
+Se cambio la forma en la cual esta escrita el objetivo general para darle mas formalidad.
+Se cambio la idea de escribir el código en juego por un juego de preguntas por complicaciones en la implantación de esta función.
+La idea de un plataformero ah sido parcialmente descartada, ya que hasta el hito 1 solo se ah logrado un juego de movimiento en cuatro direcciones sin los aspectos plataformero que es posible que si pueda ser implementado en un futuro.
 
 //ANEXOS
 
