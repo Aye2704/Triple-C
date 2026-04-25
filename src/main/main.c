@@ -66,6 +66,7 @@ int main(){
                         printf("NIVEL: %d | Preguntas correctas: %d/%d | Vidas: %d\n",
                                j.nivelActual, j.puntajeNivel, PREGUNTAS_PARA_SUBIR, j.vidasActual);
                         printf("WASD para mover | 'm' para menu | 'q' para salir\n");
+                        printf("Utilizar solo minusculas para el movimiento\n");
 
                         // Dibujar el mapa
                         dibujarmapa(&p1, &PE, j.nivelActual, &m1);
