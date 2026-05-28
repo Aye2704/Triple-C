@@ -21,17 +21,3 @@ class mapa{
     char obtenercasilla(int x,int y);
 };
 
-class entidad{
-    protected:
-        int posicionx;
-        int posiciony;
-        int avanzar;
-    public:
-        entidad(int x, int y);
-        virtual void mov(mapa& mapactual);
-};
-
-class jugador : public entidad{};
-class enemigo : public entidad{};
-
-class juego{};
