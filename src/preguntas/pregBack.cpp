@@ -135,3 +135,49 @@ bool MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
         return false;
     }
 }
+
+// NUEVA FUNCIÓN jugar_una_pregunta
+int MotorTrivia::jugar_una_pregunta() {
+    int indice;
+    do {
+        indice = seleccionar_pregunta_aleatoria(jugador->getNivel());
+        
+        if (indice == -1) {
+            resetear_preguntas_nivel(jugador->getNivel());
+        }
+    } while (indice == -1);
+
+    bool respondio = false; 
+    
+    while (!respondio) {
+        mostrar_encabezado();
+        mostrar_pregunta(preguntas[indice]); 
+        
+        char opcion_juego = obtener_respuesta();
+
+        if (opcion_juego == 'H') {
+            if (jugador->getPistas() > 0) {
+                std::cout << "PISTA: " << preguntas[indice].getPista() << std::endl;
+                jugador->consumirPista(); 
+                presionar_enter();
+            } else {
+                std::cout << "!NO TE QUEDAN PISTAS EN ESTE NIVEL PAPU!" << std::endl;
+                presionar_enter();
+            }
+            return -1; 
+            
+        } else if (opcion_juego == 'Q') {
+            return 2; 
+            
+        } else {
+            bool esCorrecto = validar_respuesta(preguntas[indice], opcion_juego);
+            mostrar_feadback(esCorrecto, preguntas[indice].getRespuestaCorrecta());
+            
+            preguntas[indice].setEstado(true); 
+            respondio = true;
+            
+            return esCorrecto ? 1 : 0;
+        }
+    }
+    return 0;
+}
