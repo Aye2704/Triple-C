@@ -13,7 +13,7 @@ void juego::iniciar(){
     while (flagjuego==true){
 //ocupe system cls en este caso pq es windows ver como hacer el caso general de ser linux o windows
         system("cls");
-
+//el reutilize el codigo que utilize anteriormente en movi.c por eso el printf en vez de std::cout
         int posxjug=Rjugador.obtenerx();
         int posyjug=Rjugador.obtenery();
         int posxene=Renemigo.obtenerx();
