@@ -2,6 +2,7 @@
 #include<vector>
 #include<iostream>
 #include<string>
+#include<stdlib.h>
 
 class mapa{
     //aqui hago los atributos de mi mapa
@@ -31,5 +32,6 @@ class entidad{
 };
 
 class jugador : public entidad{};
+class enemigo : public entidad{};
 
 class juego{};

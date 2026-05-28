@@ -2,7 +2,8 @@
 #include<vector>
 #include<iostream>
 #include<string>
-#include<mapa.hpp>
+#include"mapa.hpp"
+#include<stdlib.h>
 
 class entidad{
     protected:
@@ -20,4 +21,10 @@ class jugador : public entidad{
         jugador(int x , int y);
         void mov(mapa& mapaactual);
 
+};
+
+class enemigo : public entidad{
+    public:
+        enemigo(int x, int y);
+        void mov(mapa& mapaactual);
 };
