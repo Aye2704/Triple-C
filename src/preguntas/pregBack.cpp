@@ -126,7 +126,7 @@ void MotorTrivia::resetear_preguntas_nivel(int nivel) {
     }
 }
 
-int MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
+bool MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
     if (respuesta == p.getRespuestaCorrecta()) {
         jugador->sumarPuntaje();
         return true;
