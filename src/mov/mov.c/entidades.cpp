@@ -18,11 +18,11 @@ int entidad::obtenery(){
 }
 
 
-jugador::jugador(int x , int y) :entidad(x,y){}
+player::player(int x , int y) :entidad(x,y){}
 
 
 //codigo bastante analogo con el que hize en movi.c
-bool jugador::mov(mapa& mapaactual){
+bool player::mov(mapa& mapaactual){
     int nx=posicionx;
     int ny=posiciony;
     char nuevovalor;

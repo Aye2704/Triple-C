@@ -7,7 +7,7 @@ con esta clase el main de prueba sera la nada misma*/
 class juego {
     private:
         mapa Rmapa;
-        jugador Rjugador;
+        player Rjugador;
         enemigo Renemigo;
         bool flagjuego;
     public:

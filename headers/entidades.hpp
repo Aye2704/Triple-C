@@ -26,9 +26,9 @@ class entidad{
 de posicion , tuve que volverlo bool para poder agregar el boton de exit con q para que el ciclo 
 del juego se rompiera 
 */
-class jugador : public entidad{
+class player : public entidad{
     public:
-        jugador(int x , int y);
+        player(int x , int y);
         bool mov(mapa& mapaactual);
 
 };
