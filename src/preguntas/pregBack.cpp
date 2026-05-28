@@ -54,7 +54,7 @@ MotorTrivia::~MotorTrivia() {
     delete jugador; //Adivina lo que hace
 }
 
-bool MotorTrivia::cargarPreguntas(std::string rutaArchivo) {
+bool MotorTrivia::cargar_Preguntas(std::string rutaArchivo) {
     std::ifstream archivo(rutaArchivo.c_str()); //Extrañpo fopen :(
     if (!archivo.is_open()) {
         std::cout << "Error: No se abrio el archivo\n";
@@ -96,7 +96,7 @@ bool MotorTrivia::cargarPreguntas(std::string rutaArchivo) {
     return true;
 }
 
-void MotorTrivia::barajarPreguntas() {
+void MotorTrivia::barajar_Preguntas() {
     int maxPreg = preguntas.size();
     if (maxPreg <= 1) return;
 
@@ -109,7 +109,7 @@ void MotorTrivia::barajarPreguntas() {
     }
 }
 
-int MotorTrivia::obtenerIndicePregunta(int nivelJugador) {
+int MotorTrivia::seleccionar_pregunta_aleatoria(int nivelJugador) {
     for (int i = 0; i < preguntas.size(); i++) {
         if (preguntas[i].getNivel() == nivelJugador && !preguntas[i].getEstado()) {
             return i;
@@ -118,7 +118,7 @@ int MotorTrivia::obtenerIndicePregunta(int nivelJugador) {
     return -1;
 }
 
-void MotorTrivia::resetearPreguntasNivel(int nivel) {
+void MotorTrivia::resetear_preguntas_nivel(int nivel) {
     for (int i = 0; i > preguntas.size(); i++) {
         if (preguntas[i].getNivel() == nivel) {
             preguntas[i].setEstado(false);
@@ -126,7 +126,7 @@ void MotorTrivia::resetearPreguntasNivel(int nivel) {
     }
 }
 
-int MotorTrivia::validarRespuesta(Pregunta p, char respuesta) {
+int MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
     if (respuesta == p.getRespuestaCorrecta()) {
         jugador->sumarPuntaje();
         return true;
