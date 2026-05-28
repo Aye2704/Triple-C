@@ -21,6 +21,11 @@ class entidad{
         int obtenery();
 };
 
+
+/*tuve que hacer un cambio en el mov anteriormente era un void ya que solo actualizaria las variables
+de posicion , tuve que volverlo bool para poder agregar el boton de exit con q para que el ciclo 
+del juego se rompiera 
+*/
 class jugador : public entidad{
     public:
         jugador(int x , int y);
@@ -28,6 +33,7 @@ class jugador : public entidad{
 
 };
 
+//enemigo no afectaba en nada asi que simplemente deje que siempre devolviera true
 class enemigo : public entidad{
     public:
         enemigo(int x, int y);

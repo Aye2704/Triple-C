@@ -1,7 +1,7 @@
 #include "entidades.hpp"
 #include "mapa.hpp"
 
-
+//constructor de entidad
 entidad::entidad(int x, int y){
 
     posicionx =x;
@@ -16,6 +16,7 @@ int entidad::obtenerx(){
 int entidad::obtenery(){
     return posiciony;
 }
+
 
 jugador::jugador(int x , int y) :entidad(x,y){}
 
@@ -45,14 +46,15 @@ bool jugador::mov(mapa& mapaactual){
     }
 
 
-//limites de mi mapa:
-//luego de realizar mov y limites hago verificacion para que pueda hacer el mov
+/*lo que hago en esta parte es crear variables en el metodo para hacer las verificaciones
+si no hay ningun problema el mov actualizara las posiciones x e y*/
 if(mapaactual.obtenercasilla(nx,ny)==' '){
     posicionx=nx;
     posiciony=ny;
 }
 return true;
 }
+
 /*reutilizo el constructor de jugador pero le cambio el nombre ya que son iguales
 lo unico que hare sera cambiar el proceso mov para esta clase hija ya que busco 
 un movimiento random reutilizare las mismas verificaciones*/
@@ -64,7 +66,7 @@ pero parece que el enemigo siempre realizaba el mismo movimiento cuando se ejecu
 esto utilizare la biblioteca srand (semilla random) para que cada ejecucion sea unica y el mov
 distinto y ocupare time null que era un tiempo que se cuenta en segundos desde una fecha de 1970 
 si no me equivoco lo importante es que el time null siempre sera un tiempo distinto osea siempre
-una semilla distinta*/
+una semilla distinta esto se agregara en el main y cada ejecucion sera distinta*/
 
 bool enemigo::mov(mapa& mapaactual){
     int nx=posicionx;
@@ -103,6 +105,7 @@ if(mapaactual.obtenercasilla(nx,ny)==' '){
     posicionx=nx;
     posiciony=ny;
 }
-
+//enemigo no afectaba en nada asi que simplemente deje que siempre devolviera true
 return true;
 }
+
