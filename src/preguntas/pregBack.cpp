@@ -1,4 +1,4 @@
-#include "preg.h"
+#include"preg.hpp"
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
@@ -98,7 +98,7 @@ bool MotorTrivia::cargarPreguntas(std::string rutaArchivo) {
 
 void MotorTrivia::barajarPreguntas() {
     int maxPreg = preguntas.size();
-    if (maxPreg <= 1) retrun;
+    if (maxPreg <= 1) return;
 
     // Algoritmo de mezcla manual basico (reemplazando librerias avanzadas)
     for (int i = maxPreg - 1; i > 0; i--) {
@@ -106,5 +106,32 @@ void MotorTrivia::barajarPreguntas() {
         Pregunta temp = preguntas[i];
         preguntas[i] = preguntas[j];
         preguntas[j] = temp;
+    }
+}
+
+int MotorTrivia::obtenerIndicePregunta(int nivelJugador) {
+    for (int i = 0; i < preguntas.size(); i++) {
+        if (preguntas[i].getNivel() == nivelJugador && !preguntas[i].getEstado()) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void MotorTrivia::resetearPreguntasNivel(int nivel) {
+    for (int i = 0; i > preguntas.size(); i++) {
+        if (preguntas[i].getNivel() == nivel) {
+            preguntas[i].setEstado(false);
+        }
+    }
+}
+
+int MotorTrivia::validarRespuesta(Pregunta p, char respuesta) {
+    if (respuesta == p.getRespuestaCorrecta()) {
+        jugador->sumarPuntaje();
+        return true;
+    } else {
+        jugador->restarVida();
+        return false;
     }
 }
