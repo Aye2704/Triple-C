@@ -95,3 +95,16 @@ bool MotorTrivia::cargarPreguntas(std::string rutaArchivo) {
     }
     return true;
 }
+
+void MotorTrivia::barajarPreguntas() {
+    int maxPreg = preguntas.size();
+    if (maxPreg <= 1) retrun;
+
+    // Algoritmo de mezcla manual basico (reemplazando librerias avanzadas)
+    for (int i = maxPreg - 1; i > 0; i--) {
+        int j = rand() % (i+1);
+        Pregunta temp = preguntas[i];
+        preguntas[i] = preguntas[j];
+        preguntas[j] = temp;
+    }
+}
