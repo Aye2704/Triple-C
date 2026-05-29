@@ -62,8 +62,6 @@ private:
     Jugador* jugador; //puntero para uso de memoria dinamica
     std::vector<Pregunta> preguntas; //Contenedor STL
 
-    bool validar_respuesta(Pregunta p, char respuesta);
-
 public:
     MotorTrivia();
     ~MotorTrivia(); //Destructor para liberar memoria dinamica (BRUH)
@@ -74,17 +72,12 @@ public:
     int seleccionar_pregunta_aleatoria(int nivelJugador);
     void resetear_preguntas_nivel(int nivel);
     
-    //Funcion para el juego
-    int jugar_una_pregunta();
+    bool validar_respuesta(int indice, char respuesta);
+    void marcar_pregunta_usada(int indice); //funcion nueva para facilitar cosas (No me ejecuten :( )
 
-    //Frontend
-    void limpiar_patalla();
-    void presionar_enter();
-    void mostrar_encabezado();
-    void mostrar_pregunta(Pregunta p);
-    char obtener_respuesta();
-    void mostrar_feadback(bool esCorrecto, char respuestaReal);
-    void antalla_transicion(int tipo);
-    int menu_principal();
+    // Getters para que el frot end pueda acceder a los datos
+    Jugador* getJugador();
+    Pregunta getPregunta(int indice);
+    int getCantidadPreguntas();
 };
 #endif

@@ -3,13 +3,6 @@
 #include <sstream>
 #include <cstdlib>
 
-//Para no tener que incluir la biblioteca de windows si es que se usa Linux
-#ifdef _WIN32
-    #include <windows.h>
-#else
-    #include <stdlib.h>
-#endif
-
 //Impolementacion Pregunta
 Pregunta::Pregunta(std::string enu, std::vector<std::string> opc, char resp, std::string pst, int niv, bool est)
     : enunciado(enu), opciones(opc), respuesta_correcta(resp), pista(pst), nivel(niv), estado(est) {}
@@ -135,3 +128,11 @@ bool MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
         return false;
     }
 }
+
+void MotorTrivia::marcar_pregunta_usada(int indice) {
+    preguntas[indice].setEstado(true);
+}
+
+Jugador* MotorTrivia::getJugador() {return jugador;}
+Pregunta MotorTrivia::getPregunta(int indice) {return preguntas[indice];}
+int MotorTrivia::getCantidadPreguntas() {return preguntas.size();}
