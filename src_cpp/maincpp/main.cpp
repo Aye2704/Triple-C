@@ -39,11 +39,40 @@ int main() {
         //Verifica si hubo encuentro
         if (juego_activo && motorMovimiento.hay_colision()) {
             ui.limpiar_pantalla();
-            std::cout <<"Enemigo detectado" << std::endl;
+            std::cout << std::endl <<"===============================================" << std::endl
+                      <<"Enemigo detectado! Preparate para las preguntas."
+                      << std::endl <<"===============================================" << std::endl;
             ui.presionar_enter();
-            //TODO: me falta crear el bucle de la trivia y combate
+            
+            bool en_combate = true;
+
+            //Bucle de Trivia / Combate
+            while (en_combate) {
+                int resultado = ui.jugar_una_pregunta();
+
+                if (resultado == 2) { //2 indica salir o sin preguntas
+                    juego_activo = false;
+                    break;
+                }
+
+                //Evaluar el progreso del jugador
+                if (datosJugador->getPuntajeNivel() >= PREGUNTAS_SUBIR) {
+                    datosJugador->avanzarNivel();
+                    ui.pantalla_transicion(1); // Nivel Superado
+                    en_combate = false;
+
+                    //Alejar al enemigo para que no choque inmediatamente
+                    motorMovimiento.reset_enemigo();
+                } else if (datosJugador->getVidas() <= 0) {
+                    ui.pantalla_transicion(2); // Game Over
+                    juego_activo = false; // Finaliza el Porgrama
+                    en_combate = false;
+                }
+            }
         }
     }
 
-
+    ui.limpiar_pantalla();
+    std::cout << "Gracias por jugar" << std::endl;
+    return 0;
 }
