@@ -146,3 +146,56 @@ Durante el desarrollo, se identificaron y mitigaron las siguientes limitaciones 
 
 
 
+Uso de IA Hito 2:
+
+Modelo: Gemini Pro3.1
+se utilizo gemini para lograr tener mas clara la idea de como crear la clase para dibujar el mapa , los metodos que esta tendra y como conectarlo para que todo se uniera con esta clase
+
+PROMPT
+anterioemente en mi .c yo tenia dibujar mapa pero ahora con todas las clases que estoy creando debere en mi main crear el mapa inicializando el objeto y dibujandolo con los  std::cout en mi juego no¿ , lo otro me gustaria hacer el mov por mi cuenta por lo que me gustaria que me dieras pistas o señalizaciones de por donde deberia llevar la creacion de este
+
+"Me encanta esa actitud! Querer armar la lógica por tu cuenta es la mejor forma de aprender. Te voy a dar las herramientas y pistas necesarias sin escribirte el código final para que tú mismo armes el rompecabezas.1. Sobre dibujar el mapa: ¿Todo al main? 🎨Poder, puedes. Pero si pones todos los std::cout y los ciclos for directamente dentro del main(), estarías rompiendo la regla de oro del Hito 2 que exige "responsabilidades claras" y un diseño orientado a objetos.  Como cuando armas la estructura central de un plataformero 2D, lo ideal en cualquier juego es separar la lógica interna (las matemáticas) de lo que el jugador ve en la pantalla (el renderizado). Tu main() debería quedar casi vacío, pareciéndose a un simple interruptor de encendido.La pista para el dibujo:
+Lo ideal es crear una clase "Controladora" (podrías llamarla Juego o Motor). Esta clase sería la dueña de todo: tendría como atributos tu objeto Mapa, tu Jugador y tu Enemigo.
+Dentro de esa clase Juego, tendrías un método dibujarFrame() que se encargue de hacer exactamente lo que hacía tu antiguo dibujarmapa de C . Así, tu main solo diría algo como miJuego.iniciar().  2. Pistas para crear tu lógica de Movimiento 🏃♂️💨En tu versión de C, tenías la función procesomov  y procesomovE que recibían los punteros a los structs para moverlos. Ahora, los objetos se moverán a sí mismos. Aquí tienes los "faros" para guiarte en tu diseño de la clase Entidad y sus hijas:  Pista 1: El nivel de protección adecuado 🛡️En tu clase padre Entidad, las coordenadas x e y no pueden ser private. Si son privadas, el Jugador (que es su hijo) no podrá modificarlas directamente al moverse. Debes declararlas como protected. Esto permite que estén ocultas para el exterior, pero totalmente accesibles para sus clases derivadas.Pista 2: El parámetro vital para no atravesar paredes 🧱Si haces un método que sea solo virtual void procesarMovimiento() = 0;, te encontrarás con un problema gigante: ¿cómo sabe el jugador si en la siguiente coordenada hay un #?Para que la entidad pueda verificar colisiones, tu método necesita "ver" el entorno. Tu firma del método debería obligatoriamente recibir una referencia al mapa: virtual void procesarMovimiento(Mapa& mapaActual) = 0;.Pista 3: Reutilizando tu lógica de C ♻️Para el Jugador::procesarMovimiento(Mapa& mapaActual): Aquí adentro pondrás el std::cin >> tecla (o la captura de teclado que prefieras) y tu antigua lógica de sumar/restar a X e Y dependiendo de si es 'w', 'a', 's', 'd'.Para el Enemigo::procesarMovimiento(Mapa& mapaActual): Aquí no pides teclas. Aquí meterás directamente tu lógica de generar un número con rand() % 4 para decidir hacia dónde intenta moverse en ese turno.Pista 4: El orden de las acciones 🚦Dentro de cada procesarMovimiento, la estructura lógica siempre debe ser la misma que tenías antes:Guardar una copia temporal de tu posición actual (nx, ny).Aplicar el intento de movimiento a nx o ny.Preguntarle al mapa: mapaActual.obtenerCasilla(nx, ny).Si la casilla es un espacio en blanco (' '), actualizas tu posición real (x = nx; y = ny;). Si no, te quedas donde estás.
+
+Obs: La respuesta fue bastante completa y permitio ver claramente como armar la clase 
+se utilizo gemini para entender como funcionaba srand y decidir implementar esta herramienta en el proyecto
+
+PROMPT:
+explicame que es srand y como me sirve esta herramienta para mi proyecto
+
+gemini respondio:
+¡Claro que sí! Para entender qué es srand y por qué es tan vital para tu juego, primero tenemos que revelar un gran secreto de la informática: las computadoras son pésimas improvisando. No saben hacer absolutamente nada al azar.
+
+Son máquinas deterministas; si les das la misma instrucción, te darán exactamente el mismo resultado un millón de veces.
+
+Vamos a desglosar qué es esta herramienta y cómo impacta directamente en tu código.
+
+1. El problema de usar solo rand() 📖
+Piensa en la función rand() que usaste en tu método enemigo::mov como si la computadora tuviera un libro gigante y secreto lleno de números desordenados.
+
+Si en tu código solo escribes rand() % 4, la computadora abre ese "libro de números" y empieza a leer desde la Página 1.
+Te va a dar números que parecen aleatorios (ej. 2, 0, 3, 1...). Sin embargo, si cierras tu juego y lo vuelves a abrir, la computadora volverá a abrir el libro en la Página 1.
+
+¿Cómo afecta esto a tu proyecto?
+Si no usaras nada más, tu enemigo haría exactamente la misma ruta de movimientos en cada partida (por ejemplo: siempre se movería Arriba, Derecha, Derecha, Abajo). El jugador se aprendería el patrón de memoria en el primer intento y el juego perdería toda la gracia.
+
+2. La solución: srand() (Seed Random) 🌱
+La "s" significa seed (semilla). Esta función sirve para decirle a la computadora: "Oye, no empieces a leer desde la página 1. Empieza a leer desde la página X".
+
+Si tú escribes srand(5);, la computadora empezará a leer desde la página 5. Pero seguimos con el mismo problema: si siempre le pasas un 5 fijo, el juego seguirá siendo igual cada vez que lo abras. Necesitamos un número que cambie constantemente sin que nosotros hagamos nada.
+
+3. El combo perfecto: srand(time(NULL)) ⏱️
+Aquí es donde entra la genialidad de usar el reloj de tu computadora.
+
+La función time(NULL) revisa el reloj de tu PC y devuelve la cantidad exacta de segundos que han pasado desde el 1 de enero de 1970 (esto se conoce como Tiempo Unix). Es un número gigantesco (como 1716937500) que cambia cada segundo.
+
+Cuando pones srand(time(NULL)); en tu main.cpp, ocurre esta magia:
+
+El programa lee la hora y saca un número enorme.
+
+srand() usa ese número como semilla, abriendo el "libro de números aleatorios" en una página completamente aleatoria.
+
+A partir de ahí, cuando tu enemigo llama a rand() % 4, saca direcciones que nunca se repetirán entre una partida y otra.
+
+Obs: Esta respuesta permitio entender como funcionaba srand y time null para su implementación en el main y asi generar que cada ejecución fuera unica

@@ -1,5 +1,5 @@
 # Triple-C
-
+Hito 1:
 Problematica: Al adentrarse al mundo de la programación, el primer lenguaje en el cual uno piensa siempre es "Python". Esté destaca por: su facilidad, su implementación en proyectos de IA, Ciencia de datos, etc. En un principio esto suena totalmente genial, el problema viene que para saltar de un lenguaje a otro hay cierto problema, ya que, Python al ser un lenguaje de alto nivel los comandos son bastantes amistosos y entendibles, en cambio C es todo lo contrario, un lenguaje de bajo nivel, un compilador quisquilloso(ojo aquí), pero con un rendimiento y velocidad muy eficientes, junto con un uso de memoria bastante bueno, si lo vemos de esta forma Python estaría opacando a C, teniendo una gran perdida en lo que es su aprendizaje en nivel general, esto respaldado por el PYPL y el TIOBE, los cuales dejan ver que la tendencia de aprender Python vs C es ABISMAL. En base a esta problemática Nace Triple-C, un juego que busca reducir el freno que tiene el aprendizaje en C para los principiantes.
 
 Objetivo General: Fomentar a la programación en C y su popularidad, otorgándole un enfoque distinto al habitual, para que sea más atractivo para los que recién entran en el mundo de la programación.
@@ -139,6 +139,27 @@ Problemática fue cambiada, no cambiando el problema planteado pero si añadién
 Se cambio la forma en la cual esta escrita el objetivo general para darle mas formalidad.
 Se cambio la idea de escribir el código en juego por un juego de preguntas por complicaciones en la implantación de esta función.
 La idea de un plataformero ah sido parcialmente descartada, ya que hasta el hito 1 solo se ah logrado un juego de movimiento en cuatro direcciones sin los aspectos plataformero que es posible que si pueda ser implementado en un futuro.
+
+
+
+HITO 2:
+
+//Documentacion de los cambios estructurales, las clases y sus metodos
+
+Cambios estructurales para la logica de movimiento y mapa: Los cambios estructurales realizados consistieron principalmente en la adopción de la estructura de clases, dividiendo el proyecto en tres componentes esenciales: entidad(para el movimiento), mapa (para gestionar el entorno) y juego (para encapsular la lógica principal y simplificar el código del archivo main). Además, a diferencia de la versión en C donde estructurábamos el mapa manualmente usando punteros y memoria dinámica, en esta iteración de C++ implementamos contenedores como std::vector, lo que facilita y hace más segura la creación del espacio.
+
+Clase Mapa: Se encarga de generar el espacio donde interactúan los personajes. Sus atributos incluyen un valor entero que define la dimensión del área (la cual se reduce progresivamente al avanzar de nivel) y una matriz basada en un vector de vectores.  sus métodos son  obtenerDimension, que devuelve el tamaño actual del mapa, y obtenerCasilla(x, y), el cual retorna el valor de una coordenada específica, siendo clave para validar el movimiento.
+
+Clase Entidad: Funciona como la clase base para otorgar estructura a Jugador y Enemigo. Sus atributos protegidos almacenan las coordenadas de posición (x, y) y la cantidad de casillas de avance. Implementa un método virtual puro (mov) para obligar a las clases derivadas a definir su propio comportamiento de desplazamiento , el jugador utiliza  las teclas de control (WASD), mientras que el enemigo opera mediante un sistema de movimiento aleatorio. Adicionalmente, sus métodos son bastantes pequeños (obtenerX y obtenerY) para compartir su ubicación con la clase juego sin romper el encapsulamiento
+
+Clase Juego: Actúa como el motor principal, encargándose de dibujar el mapa en la terminal y que se muestre el movimiento de las entidades. Posee instancias directas de las clases mencionadas anteriormente y un atributo booleano (flagjuego) que dictara cuando debe terminar la partida, la cual solo terminara si se presiona la tecla 'q'. Su método central, iniciar(), ejecuta el bucle de juego: limpia la pantalla, dibuja el estado actual mediante ciclos for y procesa las actualizaciones de movimiento.
+
+Dificultades de la Migración La principal dificultad enfrentada durante esta entrega fue el proceso de traducción mental desde lo que era la estructura de C hacia la Programación Orientada a Objetos. Por lo que hubo un montón de errores de sintaxis iniciales y, más importante aún, se tuvo que reestructurar la arquitectura del código para darle la forma a la estructura de C++ ademas fue necesario diseñar nuevos métodos para la comunicación entre clases para lograr interacciones que antes resolvíamos directamente manipulando punteros
+
+Las pruebas de las mecánicas de movimiento se encuentran en el archivo pruebita.cpp. Al delegar la lógica pesada a la clase Juego, este ejecutable resulta bastante corto. Su compilación y ejecución permiten verificar en consola que el control por teclado (WASD) responde correctamente, que las posiciones de ambos personajes se actualizan en tiempo real y que el sistema de colisión previene  que las entidades atraviesen los límites del mapa
+
+Con respecto al tercer hito, y ahora que contamos con un dominio mucho más claro de C++ y de la visión final de Triple-C, hemos tomado la decisión  de no utilizar la biblioteca gráfica Raylib. Si bien Raylib resultaba intuitiva para el manejo de interfaces, hemos optado por utilizar el framework de Qt Creator. Consideramos que las herramientas que provee este framework son más completas y nos permitirán alcanzar un estándar estético más profesional, logrando así la distinción visual y didáctica que buscamos para el proyecto.
+
 
 //ANEXOS
 
