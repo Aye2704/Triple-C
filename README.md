@@ -144,6 +144,8 @@ La idea de un plataformero ah sido parcialmente descartada, ya que hasta el hito
 
 HITO 2:
 
+//Documentacion de los cambios estructurales, las clases y sus metodos
+
 Cambios estructurales para la logica de movimiento y mapa: Los cambios estructurales realizados consistieron principalmente en la adopción de la estructura de clases, dividiendo el proyecto en tres componentes esenciales: entidad(para el movimiento), mapa (para gestionar el entorno) y juego (para encapsular la lógica principal y simplificar el código del archivo main). Además, a diferencia de la versión en C donde estructurábamos el mapa manualmente usando punteros y memoria dinámica, en esta iteración de C++ implementamos contenedores como std::vector, lo que facilita y hace más segura la creación del espacio.
 
 Clase Mapa: Se encarga de generar el espacio donde interactúan los personajes. Sus atributos incluyen un valor entero que define la dimensión del área (la cual se reduce progresivamente al avanzar de nivel) y una matriz basada en un vector de vectores.  sus métodos son  obtenerDimension, que devuelve el tamaño actual del mapa, y obtenerCasilla(x, y), el cual retorna el valor de una coordenada específica, siendo clave para validar el movimiento.
