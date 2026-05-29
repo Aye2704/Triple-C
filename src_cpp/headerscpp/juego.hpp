@@ -1,3 +1,4 @@
+#pragma once
 #include "mapa.hpp"
 #include "entidades.hpp"
 
@@ -9,8 +10,10 @@ class juego {
         mapa Rmapa;
         player Rjugador;
         enemigo Renemigo;
-        bool flagjuego;
     public:
         juego();
-        void iniciar();
+        bool actualizar();
+        bool hay_colision();
+        void reset_enemigo();
+        void dibujar();
 };

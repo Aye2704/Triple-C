@@ -3,43 +3,54 @@
 /*defino el constructor aqui, como juego es una clase de clases ya que sus atributos son clases
 el constructor debe tomar unos valores para iniciar el objeto por lo que debo definir
 cada una de las variables de antemano para que el objeto juego se construya sin problemas*/
-juego::juego():Rmapa(1),Rjugador(1,1),Renemigo(15,15),flagjuego(true){
-}
+juego::juego():Rmapa(1),Rjugador(1,1),Renemigo(15,15) {}
 
-
-void juego::iniciar(){
-    int dimensionact=Rmapa.obtdimension();
-
-    while (flagjuego==true){
-//ocupe system cls en este caso pq es windows ver como hacer el caso general de ser linux o windows
+//nueva funcion intercambiando juego::iniciar
+void juego::dibujar(){
+    #ifdef _WIN32
         system("cls");
-//el reutilize el codigo que utilize anteriormente en movi.c por eso el printf en vez de std::cout
-        int posxjug=Rjugador.obtenerx();
-        int posyjug=Rjugador.obtenery();
-        int posxene=Renemigo.obtenerx();
-        int posyene=Renemigo.obtenery();
+    #else
+        system("clear");
+    #endif
+
+
+    int dimensionact = Rmapa.obtdimension();
+    int posxjug=Rjugador.obtenerx();
+    int posyjug=Rjugador.obtenery();
+    int posxene=Renemigo.obtenerx();
+    int posyene=Renemigo.obtenery();
 
     for(int i=0;i<dimensionact;i++){
         for(int j=0;j<dimensionact;j++){
             if(j==posxjug && j==posxene && i==posyjug && i== posyene){
-        printf("C");
-        }
-		else if(j==posxjug && i==posyjug){
-			printf("P");}
-        else if(j==posxene && i==posyene){
-            printf("E");
-        }
-        else{
-		printf("%c",Rmapa.obtenercasilla(j,i));}
+                std::cout << "C";
+            } else if(j==posxjug && i==posyjug){
+			    std::cout << "P";
+            } else if(j==posxene && i==posyene){
+                std::cout << "E";
+            } else{
+		    std::cout << Rmapa.obtenercasilla(j,i);
             }   
-    printf("\n");
         }
-    
-    flagjuego=Rjugador.mov(Rmapa);
+        std::cout << std::endl;
+    }
+}
 
-    if(flagjuego==true){
+bool juego::actualizar() {
+    dibujar();
+    bool continuar = Rjugador.mov(Rmapa);
+    if (continuar) {
         Renemigo.mov(Rmapa);
     }
-    
-    }
-    }
+    return continuar;
+}
+
+bool juego::hay_colision() {
+    return  (Rjugador.obtenerx() == Renemigo.obtenerx() &&
+             Rjugador.obtenery() == Renemigo.obtenery());
+}
+
+void juego::reset_enemigo() {
+    //Mueve al enemigo temporalmente a una esquina predefinida libre
+    Renemigo.set_posicion(15, 15);
+}

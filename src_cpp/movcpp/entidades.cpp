@@ -109,3 +109,7 @@ if(mapaactual.obtenercasilla(nx,ny)==' '){
 return true;
 }
 
+void entidad::set_posicion(int nx, int ny) {
+    posicionx = nx;
+    posiciony = ny;
+}

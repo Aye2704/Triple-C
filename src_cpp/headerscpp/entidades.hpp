@@ -15,6 +15,7 @@ class entidad{
         int posiciony;
         int avanzar;
     public:
+        void set_posicion(int nx, int ny); //Nuevo método
         entidad(int x, int y);
         virtual bool mov(mapa& mapaactual)=0;
         int obtenerx();
