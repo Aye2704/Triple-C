@@ -52,6 +52,7 @@ public:
     void consumirPista();
     void sumarPuntaje();
     void reiniciarPuntajeNivel();
+    void reiniciarPartida();
     void avanzarNivel();
 };
 

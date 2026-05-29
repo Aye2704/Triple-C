@@ -1,5 +1,6 @@
 #include "uireal.hpp"
 #include <iostream>
+#include <limits>
 
 //Para no tener que incluir la biblioteca de windows si es que se usa Linux
 #ifdef _WIN32
@@ -24,6 +25,10 @@ int uireal::jugar_una_pregunta() {
         motor->resetear_preguntas_nivel(j->getNivel());
         motor->barajar_Preguntas();
         indice = motor->seleccionar_pregunta_aleatoria(j->getNivel());
+    }
+
+    if (indice == -1) {
+        return 2;
     }
 
     bool respondio = false;
@@ -69,9 +74,7 @@ void uireal::limpiar_pantalla(){
 
 void uireal::presionar_enter(){
     std::cout << std::endl << "Presiona [ENTER] para continuar...";
-    std::cin.clear();
-    int c;
-    while ((std::cin.get() == c) != '/n'); // Limpia el buffer de entrada
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get(); // Espera a que el usuario presione Enter
     limpiar_pantalla();
 }
@@ -81,12 +84,11 @@ void uireal::mostrar_encabezado(){
     std::cout << "============================================================" << std::endl;
         std::cout << " Nivel: " << j->getNivel()
                   << " | PUNTAJE: " << j->getPuntaje()
-                  << " | PROGRESO: "<< j->getPuntajeNivel() << "/" << PREGUNTAS_SUBIR << std::endl
-                  << "/5" << std::endl;
+                  << " | PROGRESO: "<< j->getPuntajeNivel() << "/" << PREGUNTAS_SUBIR << std::endl;
     std::cout << "------------------------------------------------------------"<< std::endl;
     std::cout << " VIDAS: ";
-    for(int i = 0; i < j->getPistas(); i++){
-        std::cout << "♥ ";
+    for(int i = 0; i < j->getVidas(); i++){
+        std::cout << "<3 ";
     }
     std::cout << " | PISTAS: " << j->getPistas() << std::endl
               << "============================================================"<< std::endl<< std::endl;
@@ -103,7 +105,7 @@ char uireal::obtener_respuesta(){
         std::cout << "Tu respuesta:";
         std::cin >> respuesta;
 
-        if (respuesta >= 'a' && respuesta >= 'z') respuesta -=32;
+        if (respuesta >= 'a' && respuesta <= 'z') respuesta -=32;
 
         if((respuesta >= 'A' && respuesta <= 'D') || respuesta == 'H' || respuesta == 'Q'){
             valida = true;
@@ -122,8 +124,9 @@ char uireal::obtener_respuesta(){
 void uireal::mostrar_pregunta(Pregunta p){
     std::cout << p.getEnunciado() << std::endl<< std::endl;
     std::vector<std::string> opc = p.getOpciones();
-    for(int i=0; i < opc.size();i++){
-        std::cout << "[" << char('A' +i) << "]" << opc[i]<< std::endl;   }
+    for(std::vector<std::string>::size_type i = 0; i < opc.size(); ++i){
+        std::cout << "[" << char('A' + i) << "]" << opc[i] << std::endl;
+    }
 }
 
 void uireal::mostrar_feedback(bool esCorrecto, char respuesta_real){

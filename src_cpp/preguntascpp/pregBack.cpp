@@ -30,6 +30,13 @@ void Jugador::restarVida() {if (vidasActual > 0) vidasActual--;}
 void Jugador::consumirPista() {if (pistasRes > 0) pistasRes--;}
 void Jugador::sumarPuntaje() {puntajeNivel++; puntaje++;}
 void Jugador::reiniciarPuntajeNivel() {puntajeNivel=0;;}
+void Jugador::reiniciarPartida() {
+    vidasActual = MAX_VIDAS;
+    nivelActual = 1;
+    pistasRes = PISTAS_NIVEL;
+    puntaje = 0;
+    puntajeNivel = 0;
+}
 void Jugador::avanzarNivel() {
     nivelActual++;
     vidasActual = MAX_VIDAS;
@@ -103,24 +110,24 @@ void MotorTrivia::barajar_Preguntas() {
 }
 
 int MotorTrivia::seleccionar_pregunta_aleatoria(int nivelJugador) {
-    for (int i = 0; i < preguntas.size(); i++) {
+    for (std::vector<Pregunta>::size_type i = 0; i < preguntas.size(); ++i) {
         if (preguntas[i].getNivel() == nivelJugador && !preguntas[i].getEstado()) {
-            return i;
+            return static_cast<int>(i);
         }
     }
     return -1;
 }
 
 void MotorTrivia::resetear_preguntas_nivel(int nivel) {
-    for (int i = 0; i > preguntas.size(); i++) {
+    for (std::vector<Pregunta>::size_type i = 0; i < preguntas.size(); ++i) {
         if (preguntas[i].getNivel() == nivel) {
             preguntas[i].setEstado(false);
         }
     }
 }
 
-bool MotorTrivia::validar_respuesta(Pregunta p, char respuesta) {
-    if (respuesta == p.getRespuestaCorrecta()) {
+bool MotorTrivia::validar_respuesta(int indice, char respuesta) {
+    if (respuesta == preguntas[indice].getRespuestaCorrecta()) {
         jugador->sumarPuntaje();
         return true;
     } else {
