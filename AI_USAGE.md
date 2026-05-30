@@ -199,3 +199,75 @@ srand() usa ese número como semilla, abriendo el "libro de números aleatorios"
 A partir de ahí, cuando tu enemigo llama a rand() % 4, saca direcciones que nunca se repetirán entre una partida y otra.
 
 Obs: Esta respuesta permitio entender como funcionaba srand y time null para su implementación en el main y asi generar que cada ejecución fuera unica
+
+# Logica de Preguntas Hito 2
+
+### 1. Herramientas y Modelos de IA Utilizados
+
+* **Herramienta / Plataforma:** Gemini (Google AI).
+* **Modelo:** Gemini Large Language Model.
+* **Archivos de contexto provistos:** `05_IntroCPP_POO.pdf` (Documento guía con los fundamentos académicos de C++ y Programación Orientada a Objetos para la sincronización de estándares sintácticos).
+
+---
+
+### 2. Registro de Prompts (Indicaciones de Entrada)
+
+El desarrollo del código se realizó de manera iterativa a través de las siguientes instrucciones secuenciales:
+
+1. *Adaptación inicial a lineamientos académicos:* > "Necesito que modifiques de ser necesario el código con las mismas indicaciones, pero teniendo en cuenta los contenidos presentados en el archivo adjunto, por lo cual si se debe de cambiar los métodos de no ser presentados en el archivo adjunto."
+2. *Refactorización Arquitectónica:*
+> "Separa el código en dos archivos (uno para el frontend y otro para el Backend)."
+
+
+3. *Generación del Entorno de Pruebas:*
+> "Haz un código para hacer pruebas con el juego de las preguntas de los códigos anteriormente pedidos considerando las indicaciones previamente dadas."
+
+
+4. *Ajuste a Datos Existentes:*
+> "Ya tengo un archivo .txt para hacer las pruebas, por lo cual modifica el código teniendo eso en cuenta."
+
+
+
+---
+
+### 3. Observaciones sobre el Desarrollo y Contribución de la IA
+
+* **Alineación Pedagógica Estricta:** La IA filtró y omitió deliberadamente características avanzadas o modernas de C++ (como `auto`, bucles *range-based* o la librería `<random>`) que, aunque óptimas en la industria, no correspondían al material académico del archivo adjunto proporcionado.
+* **Modularización y Modularidad (POO):** El modelo reestructuró de forma efectiva un diseño monolítico hacia una arquitectura basada en el principio de separación de responsabilidades, aislando la lógica de negocio (`backend`) de la interfaz de usuario por consola (`frontend`) mediante el patrón de inyección de dependencias (pasando el puntero del motor lógico al constructor de la interfaz).
+* **Gestión de Memoria Obligatoria:** Se forzó el uso manual de memoria dinámica mediante los operadores `new` y `delete` para cumplir con los objetivos evaluativos de la materia sobre la administración de punteros y ciclos de vida de los objetos en el *Heap*.
+
+---
+
+### 4. Limitaciones Identificadas de la IA y del Código Generado
+
+* **Dependencia Estricta del Formato de Entrada:** El método de parseo implementado por la IA en el Backend asume un orden y una estructura rígida en el archivo `.txt` (delimitado estrictamente por caracteres `|`). Si el archivo posee líneas vacías, saltos de línea inesperados o columnas faltantes, el sistema podría ignorar registros o fallar en tiempo de ejecución debido a la falta de validaciones robustas de expresiones regulares.
+* **Prácticas de C++ Tradicional vs. Moderno:** Para cumplir con el programa de estudios del PDF, la IA utilizó arreglos dinámicos tradicionales controlados por punteros crudos (`raw pointers`). En un entorno de producción moderno, esto constituye una limitación de seguridad contra fugas de memoria (*memory leaks*), donde se preferiría el uso de punteros inteligentes (`std::unique_ptr` o `std::shared_ptr`).
+* **Algoritmo de Mezcla Básico:** El método `barajarPreguntas()` utiliza `rand() % (i + 1)`. Los modelos de IA advierten implícitamente que la función estándar `rand()` de `<cstdlib>` posee limitaciones en su distribución de entropía y aleatoriedad matemática en comparación con los motores de generación modernos incluidos en `<random>`.
+* **Lógica de Reinicio Limitada:** El código de prueba en `main.cpp` maneja el flujo de juego continuo, pero ante un escenario de *Game Over*, requiere de una intervención manual del programador para restablecer los estados internos de las variables del jugador (como las vidas y el puntaje acumulado) si se desea iniciar una partida completamente nueva sin reiniciar el ejecutable.
+
+
+
+# Fusion de codigos para la creacion del main
+
+#### 1. Herramientas de IA Generativa Utilizadas
+
+* **Modelo:** Google Gemini.
+* **Uso principal:** Generación de código (`main.cpp`), refactorización de código C a estándares de C++ (POO), y diseño de la arquitectura del bucle principal del juego.
+
+#### 2. Prompts Principales Utilizados
+
+Durante el desarrollo de la integración, se utilizó el siguiente prompt principal (o variaciones del mismo) para guiar a la IA:
+
+> *"Haz el código de un archivo main.c en el cual se fusionan los conceptos de un juego de alternativas y otro de movimiento, creando un juego en el cual cada vez que se choca con el enemigo aparezca el juego de las preguntas y una vez terminado el nivel en el juego de alternativas se pueda progresar en el juego con movimiento. Haz este código o modificaciones de los códigos presentados considerando los siguientes criterios: compilación en C++, definición de clases coherentes con responsabilidades claras y encapsulamiento, estructura ordenada, uso adecuado de la biblioteca estándar de C++ (evitando patrones innecesarios de C), código claro y consistente."*
+
+#### 3. Observaciones sobre la IA
+
+* **Estructuración Arquitectónica:** La IA fue eficaz para identificar que el bucle `while` original dentro de la clase `juego` impedía la integración con el motor de preguntas. Propuso correctamente transformar el método `iniciar()` en un método `actualizar()` que procesa el juego "fotograma a fotograma", permitiendo al `main.cpp` actuar como controlador maestro.
+* **Transición de C a C++:** La herramienta identificó exitosamente sintaxis heredada de C (como el uso de `printf` y falta de encapsulamiento estricto) y la adaptó a flujos de C++ (`std::cout`, constructores delegados, etc.).
+* **Resolución de Lógica de Juego:** La IA anticipó un error lógico común en este tipo de integraciones (el bucle infinito de colisiones instantáneas tras salir del modo trivia) y propuso proactivamente el método `reset_enemigo()` para reubicar la entidad.
+
+#### 4. Limitaciones Encontradas
+
+* **Dependencia del Entorno del Sistema Operativo:** La IA no puede probar el código en el entorno real de ejecución (la consola de comandos). Esto limitó la capacidad de asegurar que los comandos de limpieza de pantalla (`system("cls")` para Windows vs `system("clear")` para Linux) funcionaran perfectamente sin causar parpadeos (flickering) en la terminal. El desarrollador humano tuvo que verificar esto empíricamente.
+* **Falta de Contexto del Archivo Externo:** Para que el código generado (como el `MotorTrivia`) funcionara, la IA asumió la existencia y estructura de un archivo externo (`preguntas.txt`) delimitado por caracteres `|`. La validación de que el archivo real coincidiera con la lógica de *parsing* sugerida recayó completamente en el desarrollador.
+* **Manejo de la Aleatoriedad:** Aunque la IA sugirió el uso de `srand(time(NULL))` para la semilla del generador, la distribución real de las preguntas y el movimiento enemigo requiere pruebas manuales para asegurar que la experiencia de juego sea balanceada, algo que el modelo no puede simular por sí mismo.

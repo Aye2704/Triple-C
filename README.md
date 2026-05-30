@@ -146,6 +146,8 @@ HITO 2:
 
 //Documentacion de los cambios estructurales, las clases y sus metodos
 
+#MOVIMIENTO
+
 Cambios estructurales para la logica de movimiento y mapa: Los cambios estructurales realizados consistieron principalmente en la adopción de la estructura de clases, dividiendo el proyecto en tres componentes esenciales: entidad(para el movimiento), mapa (para gestionar el entorno) y juego (para encapsular la lógica principal y simplificar el código del archivo main). Además, a diferencia de la versión en C donde estructurábamos el mapa manualmente usando punteros y memoria dinámica, en esta iteración de C++ implementamos contenedores como std::vector, lo que facilita y hace más segura la creación del espacio.
 
 Clase Mapa: Se encarga de generar el espacio donde interactúan los personajes. Sus atributos incluyen un valor entero que define la dimensión del área (la cual se reduce progresivamente al avanzar de nivel) y una matriz basada en un vector de vectores.  sus métodos son  obtenerDimension, que devuelve el tamaño actual del mapa, y obtenercasilla(x, y), el cual retorna el valor de una coordenada específica, siendo clave para validar el movimiento.
@@ -159,6 +161,42 @@ Dificultades de la Migración La principal dificultad enfrentada durante esta en
 Las pruebas de las mecánicas de movimiento se encuentran en el archivo pruebita.cpp. Al delegar la lógica pesada a la clase Juego, este ejecutable resulta bastante corto. Su compilación y ejecución permiten verificar en consola que el control por teclado (WASD) responde correctamente, que las posiciones de ambos personajes se actualizan en tiempo real y que el sistema de colisión previene  que las entidades atraviesen los límites del mapa
 
 Con respecto al tercer hito, y ahora que contamos con un dominio mucho más claro de C++ y de la visión final de Triple-C, hemos tomado la decisión  de no utilizar la biblioteca gráfica Raylib. Si bien Raylib resultaba intuitiva para el manejo de interfaces, hemos optado por utilizar el framework de Qt Creator. Consideramos que las herramientas que provee este framework son más completas y nos permitirán alcanzar un estándar estético más profesional, logrando así la distinción visual y didáctica que buscamos para el proyecto.
+
+#PREGUNTAS
+
+La transición fundamental en la adaptación estructural de C a C++ fu el cambio de paradigma procedural (estructurado) de C al paradigma de POO de C++. Las estructuras de datos pasaron de ser públicas y pasivas a ser clases encapsuladas con atributos privados y métodos públicos (getters y setters). Se reemplazo el uso de punteros con malloc/free por los operadores de memoria dinámica de C++ (new y delete), además de delegar el manejo de arreglos a la biblioteca estándar usando std::vector. Se eliminaros los arreglos de caracteres (char[]) y la librería <string.h>, adoptando std::string para un manejo mucho mas seguro y fiable. Se sustituyo la librería <stdio.h> (printf y scanf) por <iostream> (std::cout t std::cin).
+
+El código se modularizo aplicando el principio de separación de responsabilidades:
+- Pregunta: Clase de datos puros. Almacenan el enunciado, opciones, nivel y estado.
+- Jugador: Clase que maneja el estado del usuario(vidas, nivel actual, pistas y puntajes).
+- MotorTrivia(Backend): Es el controlador de las reglas. Relaciones: Contiene una lista de objetos Pregunta (Composición mediante std::vector) y administra un puntero al objeto Jugador gestionando dinámicamente.
+- Uireal (Frontend): Clase encargada exclusivamente de la terminal. Relaciones: Recibe un puntero a Motortrivia en su constructor (incluyendo dependencias), lo que le permite consultar datos sin procesar la lógica.
+
+Se diseño un flujo de ejecución en pruebaPreg.cpp para someter el código a pruebas de estrés y validación:
+- Prueba de pareo: Verificación de que el sistema ignora líneas vacías o mal formateadas en el archivo .txt sin colapsar
+- Prueba de limites: Jugar hasta agotar las vidas para detonar el Game Over, pedir pistas cuando el contador esta en 0 y responder correctamente hasta agotar las preguntas de un nivel para forzar el avance o la victoria.
+- Pruebas de robustez de entrada: Ingresar letras minúsculas, números o palabras completas en lugar de una sola letra (A, B, C, D) para asegurar que el buffer de std::cin se limpie correctamente y no genere un bucle infinito.
+
+Ejemplos:
+- Encapsulamiento:
+	En C se modifica el estado directamente p->estado = 1;.
+	En C++ se restringe el acceso mediante un método: pregunta.setEstado(true);.
+- Flujo de entrada:
+	En C la lectura de caracteres era frágil: scanf(" %c", &respuesta);.
+	En C++ el flujo es directo y s puede manipular su estado de error  : std::cin >> respuesta;.
+- Inicialización:
+	En C++ se aprovecho de la lista de inicialización de los constructores: Jugador::Jugador() : vidasActual(3), nivelActual(1) {}.
+
+Dificultades:
+- Rigidez en la lectura de archivos: en C, fscanf permitía leer formatos específicos fácilmente, pero era propenso a errores si el .txt variaba. En C++, hubo que constituir un parser manual usando std::strinfstrem y la función std::getline para tokenizar cada linea mediante el delimitador |, lo cual requiere más líneas de código, aunque es mucho mas seguro.
+- Limpieza del buffer de entrada: Evitar el clásico error del "doble enter" (Aun sigo con el mismo problema :( ) o el colapso por ingresos inválidos. Al pasar de Scanf a std::cin, fue necesario implementar rutinas de limpieza explicitas (std::cin.clear() y bucles de extracción de caracteres sobrantes) para garantizar que los menús no se volvieran locos si el usuario escriba una palabra en lugar de una letra.
+- Limitación autoimpuesta al C++ Clásico: para mantener alineación estricta con los fundamentos académicos solicitados, se debió evitar el uso de funciones de la industria moderna (como punteros inteligentes std::unique_ptr o la librería <random>). Esto obligó a gestionar la memoria dinámica "a mano" y crear un algoritm oque barajeo manual apoyado en el generador clásico de <cstdlib> (Razón real: que flojera documentar).
+
+
+###Compilacion###
+Para compilar el proyecto Manteniendo la estructura modular se debe de descargar el repositorio y descomprimirlo (Mismas instrucciones explicadas anteriormente) y ejecutar el siguiente comando en con una terminal abierta en el directorio Triple-C: 
+[ g++ -std=c++11 -Wall -I src_cpp\headerscpp\ src_cpp\maincpp\main.cpp  src_cpp\preguntascpp\pregBack.cpp  src_cpp\userinterface\pantallasreal.cpp  src_cpp\movcpp\entidades.cpp src_cpp\movcpp\juego.cpp src_cpp\movcpp\mapa.cpp -o build\TripleC ]
+Luego de compilar se ejecuta el programa usando ./tripleC.
 
 
 //ANEXOS
