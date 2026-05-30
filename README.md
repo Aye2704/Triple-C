@@ -160,7 +160,7 @@ Dificultades de la Migración La principal dificultad enfrentada durante esta en
 
 Las pruebas de las mecánicas de movimiento se encuentran en el archivo pruebita.cpp. Al delegar la lógica pesada a la clase Juego, este ejecutable resulta bastante corto. Su compilación y ejecución permiten verificar en consola que el control por teclado (WASD) responde correctamente, que las posiciones de ambos personajes se actualizan en tiempo real y que el sistema de colisión previene  que las entidades atraviesen los límites del mapa
 
-Con respecto al tercer hito, y ahora que contamos con un dominio mucho más claro de C++ y de la visión final de Triple-C, hemos tomado la decisión  de no utilizar la biblioteca gráfica Raylib. Si bien Raylib resultaba intuitiva para el manejo de interfaces, hemos optado por utilizar el framework de Qt Creator. Consideramos que las herramientas que provee este framework son más completas y nos permitirán alcanzar un estándar estético más profesional, logrando así la distinción visual y didáctica que buscamos para el proyecto.
+
 
 #PREGUNTAS
 
@@ -198,6 +198,8 @@ Para compilar el proyecto Manteniendo la estructura modular se debe de descargar
 [ g++ -std=c++11 -Wall -I src_cpp\headerscpp\ src_cpp\maincpp\main.cpp  src_cpp\preguntascpp\pregBack.cpp  src_cpp\userinterface\pantallasreal.cpp  src_cpp\movcpp\entidades.cpp src_cpp\movcpp\juego.cpp src_cpp\movcpp\mapa.cpp -o build\TripleC ]
 Luego de compilar se ejecuta el programa usando ./tripleC.
 
+
+Con respecto al tercer hito, y ahora que contamos con un dominio mucho más claro de C++ y de la visión final de Triple-C, hemos tomado la decisión  de no utilizar la biblioteca gráfica Raylib. Si bien Raylib resultaba intuitiva para el manejo de interfaces, hemos optado por utilizar el framework de Qt Creator. Consideramos que las herramientas que provee este framework son más completas y nos permitirán alcanzar un estándar estético más profesional, logrando así la distinción visual y didáctica que buscamos para el proyecto.
 
 //ANEXOS
 
