@@ -17,7 +17,7 @@ class entidad{
     public:
         void set_posicion(int nx, int ny); //Nuevo método
         entidad(int x, int y);
-        virtual bool mov(mapa& mapaactual)=0;
+        virtual bool mov(mapa& mapaactual, char direccion = ' ')=0; //Cambio para adaptar a QT
         int obtenerx();
         int obtenery();
 };
@@ -30,7 +30,7 @@ del juego se rompiera
 class player : public entidad{
     public:
         player(int x , int y);
-        bool mov(mapa& mapaactual);
+        bool mov(mapa& mapaactual, char direccion) override; //Nueva firma
 
 };
 
@@ -38,5 +38,6 @@ class player : public entidad{
 class enemigo : public entidad{
     public:
         enemigo(int x, int y);
-        bool mov(mapa& mapaactual);
+        //aunque el enemigo se mueva al azar, se debe de tener la misma firma igual
+        bool mov(mapa& mapaactual, char direccion= ' ') override;
 };

@@ -22,37 +22,36 @@ player::player(int x , int y) :entidad(x,y){}
 
 
 //codigo bastante analogo con el que hize en movi.c
-bool player::mov(mapa& mapaactual){
+bool player::mov(mapa& mapaactual, char direccion){
     int nx=posicionx;
     int ny=posiciony;
-    char nuevovalor;
-    std::cin>> nuevovalor;
+    //No se usa std::cin en QT
+    /*char nuevovalor;
+    std::cin>> nuevovalor;*/
 
-
-    if(nuevovalor=='w'){
+    if(direccion=='w'){
         ny-=avanzar;
     }
-    if(nuevovalor=='a'){
+    if(direccion=='a'){
         nx-= avanzar;
     }
-    if(nuevovalor=='s'){
+    if(direccion=='s'){
         ny+= avanzar;
     }
-    if(nuevovalor=='d'){
+    if(direccion=='d'){
         nx+= avanzar;
-}
-    if(nuevovalor=='q'){
+    }
+    if(direccion=='q'){ //No es una direccion pero si sirve como tecla de salida en la UI
         return false;
     }
 
-
 /*lo que hago en esta parte es crear variables en el metodo para hacer las verificaciones
 si no hay ningun problema el mov actualizara las posiciones x e y*/
-if(mapaactual.obtenercasilla(nx,ny)==' '){
-    posicionx=nx;
-    posiciony=ny;
-}
-return true;
+    if(mapaactual.obtenercasilla(nx,ny)==' '){
+        posicionx=nx;
+        posiciony=ny;
+    }
+    return true;
 }
 
 /*reutilizo el constructor de jugador pero le cambio el nombre ya que son iguales
@@ -68,12 +67,12 @@ distinto y ocupare time null que era un tiempo que se cuenta en segundos desde u
 si no me equivoco lo importante es que el time null siempre sera un tiempo distinto osea siempre
 una semilla distinta esto se agregara en el main y cada ejecucion sera distinta*/
 
-bool enemigo::mov(mapa& mapaactual){
+bool enemigo::mov(mapa& mapaactual, char direccion){
     int nx=posicionx;
     int ny=posiciony;
     int ndireccion = rand() %4;
 
-    char nvalor;
+    char nvalor = ' ';
     if (ndireccion==1){
         nvalor='w';
     }

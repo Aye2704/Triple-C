@@ -5,15 +5,16 @@ el constructor debe tomar unos valores para iniciar el objeto por lo que debo de
 cada una de las variables de antemano para que el objeto juego se construya sin problemas*/
 juego::juego():Rmapa(1),Rjugador(1,1),Renemigo(Rmapa.obtdimension() -2,Rmapa.obtdimension() -2) {}
 
-//nueva funcion intercambiando juego::iniciar
-void juego::dibujar(){
+//Funcion inutilizada debido a que ahora no se usa system() en QT
+/*void juego::dibujar(){
     #ifdef _WIN32
         system("cls");
     #else
         system("clear");
-    #endif
+    #endif*/
 
-
+std::string juego::obtener_mapa_string() {
+    std::string resultado= "";
     int dimensionact = Rmapa.obtdimension();
     int posxjug=Rjugador.obtenerx();
     int posyjug=Rjugador.obtenery();
@@ -23,34 +24,15 @@ void juego::dibujar(){
     for(int i=0;i<dimensionact;i++){
         for(int j=0;j<dimensionact;j++){
             if(j==posxjug && j==posxene && i==posyjug && i== posyene){
-                std::cout << "C";
+                resultado +="C"; // Colisión
             } else if(j==posxjug && i==posyjug){
-			    std::cout << "P";
+			    resultado +="P"; // Jugador
             } else if(j==posxene && i==posyene){
-                std::cout << "E";
+                resultado += "E"; //Enemigo
             } else{
-		    std::cout << Rmapa.obtenercasilla(j,i);
+		    resultado += Rmapa.obtenercasilla(j,i);
             }   
         }
-        std::cout << std::endl;
     }
-}
-
-bool juego::actualizar() {
-    dibujar();
-    bool continuar = Rjugador.mov(Rmapa);
-    if (continuar) {
-        Renemigo.mov(Rmapa);
-    }
-    return continuar;
-}
-
-bool juego::hay_colision() {
-    return  (Rjugador.obtenerx() == Renemigo.obtenerx() &&
-             Rjugador.obtenery() == Renemigo.obtenery());
-}
-
-void juego::reset_enemigo() {
-    //Mueve al enemigo temporalmente a una esquina predefinida libre
-    Renemigo.set_posicion(Rmapa.obtdimension() -2, Rmapa.obtdimension() -2);
+    resultado += "\n";
 }

@@ -10,10 +10,15 @@ class juego {
         mapa Rmapa;
         player Rjugador;
         enemigo Renemigo;
+        //Se agrega la funcion de meta en vez de progresar por juego de las preguntas
+        int metax;
+        int metay;
+        bool enemigoDerrotado; //Nueva variable
     public:
         juego();
-        bool actualizar();
+        bool actualizar(char inputTecla); // Recibe input de QT
         bool hay_colision();
-        void reset_enemigo();
-        void dibujar();
+        void enemigo_vencido(); //Cambio de nombre debido a que ahora se puede derrotar al enemigo y no solo se resetea
+        //void dibujar();
+        std::string obtener_mapa_string(); // Para dibujar en QLabel de QT
 };
