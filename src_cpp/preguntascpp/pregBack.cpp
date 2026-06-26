@@ -2,17 +2,18 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <algorithm>
 
 //Impolementacion Pregunta
 Pregunta::Pregunta(std::string enu, std::vector<std::string> opc, char resp, std::string pst, int niv, bool est)
     : enunciado(enu), opciones(opc), respuesta_correcta(resp), pista(pst), nivel(niv), estado(est) {}
 
-std::string Pregunta::getEnunciado() {return enunciado;}
-std::vector<std::string> Pregunta::getOpciones() {return opciones;}
-char Pregunta::getRespuestaCorrecta() {return respuesta_correcta;}
-std::string Pregunta::getPista() {return pista;}
-int Pregunta::getNivel() {return nivel;}
-bool Pregunta::getEstado() {return estado;}
+std::string Pregunta::getEnunciado() const {return enunciado;}
+std::vector<std::string> Pregunta::getOpciones() const {return opciones;}
+char Pregunta::getRespuestaCorrecta() const {return respuesta_correcta;}
+std::string Pregunta::getPista() const {return pista;}
+int Pregunta::getNivel() const {return nivel;}
+bool Pregunta::getEstado() const {return estado;}
 void Pregunta::setEstado(bool nuevoEstado) {estado=nuevoEstado;}
 
 //Implementacion Jugador
@@ -20,16 +21,16 @@ void Pregunta::setEstado(bool nuevoEstado) {estado=nuevoEstado;}
 Jugador::Jugador()
     : vidasActual(MAX_VIDAS), nivelActual(1), pistasRes(PISTAS_NIVEL), puntaje(0), puntajeNivel(0) {}
 
-int Jugador::getVidas() {return vidasActual;}
-int Jugador::getNivel() {return nivelActual;}
-int Jugador::getPistas() {return pistasRes;}
-int Jugador::getPuntaje() {return puntaje;}
-int Jugador::getPuntajeNivel() {return puntajeNivel;}
+int Jugador::getVidas() const {return vidasActual;}
+int Jugador::getNivel() const {return nivelActual;}
+int Jugador::getPistas() const {return pistasRes;}
+int Jugador::getPuntaje() const {return puntaje;}
+//int Jugador::getPuntajeNivel() {return puntajeNivel;}
 
 void Jugador::restarVida() {if (vidasActual > 0) vidasActual--;}
 void Jugador::consumirPista() {if (pistasRes > 0) pistasRes--;}
 void Jugador::sumarPuntaje() {puntajeNivel++; puntaje++;}
-void Jugador::reiniciarPuntajeNivel() {puntajeNivel=0;;}
+//void Jugador::reiniciarPuntajeNivel() {puntajeNivel=0;;}
 void Jugador::reiniciarPartida() {
     vidasActual = MAX_VIDAS;
     nivelActual = 1;
@@ -41,7 +42,7 @@ void Jugador::avanzarNivel() {
     nivelActual++;
     vidasActual = MAX_VIDAS;
     pistasRes = PISTAS_NIVEL;
-    reiniciarPuntajeNivel();
+    puntajeNivel=0;
 }
 
 // Implementación MotarTrivia
@@ -54,45 +55,32 @@ MotorTrivia::~MotorTrivia() {
     delete jugador; //Adivina lo que hace
 }
 
-bool MotorTrivia::cargar_Preguntas(std::string rutaArchivo) {
-    std::ifstream archivo(rutaArchivo.c_str()); //Extrañpo fopen :(
-    if (!archivo.is_open()) {
-        std::cout << "Error: No se abrio el archivo\n";
-        return false;
-    }
+bool MotorTrivia::cargar_Preguntas(const std::string& rutaArchivo) {
+    std::ifstream archivo(rutaArchivo); //Extrañpo fopen :(
+    if (!archivo.is_open()) {return false;}
 
     std::string linea;
     while (std::getline(archivo, linea)) {
-        if (linea.length() > 10) {
-            std::stringstream ss(linea);
-            std::string token;
-            std::vector<std::string> tokens;
+        if (linea.empty()) continue;
+        std::stringstream ss(linea);
+        //nueva forma ya que no me gusto el metodo de tokens
+        std::string enu, op1, op2, op3, op4, respStr, pst, nivStr, estStr;
 
-            while (std::getline(ss, token, '|')) {
-                tokens.push_back(token);
-            }
+        if (std::getline(ss, enu, '|') && std::getline(ss, op1, '|') &&
+            std::getline(ss, op2, '|') && std::getline(ss, op3, '|') &&
+            std::getline(ss, op4, '|') && std::getline(ss, respStr, '|') &&
+            std::getline(ss, pst, '|') && std::getline(ss, nivStr, '|') &&
+            std::getline(ss, estStr, '|')) {
 
-            if (tokens.size() >= 9) {
-                std::vector<std::string> opc;
-                opc.push_back(tokens[1]);
-                opc.push_back(tokens[2]);
-                opc.push_back(tokens[3]);
-                opc.push_back(tokens[4]);
+            std::vector<std::string> opciones = {op1, op2, op3, op4};
+            char resp = respStr.empty() ? 'A' : respStr[0];
+            int niv = std::stoi(nivStr);
+            bool est = (estStr == "1");
 
-                //conversión basica a mayuscula para consisitencia
-                char resp = tokens[5][0];
-                if (resp >= 'a' && resp <= 'z') {
-                    resp -= 32;
-                }
-                int niv = std::atoi(tokens[7].c_str());
-                int est = std::atoi(tokens[8].c_str());
-
-                //Creacion de objeto instanciado e insertado al vector
-                Pregunta p(tokens[0], opc, resp, tokens[6], niv, (est != 0));
-                preguntas.push_back(p);
-            }
+            preguntas.push_back(Pregunta(enu, opciones, resp, pst, niv, est));
         }
     }
+    archivo.close();
     return true;
 }
 
@@ -103,21 +91,33 @@ void MotorTrivia::barajar_Preguntas() {
     // Algoritmo de mezcla manual basico (reemplazando librerias avanzadas)
     for (int i = maxPreg - 1; i > 0; i--) {
         int j = rand() % (i+1);
+        std::swap(preguntas[i], preguntas[j]); // Trucazo
+        /*
         Pregunta temp = preguntas[i];
         preguntas[i] = preguntas[j];
-        preguntas[j] = temp;
+        preguntas[j] = temp;*/
     }
 }
 
 int MotorTrivia::seleccionar_pregunta_aleatoria(int nivelJugador) {
-    for (std::vector<Pregunta>::size_type i = 0; i < preguntas.size(); ++i) {
+    for (size_t i = 0; i < preguntas.size(); ++i) {
+        if (preguntas[i].getNivel() == nivelJugador && !preguntas[i].getEstado()) {
+            return static_cast<int>(i);
+        }
+    }
+    //si se agotaron, resetear estado del nivel
+    for (size_t i = 0; i < preguntas.size(); ++i) {
+        if (preguntas[i].getNivel() == nivelJugador) preguntas[i].setEstado(false);
+    }
+    //Da weba hacer un bulce para esto
+    for (size_t i = 0; i < preguntas.size(); ++i) {
         if (preguntas[i].getNivel() == nivelJugador && !preguntas[i].getEstado()) {
             return static_cast<int>(i);
         }
     }
     return -1;
 }
-
+/*
 void MotorTrivia::resetear_preguntas_nivel(int nivel) {
     for (std::vector<Pregunta>::size_type i = 0; i < preguntas.size(); ++i) {
         if (preguntas[i].getNivel() == nivel) {
@@ -125,9 +125,11 @@ void MotorTrivia::resetear_preguntas_nivel(int nivel) {
         }
     }
 }
-
+*/
 bool MotorTrivia::validar_respuesta(int indice, char respuesta) {
-    if (respuesta == preguntas[indice].getRespuestaCorrecta()) {
+    if (indice < 0 || indice >= static_cast<int>(preguntas.size())) return false;
+    preguntas[indice].setEstado(true);
+    if (respuesta == preguntas[indice].getRespuestaCorrecta()){
         jugador->sumarPuntaje();
         return true;
     } else {
@@ -135,11 +137,11 @@ bool MotorTrivia::validar_respuesta(int indice, char respuesta) {
         return false;
     }
 }
-
+/*
 void MotorTrivia::marcar_pregunta_usada(int indice) {
     preguntas[indice].setEstado(true);
-}
+}*/
 
-Jugador* MotorTrivia::getJugador() {return jugador;}
-Pregunta MotorTrivia::getPregunta(int indice) {return preguntas[indice];}
-int MotorTrivia::getCantidadPreguntas() {return preguntas.size();}
+//Jugador* MotorTrivia::getJugador() {return jugador;}?
+Pregunta MotorTrivia::getPregunta(int indice) const {return preguntas[indice];}
+//int MotorTrivia::getCantidadPreguntas() {return preguntas.size();}

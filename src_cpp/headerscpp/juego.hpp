@@ -14,11 +14,23 @@ class juego {
         int metax;
         int metay;
         bool enemigoDerrotado; //Nueva variable
+        int nivelActual;
     public:
-        juego();
-        bool actualizar(char inputTecla); // Recibe input de QT
-        bool hay_colision();
-        void enemigo_vencido(); //Cambio de nombre debido a que ahora se puede derrotar al enemigo y no solo se resetea
+        juego(int nivel = 1);
+        bool actualizar(char tecla); // Recibe input de QT
+        bool hay_colision() const;
+        bool meta_alcanzada() const; //Funcion nueva
+        void reset_enemigo();
         //void dibujar();
-        std::string obtener_mapa_string(); // Para dibujar en QLabel de QT
+        void setEnemigoDerrotado(bool estado); //Funcion nueva
+        bool isEnemigoDerrotado() const; //Funcion nueva
+
+        int obtdimensionmapa();
+        char obtcasillamapa(int x, int y);
+        int obtjugX() const;
+        int obtjugY() const;
+        int obteneX() const;
+        int obteneY() const;
+        int obtmetaX() const;
+        int obtmetaY() const;
 };

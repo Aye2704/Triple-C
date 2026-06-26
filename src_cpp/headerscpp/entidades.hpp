@@ -1,10 +1,5 @@
 #pragma once
-#include<vector>
-#include<iostream>
-#include<string>
 #include"mapa.hpp"
-#include<stdlib.h>
-#include<ctime>
 
 /*defino la clase padre entidad con sus atributos correspondientes , constructor y su unico
 metodo de interes el cual es un metodo virtual puro para que solo lo tengan sus clases hijas
@@ -15,11 +10,12 @@ class entidad{
         int posiciony;
         int avanzar;
     public:
-        void set_posicion(int nx, int ny); //Nuevo método
         entidad(int x, int y);
+        virtual~entidad() = default;
+        void set_posicion(int nx, int ny); //Nuevo método
         virtual bool mov(mapa& mapaactual, char direccion = ' ')=0; //Cambio para adaptar a QT
-        int obtenerx();
-        int obtenery();
+        int obtenerx() const;
+        int obtenery() const;
 };
 
 

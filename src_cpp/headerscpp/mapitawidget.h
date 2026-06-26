@@ -5,7 +5,7 @@
 #include<QWidget>
 #include<QPainter>
 #include<QKeyEvent>
-#include<juego.hpp>
+#include"juego.hpp"
 #include<QPaintEvent>
 #include<QPixmap>
 
@@ -17,14 +17,23 @@ private:
     int pixelsize;
     QPixmap fotoplayer;
     QPixmap fotoene;
-    QPixmap mapa;
-    QPixmap muro;
+    //QPixmap mapa;
+    //QPixmap muro;
 
 protected:
     void paintEvent(QPaintEvent* evento) override ;
     void keyPressEvent(QKeyEvent* teclita) override;
 public:
     maponW(juego* j,QWidget* padre = nullptr);
+
+    //Cambio: metodo para permitir que mainwindow ectualice el motor tras subir de nivel
+    void setMotorJuego(juego* nuevoMotor);
+
+signals:
+    //Cambio: Señales que mainwindow escuchara
+    void colisionEnemigoDetectada();
+    void metaAlcanzada();
+    void salirMenu(); //Nuevito para ya saben que
 };
 
 #endif // MAPITAWIDGET_H

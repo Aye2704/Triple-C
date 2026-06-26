@@ -1,6 +1,4 @@
-#ifndef PREG_HPP
-#define PREG_HPP
-#include <iostream>
+#pragma once
 #include <vector>
 #include <string>
 
@@ -22,12 +20,12 @@ public:
     Pregunta(std::string enu, std::vector<std::string> opc, char resp, std::string pst, int niv, bool est);
     
     //Metodos
-    std::string getEnunciado();
-    std::vector<std::string> getOpciones();
-    char getRespuestaCorrecta();
-    std::string getPista();
-    int getNivel();
-    bool getEstado();
+    std::string getEnunciado() const;
+    std::vector<std::string> getOpciones() const;
+    char getRespuestaCorrecta() const;
+    std::string getPista() const;
+    int getNivel() const;
+    bool getEstado() const;
     void setEstado(bool nuevoEstado);
 };
 
@@ -42,16 +40,16 @@ private:
 public:
     Jugador();
 
-    int getVidas();
-    int getNivel();
-    int getPistas();
-    int getPuntaje();
-    int getPuntajeNivel();
+    int getVidas() const;
+    int getNivel() const;
+    int getPistas() const;
+    int getPuntaje() const;
+    //int getPuntajeNivel();
 
     void restarVida();
     void consumirPista();
     void sumarPuntaje();
-    void reiniciarPuntajeNivel();
+    //void reiniciarPuntajeNivel();
     void reiniciarPartida();
     void avanzarNivel();
 };
@@ -68,17 +66,16 @@ public:
     ~MotorTrivia(); //Destructor para liberar memoria dinamica (BRUH)
 
     // Backend
-    bool cargar_Preguntas(std::string rutaArchivo);
+    bool cargar_Preguntas(const std::string& rutaArchivo);
     void barajar_Preguntas();
     int seleccionar_pregunta_aleatoria(int nivelJugador);
-    void resetear_preguntas_nivel(int nivel);
+    //void resetear_preguntas_nivel(int nivel);
     
     bool validar_respuesta(int indice, char respuesta);
-    void marcar_pregunta_usada(int indice); //funcion nueva para facilitar cosas (No me ejecuten :( )
+    //void marcar_pregunta_usada(int indice);
 
     // Getters para que el frot end pueda acceder a los datos
-    Jugador* getJugador();
-    Pregunta getPregunta(int indice);
-    int getCantidadPreguntas();
+    Jugador* getJugador() {return jugador;}
+    Pregunta getPregunta(int indice) const;
+    //int getCantidadPreguntas();
 };
-#endif

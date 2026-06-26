@@ -1,19 +1,19 @@
 #include "entidades.hpp"
-#include "mapa.hpp"
+#include <cstdlib> // necesario para rand()
 
 //constructor de entidad
-entidad::entidad(int x, int y){
+entidad::entidad(int x, int y) : posicionx (x), posiciony (y), avanzar(1) {}
 
-    posicionx =x;
-    posiciony =y;
-    avanzar=1;
+void entidad::set_posicion (int nx, int ny) {
+    posicionx = nx;
+    posiciony = ny;
 }
 
 //agrego nuevos metodos para poder terminar juego.cpp y dibujar el mapa correctamente
-int entidad::obtenerx(){
+int entidad::obtenerx() const{
     return posicionx;
 }
-int entidad::obtenery(){
+int entidad::obtenery() const{
     return posiciony;
 }
 
@@ -47,7 +47,7 @@ bool player::mov(mapa& mapaactual, char direccion){
 
 /*lo que hago en esta parte es crear variables en el metodo para hacer las verificaciones
 si no hay ningun problema el mov actualizara las posiciones x e y*/
-    if(mapaactual.obtenercasilla(nx,ny)==' '){
+    if(mapaactual.obtenercasilla(nx,ny)!='#'){
         posicionx=nx;
         posiciony=ny;
     }
@@ -67,48 +67,29 @@ distinto y ocupare time null que era un tiempo que se cuenta en segundos desde u
 si no me equivoco lo importante es que el time null siempre sera un tiempo distinto osea siempre
 una semilla distinta esto se agregara en el main y cada ejecucion sera distinta*/
 
-bool enemigo::mov(mapa& mapaactual, char direccion){
+bool enemigo::mov(mapa& mapaactual, char){
     int nx=posicionx;
     int ny=posiciony;
     int ndireccion = rand() %4;
-
-    char nvalor = ' ';
-    if (ndireccion==1){
-        nvalor='w';
-    }
-    if (ndireccion==2){
-        nvalor='d';
-    }
-    if (ndireccion==3){
-        nvalor='a';
-    }
-    if (ndireccion==0){
-        nvalor='s';
-    }
-
-    if(nvalor=='w'){
+    
+    if(ndireccion==0){
         ny-=avanzar;
     }
-    if(nvalor=='a'){
+    if(ndireccion==1){
         nx-= avanzar;
     }
-    if(nvalor=='s'){
+    if(ndireccion==2){
         ny+= avanzar;
     }
-    if(nvalor=='d'){
+    if(ndireccion==3){
         nx+= avanzar;
 }
 /*quite algunos ifs que ocupen anteriormente en movi.c para verificaciones de los limites del mapa
 pero con este if de mapaactual ahorre unas lineas de codigo*/
-if(mapaactual.obtenercasilla(nx,ny)==' '){
+if(mapaactual.obtenercasilla(nx,ny)!='#'){
     posicionx=nx;
     posiciony=ny;
 }
 //enemigo no afectaba en nada asi que simplemente deje que siempre devolviera true
 return true;
-}
-
-void entidad::set_posicion(int nx, int ny) {
-    posicionx = nx;
-    posiciony = ny;
 }

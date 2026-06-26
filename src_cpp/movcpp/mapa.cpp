@@ -2,6 +2,7 @@
 
 mapa::mapa(int nivel){
     dimension=22-(nivel * 2);
+    if (dimension <10) dimension = 10; //limite de tamaño
 
     /*resize sirve para cambiar dinamicamente el tamaño de un 
     vector mientras se ejecuta el programa

@@ -1,8 +1,5 @@
 #pragma once
 #include<vector>
-#include<iostream>
-#include<string>
-#include<stdlib.h>
 
 class mapa{
     //aqui hago los atributos de mi mapa
