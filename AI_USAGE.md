@@ -331,3 +331,52 @@ painter.fillRect(x, y, ancho, alto, QColor(r, g, b)): Ideal para dibujar los mur
 painter.drawRect(x, y, ancho, alto): Esto dibuja solo el borde (el contorno) de un rectángulo. Es perfecto si quieres dibujar las líneas de la cuadrícula de tu mapa para que se vea como un tablero.
 
 painter.drawText(x, y, "Texto"): Útil si quieres dibujar sobre el mapa textos rápidos como "Nivel 1" o el contador de vidas de tu personaje.
+
+
+---
+
+# Hito 3 (preguntas)
+Este documento detalla el uso de herramientas de Inteligencia Artificial generativa durante el desarrollo del **Hito 3** del proyecto Triple-C, mas especificamente el desarrollo de una interfaz grafica para las preguntas y la fusion entre el mapa y la Trivia, cumpliendo con las normativas de transparencia académica.
+
+---
+
+## Herramientas Utilizadas
+
+* **Modelo de IA:** Gemini (Google)
+* **Propósito principal:** Asistencia en la refactorización de código C++ procedural a POO, migración de la interfaz de consola a una interfaz gráfica (GUI) utilizando Qt Framework, estructuración de la arquitectura de *Signals y Slots*, y redacción de documentación técnica.
+
+---
+
+## Prompts Principales Utilizados
+
+A continuación se resumen las interacciones clave con la IA para la evolución del código y la documentación en la etapa final del proyecto:
+
+1. **Migración Arquitectónica a Qt:**
+   > *"Necesito ayuda en el desarrollo del proyecto en C++ con interfaz en QT, incorporando una forma clara de parametrizar, ejecutar y visualizar la solución... El objetivo es que el programa mantenga la lógica y el diseño orientado a objetos, pero agregue una interfaz básica en QT y la funcionalidad de un juego de 5 preguntas... El código debe estar implementado en C++ y ubicado en la carpeta src_cpp/..."* (Se adjuntaron fragmentos de código del Hito 2).
+
+2. **Reestructuración de Documentación (README.md):**
+   > *"Modifica el archivo README.md para complementar con las instrucciones indicadas. No se espera que modifiques seguimiento de versiones anteriores a este proyecto (Hito 1 y 2), pero si que se modifiquen objetivos y funciones desactualizadas... Además, se espera que se le añadan más recursos visuales para poder guiar mejor al lector. Teniendo estas cosas en cuenta, la estructura esperada es..."* (Se adjuntaron todos los archivos `.cpp`, `.h` y el README anterior).
+
+---
+
+## Observaciones y Limitaciones de la IA Generativa
+
+Durante el uso de la herramienta, el equipo de desarrollo identificó las siguientes limitaciones y tomó las medidas necesarias para mitigarlas:
+
+### 1. Ausencia de Entorno de Ejecución Visual (Blindness)
+* **Limitación:** La IA es excelente escribiendo la lógica de los widgets de Qt (`QPainter`, `QStackedWidget`), pero no puede compilar el código ni "ver" la interfaz gráfica resultante. No puede detectar si un botón queda desalineado o si un color no contrasta bien en pantalla.
+* **Solución del Equipo:** Todo el código gráfico sugerido fue insertado, compilado y testeado manualmente en **Qt Creator** por el equipo para realizar ajustes visuales finos.
+
+### 2. Riesgo de Pérdida de Contexto en Proyectos Modulares
+* **Limitación:** Al proveer múltiples archivos (`.h`, `.cpp`, `.txt`) distribuidos en diferentes carpetas, la IA ocasionalmente puede perder el rastro de dependencias cruzadas u olvidar cómo se comunicaban clases específicas, generando código que requiere ajustes para evitar errores de *linking*.
+* **Solución del Equipo:** Se modularizaron las consultas, pidiendo revisiones archivo por archivo cuando fue necesario, y se realizó una depuración manual guiada por los errores del compilador (`qmake` / `CMake`).
+
+### 3. Sobre-optimización vs. Restricciones Académicas
+* **Limitación:** Por defecto, la IA tiende a sugerir prácticas del C++ moderno (como *smart pointers* `std::unique_ptr` o la librería `<random>`). En un contexto académico donde se evalúa el manejo manual de memoria (punteros crudos, `new`/`delete`, `srand()`), estas sugerencias rompen las reglas de la rúbrica.
+* **Solución del Equipo:** Se aplicó una revisión estricta del código generado (Code Review humano), obligando a la IA mediante *prompts* correctivos a mantenerse fiel a los estándares solicitados por la asignatura.
+
+### 4. Bucle Infinito en Eventos (UI Blocking)
+* **Observación:** En versiones tempranas, la traducción directa de bucles `while` de consola a Qt causaba que la interfaz se congelara por completo. La IA fue fundamental para explicar y refactorizar el código hacia un **paradigma asíncrono y dirigido por eventos** usando Signals y Slots, resolviendo el problema de raíz.
+
+---
+*Documento generado y revisado por el equipo de desarrollo de Triple-C.*
