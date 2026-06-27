@@ -129,7 +129,12 @@ A medida que el proyecto escaló, el equipo acordó estratégicamente redefinir 
 
 ---
 
-//TODO:Concljucion y posible mejora 
+## ⚖️ Conclusion y posibles mejoras
+
+Como equipo, tras finalizar este proyecto, llegamos a una conclusión clara: aunque el desarrollo presentó sus roces sobre todo al lidiar con los tiempos y la organización interna, logramos obtener el aprendizaje que de verdad importa. Consolidamos la lógica necesaria para estructurar proyectos robustos tanto en C como en C++, dominando herramientas fundamentales como punteros, structs y clases. Precisamente, contar con esta base técnica sólida fue lo que nos dio la confianza para dar el salto y abarcar el framework de Qt. Esto nos permitió optimizar la arquitectura del proyecto de manera eficaz y materializar el resultado funcional que se puede probar hoy.
+
+Haciendo un poco de autocrítica, el reloj nos limitó en algunos detalles. Con más tiempo, nos habría encantado profundizar en las funciones que ofrece QtWidgets para darle a Triple-C una estética más pulida, inmersiva y menos "cuadrada". Asimismo, nos quedó en el tintero la opción de agregar más enemigos y diseñar mecánicas de movimiento más dinámicas. Somos conscientes de que estos ejes habrían escalado la complejidad y el tiempo de desarrollo, pero representan el siguiente paso lógico para seguir haciendo crecer el juego.
+
 
 ---
 
