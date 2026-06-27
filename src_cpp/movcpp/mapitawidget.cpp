@@ -12,8 +12,8 @@ maponW::maponW(juego* j,QWidget* padre)
     QString ruta =QCoreApplication::applicationDirPath();
 
 
-    fotoplayer.load(ruta +"/lechon");
-    fotoene.load(ruta +"/nicki");
+    fotoplayer.load(ruta +"/recursos/lechon");
+    fotoene.load(ruta +"/recursos/nicki");
 
 }
 
