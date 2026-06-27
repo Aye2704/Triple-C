@@ -51,8 +51,8 @@ Fomentar a la programación en C y su popularidad, otorgándole un enfoque disti
 ### Motor de Exploración
 * **'mapa':** Genera y administra la matriz especial del laberinto
 * **'entidad':** Abstraccion generica con coordenadas
-  * **'player':** Sobrescribe el metodo 'mov()' escuchando inputs (WASD)
-  * **'enemigo':** Sobrescribe 'mov()' con logica de moviiento aleatorio
+  * **'player':** Sobrescribe el metodo 'mov()' escuchando inputs (WASD).
+  * **'enemigo':** Sobrescribe 'mov()' con logica de movimiento de persecucion. 
 * **'juego':** Contiene mapa, jugador y enemigo. Verifica condiciones de victoria y colisiones.
 
 ### Motor de de Trivia
@@ -108,11 +108,7 @@ Debido al Hito 3, **ya no se usa GCC mediante línea de comandos pura**, sino el
 
 ---
 
-//TODO: Ejemplos de ejecucion
-
----
-
-## 🧗 Principales Dificultades (Qt)
+## Principales Dificultades (Qt)
 
 1. **El paradigma asíncrono:** Pasar de un 'cin >> opcion' que detenía el código mágicamente a un entorno de interfaz gráfica fue el mayor reto. Entender que no se puede pausar un método esperando a que el usuario haga clic obligo a aprender el uso de Signals y Slots.
 2. **QPainter y el PaintEvent:** Acostumbrarnos a que la interfaz solo se dibuja cuando el sistema operativo lo ordena, y aprender a forzar este redibujado utilizando la función 'update()' del widget.
@@ -120,7 +116,15 @@ Debido al Hito 3, **ya no se usa GCC mediante línea de comandos pura**, sino el
 
 ---
 
-## ⚖️ Justificación de Cambios
+## Principales Dificultades (Qt)
+
+1. **El paradigma asíncrono:** Pasar de un 'cin >> opcion' que detenía el código mágicamente a un entorno de interfaz gráfica fue el mayor reto. Entender que no se puede pausar un método esperando a que el usuario haga clic obligo a aprender el uso de Signals y Slots.
+2. **QPainter y el PaintEvent:** Acostumbrarnos a que la interfaz solo se dibuja cuando el sistema operativo lo ordena, y aprender a forzar este redibujado utilizando la función 'update()' del widget.
+3. **Manejo del Foco del Teclado:** Asegurarnos de que el widget del mapa mantuviese el foco ('Qt::StrongFocus') para que las teclas WASD no fuesen capturadas por error por otros componentes de la ventana.
+
+---
+
+## Justificación de Cambios
 
 A medida que el proyecto escaló, el equipo acordó estratégicamente redefinir ciertos aspectos de las bases originales:
 1. **Trivia vs. Escritura de Código:** Se modificó la regla inicial de "escribir código C en la terminal" por un sistema de seleccion múltiple. *Justificación:* Procesar codigo escrito libremente por el usuario requería desarrollar un analizador léxico/sintáctico incrustado, escapando monumentalmente del alcance de tiempo de la asignatura. Las opciones multiples permiten centrarse en la lógica del juego (resumen: fantasmeada historica).
@@ -129,7 +133,7 @@ A medida que el proyecto escaló, el equipo acordó estratégicamente redefinir 
 
 ---
 
-## ⚖️ Conclusion y posibles mejoras
+## Conclusion y posibles mejoras
 
 Como equipo, tras finalizar este proyecto, llegamos a una conclusión clara: aunque el desarrollo presentó sus roces sobre todo al lidiar con los tiempos y la organización interna, logramos obtener el aprendizaje que de verdad importa. Consolidamos la lógica necesaria para estructurar proyectos robustos tanto en C como en C++, dominando herramientas fundamentales como punteros, structs y clases. Precisamente, contar con esta base técnica sólida fue lo que nos dio la confianza para dar el salto y abarcar el framework de Qt. Esto nos permitió optimizar la arquitectura del proyecto de manera eficaz y materializar el resultado funcional que se puede probar hoy.
 
