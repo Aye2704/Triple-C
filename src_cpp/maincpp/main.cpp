@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
     MainWindow w;
     w.setWindowTitle("Triple-C: locura absoluta");
-    w.resize(800, 600);
+    w.resize(900, 800);
     w.show();
 
     return a.exec();

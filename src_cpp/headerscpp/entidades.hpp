@@ -36,4 +36,5 @@ class enemigo : public entidad{
         enemigo(int x, int y);
         //aunque el enemigo se mueva al azar, se debe de tener la misma firma igual
         bool mov(mapa& mapaactual, char direccion= ' ') override;
+        void nuevomov(mapa& mapaactual, int targetX, int targetY);
 };

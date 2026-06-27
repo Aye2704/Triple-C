@@ -1,15 +1,19 @@
 #include "mapitawidget.h"
+#include<QCoreApplication>
 
 
 //este es el constructor de mi objeto aqui le pongo setfocuspolicy para indicarle a la ventana
 //q este bien despierta pa que reciba todas las teclas que el jugador aprete
+//el qcorreaplication es para que sepa donde buscar las fotos con los png del jugador y enemigo
 maponW::maponW(juego* j,QWidget* padre)
     :QWidget(padre),motorJuego(j),pixelsize(32)
 {
     setFocusPolicy(Qt::StrongFocus);
+    QString ruta =QCoreApplication::applicationDirPath();
 
-    fotoplayer.load("C:/gitchulini/RUTA/fototriplec/wekeche");
-    fotoene.load("C:/gitchulini/RUTA/fototriplec/nicki");
+
+    fotoplayer.load(ruta +"/lechon");
+    fotoene.load(ruta +"/nicki");
 
 }
 
@@ -21,19 +25,19 @@ void maponW::setMotorJuego(juego* nuevoMotor) {
 void maponW::paintEvent(QPaintEvent* evento){
     QPainter painter(this);
 
+    //estos margenes son para ajustar el mapa cuando se habra la pestaña
+    int marginX = 140; // margen horizontal
+    int marginY = 50; // margen vertical
 
     //parto ocupando todos los metodos nuevos que defini pa sacar la info
     //y similar a la funcion dibujar anterior con 2 ciclos for para recorrer todo mi mapa
     //y con logica de ifs y else ifs para saber si dibujar al jugador , enemigo, muros o mapa
     int dimensionnow=motorJuego->obtdimensionmapa();
-    /*int posxjug=motorJuego->obtjugX();
-    int posyjug=motorJuego->obtjugY();
-    int posxene=motorJuego->obteneX();
-    int posyene=motorJuego->obteneY();*/ // predon pot los cambios ale
+
 
     for(int i=0;i<dimensionnow;i++){
         for(int j=0;j<dimensionnow;j++){
-            QRect rect(j*pixelsize,i*pixelsize,pixelsize,pixelsize);
+            QRect rect(marginX+(j*pixelsize),marginY+(i*pixelsize),pixelsize,pixelsize);
             char casilla = motorJuego->obtcasillamapa(j, i);
 
             if(casilla == '#'){
@@ -50,13 +54,13 @@ void maponW::paintEvent(QPaintEvent* evento){
         }
     }
     //Dibujar meta
-    QRect rectMeta(motorJuego->obtmetaX() * pixelsize, motorJuego->obtmetaY() * pixelsize, pixelsize, pixelsize);
+    QRect rectMeta(marginX+(motorJuego->obtmetaX() * pixelsize), marginY+(motorJuego->obtmetaY() * pixelsize), pixelsize, pixelsize);
     painter.setBrush(QBrush(QColor(46, 204, 113))); // Color verde para la meta
     painter.drawRect(rectMeta);
 
     //Dibujar enemigo
     if (!motorJuego->isEnemigoDerrotado()) {
-        QRect rectEne(motorJuego->obteneX() * pixelsize, motorJuego->obteneY() * pixelsize, pixelsize, pixelsize);
+        QRect rectEne(marginX+(motorJuego->obteneX() * pixelsize), marginY+(motorJuego->obteneY() * pixelsize), pixelsize, pixelsize);
         if (!fotoene.isNull()) {
             painter.drawPixmap(rectEne, fotoene);
         } else {
@@ -66,7 +70,7 @@ void maponW::paintEvent(QPaintEvent* evento){
     }
 
     //Dibujar jugador
-    QRect rectJug(motorJuego->obtjugX() * pixelsize, motorJuego->obtjugY() * pixelsize, pixelsize, pixelsize);
+    QRect rectJug(marginX+(motorJuego->obtjugX() * pixelsize), marginY+(motorJuego->obtjugY() * pixelsize), pixelsize, pixelsize);
     if (!fotoplayer.isNull()) {
         painter.drawPixmap(rectJug, fotoplayer);
     } else {

@@ -26,11 +26,16 @@ juego::juego(int nivel)
 bool juego::actualizar(char tecla) {
     bool continuar = Rjugador.mov(Rmapa, tecla);
     if (continuar && !enemigoDerrotado) {
-        Renemigo.mov(Rmapa);
+        if (turnoenemi){
+        Renemigo.nuevomov(Rmapa,Rjugador.obtenerx(),Rjugador.obtenery());
+        }
+        turnoenemi= !turnoenemi;
     }
     return continuar;
 }
 
+
+//TODOS ESTOS SON METODOS PARA RECUPERAR INFO
 bool juego::hay_colision() const{
     if (enemigoDerrotado) return false;
     return (Rjugador.obtenerx() == Renemigo.obtenerx() &&

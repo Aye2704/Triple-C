@@ -15,6 +15,7 @@ class juego {
         int metay;
         bool enemigoDerrotado; //Nueva variable
         int nivelActual;
+        bool turnoenemi;//nueva variable pa relajar al enemigo
     public:
         juego(int nivel = 1);
         bool actualizar(char tecla); // Recibe input de QT

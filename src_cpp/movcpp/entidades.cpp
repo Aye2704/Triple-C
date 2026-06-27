@@ -68,28 +68,27 @@ si no me equivoco lo importante es que el time null siempre sera un tiempo disti
 una semilla distinta esto se agregara en el main y cada ejecucion sera distinta*/
 
 bool enemigo::mov(mapa& mapaactual, char){
-    int nx=posicionx;
-    int ny=posiciony;
-    int ndireccion = rand() %4;
-    
-    if(ndireccion==0){
-        ny-=avanzar;
-    }
-    if(ndireccion==1){
-        nx-= avanzar;
-    }
-    if(ndireccion==2){
-        ny+= avanzar;
-    }
-    if(ndireccion==3){
-        nx+= avanzar;
-}
-/*quite algunos ifs que ocupen anteriormente en movi.c para verificaciones de los limites del mapa
-pero con este if de mapaactual ahorre unas lineas de codigo*/
-if(mapaactual.obtenercasilla(nx,ny)!='#'){
-    posicionx=nx;
-    posiciony=ny;
-}
-//enemigo no afectaba en nada asi que simplemente deje que siempre devolviera true
+
 return true;
+
 }
+
+//con esta logica el enemigo te persigue entero terrorifico asi que agrego el tema turno
+//enemigo pa que se calme un poco
+void enemigo::nuevomov(mapa& mapaactual, int targetX, int targetY){
+    int enex= posicionx;
+    int eney= posiciony;
+
+    if (targetX > posicionx) enex += avanzar;
+    else if (targetX < posicionx) enex -= avanzar;
+
+    if(targetY>posiciony)eney+=avanzar;
+    else if(targetY<posiciony)eney-=avanzar;
+
+    if(mapaactual.obtenercasilla(enex,eney)!='#'){
+        posicionx=enex;
+        posiciony=eney;
+    }
+
+}
+
