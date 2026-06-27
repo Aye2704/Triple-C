@@ -271,3 +271,63 @@ Durante el desarrollo de la integración, se utilizó el siguiente prompt princi
 * **Dependencia del Entorno del Sistema Operativo:** La IA no puede probar el código en el entorno real de ejecución (la consola de comandos). Esto limitó la capacidad de asegurar que los comandos de limpieza de pantalla (`system("cls")` para Windows vs `system("clear")` para Linux) funcionaran perfectamente sin causar parpadeos (flickering) en la terminal. El desarrollador humano tuvo que verificar esto empíricamente.
 * **Falta de Contexto del Archivo Externo:** Para que el código generado (como el `MotorTrivia`) funcionara, la IA asumió la existencia y estructura de un archivo externo (`preguntas.txt`) delimitado por caracteres `|`. La validación de que el archivo real coincidiera con la lógica de *parsing* sugerida recayó completamente en el desarrollador.
 * **Manejo de la Aleatoriedad:** Aunque la IA sugirió el uso de `srand(time(NULL))` para la semilla del generador, la distribución real de las preguntas y el movimiento enemigo requiere pruebas manuales para asegurar que la experiencia de juego sea balanceada, algo que el modelo no puede simular por sí mismo.
+
+
+USO IA HITO 3:
+
+Modelo: Gemini Pro3.1
+Se utilizo gemini para entender la diferencia entre cmake y qmake para ver cual sera el mejor para
+el proyecto
+Prompt:
+EN QUE CAMBIAN Qmake y cmake
+Respuesta:Ambos son "sistemas de construcción" (build systems). Su trabajo principal es leer la configuración de tu proyecto, encontrar dónde están tus archivos .cpp y .hpp, y darle las instrucciones exactas al compilador (como GCC o MinGW) para armar todo y generar tu archivo ejecutable final.
+
+La diferencia principal radica en su alcance y en el estándar de la industria.
+
+Diferencias Clave
+qmake: Es la herramienta clásica creada exclusivamente por y para el ecosistema Qt. Utiliza archivos .pro que son muy limpios, amigables y fáciles de leer. Si solo vas a hacer aplicaciones en Qt, es el camino más rápido y con la curva de aprendizaje más baja. Sin embargo, Qt Company anunció que a partir de Qt 6, este sistema pasará a segundo plano.
+
+CMake: Es el estándar universal de la industria para proyectos en C++, sin importar si usan Qt, otra librería gráfica, o pura consola. Utiliza archivos CMakeLists.txt. Es muchísimo más potente, flexible y te permite integrar librerías externas complejas con facilidad, pero su sintaxis es más enredada y difícil de aprender al principio.
+Obs:La respuesta nos ayudo a tener mas claro cual usaremos para el desarrollo del proyecto
+
+
+
+
+
+Se utilizo gemini para aprender sobre Keypressevent y Qpaint
+Prompt:
+explicame el keypressevent y el paint event y que funciones me son utiles para dibujar el mapa de mi proyecto
+Respuesta:
+Comprender estos dos eventos es el gran salto de nivel que estás dando al pasar de la consola a una interfaz gráfica real. En Qt, tú no "mandas" a dibujar o a leer el teclado directamente en un bucle infinito (como un while(true)), sino que Qt te avisa cuándo ocurren estas cosas a través de Eventos.
+
+Aquí tienes la explicación directa y las funciones exactas que necesitas usar para que tu mapa se dibuje impecable.
+
+1. keyPressEvent (El Sistema Nervioso)
+Este método es un "interruptor" que Qt enciende automáticamente cada vez que el usuario presiona físicamente una tecla.
+
+¿Cómo funciona?
+Tú no llamas a esta función; Qt la llama por ti y le pasa un "paquete" de información llamado QKeyEvent. Ese paquete contiene qué tecla exacta se presionó.
+
+Funciones y elementos vitales:
+
+evento->key(): Extrae el código de la tecla presionada.
+
+Las constantes de Qt: Usas esto para comparar. Por ejemplo: Qt::Key_W, Qt::Key_A, Qt::Key_S, Qt::Key_D, o las flechas Qt::Key_Up, Qt::Key_Down, etc.
+
+update() (¡La función más importante!): Al final de tu keyPressEvent, después de cambiar las coordenadas (X, Y) de tu jugador, debes llamar a update(). Esto le grita a Qt: "¡Oye, las coordenadas cambiaron, borra la pantalla y vuelve a dibujar todo!". Si olvidas el update(), tu jugador se moverá en la lógica, pero la pantalla se quedará congelada.
+
+2. paintEvent (El Lienzo y el Pincel)
+Este es el único lugar donde tienes permitido dibujar en Qt. Se ejecuta automáticamente al abrir la ventana, al maximizarla, o cuando tú lo pides a la fuerza llamando a update().
+
+¿Cómo funciona?
+Adentro de este método, siempre debes crear un objeto QPainter. Imagina que el QPainter es tu pincel mágico y la ventana (this) es tu lienzo.
+
+Funciones súper útiles para dibujar tu mapa:
+
+painter.drawPixmap(x, y, ancho, alto, imagen): Esta es la joya de la corona. Te sirve para dibujar tus imágenes (wekeche.png y nicki.png). Le dices exactamente en qué píxel ponerla y de qué tamaño.
+
+painter.fillRect(x, y, ancho, alto, QColor(r, g, b)): Ideal para dibujar los muros de tu mapa (#) si no tienes una imagen para ellos. Te pinta un cuadrado sólido del color que elijas.
+
+painter.drawRect(x, y, ancho, alto): Esto dibuja solo el borde (el contorno) de un rectángulo. Es perfecto si quieres dibujar las líneas de la cuadrícula de tu mapa para que se vea como un tablero.
+
+painter.drawText(x, y, "Texto"): Útil si quieres dibujar sobre el mapa textos rápidos como "Nivel 1" o el contador de vidas de tu personaje.
