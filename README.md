@@ -1,214 +1,145 @@
 # Triple-C
-Hito 1:
-Problematica: Al adentrarse al mundo de la programación, el primer lenguaje en el cual uno piensa siempre es "Python". Esté destaca por: su facilidad, su implementación en proyectos de IA, Ciencia de datos, etc. En un principio esto suena totalmente genial, el problema viene que para saltar de un lenguaje a otro hay cierto problema, ya que, Python al ser un lenguaje de alto nivel los comandos son bastantes amistosos y entendibles, en cambio C es todo lo contrario, un lenguaje de bajo nivel, un compilador quisquilloso(ojo aquí), pero con un rendimiento y velocidad muy eficientes, junto con un uso de memoria bastante bueno, si lo vemos de esta forma Python estaría opacando a C, teniendo una gran perdida en lo que es su aprendizaje en nivel general, esto respaldado por el PYPL y el TIOBE, los cuales dejan ver que la tendencia de aprender Python vs C es ABISMAL. En base a esta problemática Nace Triple-C, un juego que busca reducir el freno que tiene el aprendizaje en C para los principiantes.
+Bienvenido a **Triple-C**, un juego educativo diseñado para hacer el aprendizaje de programación C sea interactivo, visual y menos intimidante para los principiantes
 
-Objetivo General: Fomentar a la programación en C y su popularidad, otorgándole un enfoque distinto al habitual, para que sea más atractivo para los que recién entran en el mundo de la programación.
+---
 
-Objetivos Especificos:
-1. Crear un Juego, con entrada de texto en el que el usuario debe escribir condigo en C para jugar y avanzar en el juego.
-2. Diseñar el Juego de manera divertida y simple, mediante el uso de librerías externas para tener una interfaz atractiva, con la intención de cambiar la percepción de que c es un lenguaje complejo y aburrido.
-3. Implementar un sistema de gestión de memoria eficiente en C para el manejo de Sprites y entidades, demostrando las ventajas del control manual de recursos.
+## Problematica
+Al adentrarse al mundo de la programación, el primer lenguaje en el cual uno piensa siempre es **Python**. Esté destaca por: su facilidad, su implementación en proyectos de IA y Ciencia de datos. En un principio esto suena totalmente genial, el problema viene que para saltar de un lenguaje a otro hay cierto problema, ya que, Python al ser un lenguaje de alto nivel los comandos son bastantes amistosos y entendibles, en cambio C es todo lo contrario, un lenguaje de bajo nivel, un compilador quisquilloso(ojo aquí), pero con un rendimiento y velocidad muy eficientes, junto con un uso de memoria bastante bueno, si lo vemos de esta forma Python estaría opacando a C, teniendo una gran perdida en lo que es su aprendizaje en nivel general, esto respaldado por el PYPL y el TIOBE, los cuales dejan ver que la tendencia de aprender Python vs C es ABISMAL. En base a esta problemática Nace Triple-C, un juego que busca reducir el freno que tiene el aprendizaje en C para los principiantes.
+
+---
 
-Roles:  
-- Scrum master: Valentina Vilches.
-- Product Owner: Joaquin López. 
-- Equipo: Ezequiel Ñuñez y Alexander Maluenda.
+## Objetivo General
+Fomentar a la programación en C y su popularidad, otorgándole un enfoque distinto al habitual, para que sea más atractivo para los que recién entran en el mundo de la programación.
 
-Funcionalidades Clave:
-- Movimiento del jugador, utilizando un sistema de coordenadas con vectores
-- función para agregar preguntas desde un archivo .txt(Base de datos)
-- menú principal interactivo.
-- generación de niveles dinámico y progresión de dificultas a medida que se avanza en los niveles.
+## Objetivos Especificos 
+//Previamente se tenían objetivos específicos distintos pero durante el desarrollo del programa hubieron cambios y se decidió que estos son los mejores objetivos específicos que representa nuestro proyecto
+1. **Implementar un sistema de preguntas tipo Trivia** de opcion multiple basado en preguntas reales de C.
+2. **Cerar un mapa interactivo de exploracion** donde el usuario deba evadir y alcanzar metas para progresar
+3. **Diseñar una interfaz Grafca de usuario atractiva** e intuitiva, cambiando la percepcion de que aprender C/C++ es aburrido y complejo.
 
+## Roles  
+* **Scrum master:** Valentina Vilches.
+* **Product Owner:** Joaquin López. 
+* **Equipo de Desarrollo:** Ezequiel Ñuñez y Alexander Maluenda.
 
-Avance logrado y próximos pasos para el hito 2:
-Se logro implementar el sistema de movimiento en 2d ocupando coordenadas cartesianas, la lógica de preguntas, el menú principal y el trabajo de lógica y movimiento se logró juntar para dar un primer prototipo de lo que queremos que sea el juego.
-Los próximos pasos para el hito 2 serían:
--	Explorar en su mayoría las capacidades de C++ para mejorar el código (Clases, objetos, etc.).
--	Investigar y comprender el cómo se ocupará “raylib” para el proyecto y facilitar este en algún punto.
--	Refinar el uso de punteros y memoria dinámica para que se soporte una mayor carga de elementos gráficos sin que esto afecte el rendimiento del sistema (mayor accesibilidad).
+## Funcionalidades Clave:
+* **Navegacion 2D** Movimiento del jugador, utilizando un sistema de coordenadas con vectores
+* **Motor de Trivia** para agregar preguntas desde un archivo .txt(Base de datos)
+* **Menú principal interactivo.**
+* **Progresión Dinamíca** generación de niveles dinámico y progresión de dificultas a medida que se avanza en los niveles.
 
-Documentación funciones;
-//Aquí se explica el funcionamiento de las funciones del movimiento y mapeado.
-Para la parte de movimiento se inicializaron 3 structs, 1 para el uso de los vectores (ahora mismo se hizo con enteros, para que se entendiera el movimiento en la terminal, a futuro queremos ocupar esto como floats para un movimiento más continuo), otro para el movimiento del jugador, incluyendo el primer  struct junto con una variable que podría ser entera o flotante, para indicar que tanto se moverá el personaje y otro struct para iniciar el mapa, el cual contiene la matriz que guardara caracteres en tal posición.
+### Pruebas Realizadas
+| Prueba | Acción | Resultado Esperado & Logrado |
+| :--- | :--- | :--- |
+| **Parsing de BD** | Carga de archivo con líneas vacías o incompletas. | El sistema ignora errores y carga solo objetos `Pregunta` válidos sin colapsar. |
+| **Límites de Vidas** | Fallar intencionalmente 3 respuestas. | El juego detecta `vidas <= 0`, notifica la derrota y retorna al menú. |
+| **Colisión y Bloqueo** | Jugador camina contra muros perimetrales. | El algoritmo deniega la actualización de coordenadas; el sprite no traspasa la pared. |
+| **Eventos Qt** | Presionar múltiples teclas rápidamente en el mapa. | El widget procesa el evento asíncrono sin congelar el hilo principal de la UI. |
 
+---
 
-void iniciarmapa(map *p2,int nivel);
+## Evolucion del Proyecto (Hito 1 al 3)
 
-La función iniciar mapa recibe un puntero y el nivel actual en el que se encuentra el jugador. Se parte restando la dimensión al mapa, dependiendo del nivel en el que este y luego se realiza un ciclo “for”, para moverse por el eje Y (filas) y acto seguido sobre el ciclo se hace otro más para moverse por el eje X (columnas). Se realizan las verificaciones con un “if”, para ver si es que toca los bordes, en caso de ser así, el carácter que se guardara en el espacio será un # (un muro), en caso no estar tocando los bordes (con el “else”) se guardara en esa posición un espacio.
+1. **Hito 1 (C Basico - Terminal):** Nacimiento del motor base. se usaron punteros basicos, memoria manuel ('malloc' y 'free') y matrices de caracteres para simular un mapa en la consola. La logica era puramente secuencial.
+2. **Hito 2 (C++ POO -Terminal):** Migracion completa a la orientacion a objetos. Se crearon clases encapsuladas ('Entidad', 'Mapa', 'MotorTrivia'). Se usó la biblióteca estandar ('std::vector' y 'std::string') para mayor seguridad.
+3. **Hito 3(C++ Qt - GUI):** El salto definitivo. Reemplao del bucl infinito clasico de consola ('while(true)`) por una **Arquitectura dirigida por eventos (Signals y Slots)**. Creacion de componentes visuales, botones y renderizado 2D mediante 'QPainter'.
 
-void dibujarmapa(movjug *p1,movjug*PE,int nivel,map *p2);
+---
 
-Dibujar mapa busca que todo lo que registro iniciar mapa se muestre en la terminal, aunque la peculiaridad de este es que es un ciclo “for”, pero en vez de ir aumentando el eje Y (filas), las está restando, debido a que en la función iniciar mapa, mi primera fila (0) esta en el techo(así es como lo registra la terminal) ,y al momento de moverse el personaje, se quiere que vaya hacia arriba sumando al eje Y, se debe invertir el cómo está el eje y actual, por ese el ciclo “for” restando , en el eje x no ocurre ningún cambio, la función lo recorre y busca si en tal posición está el jugador, el enemigo o si están en el mismo punto para imprimir un símbolo característico, para cada caso. En caso de que no se cumpla nada de lo anterior imprimirá su correspondiente en pantalla (espacio o #).
+## Clases Principales, Responsabilidades y Relaciones
 
-void procesomov(movjug *p1,char comandou,map *p2);
+### Motor de Exploración
+* **'mapa':** Genera y administra la matriz especial del laberinto
+* **'entidad':** Abstraccion generica con coordenadas
+  * **'player':** Sobrescribe el metodo 'mov()' escuchando inputs (WASD)
+  * **'enemigo':** Sobrescribe 'mov()' con logica de moviiento aleatorio
+* **'juego':** Contiene mapa, jugador y enemigo. Verifica condiciones de victoria y colisiones.
 
- “procesomov” recibe un puntero para la dirección de memoria del movimiento del jugador, una tecla que apretara el usuario y otro puntero para indicar la dirección de memoria del mapa, luego dentro de esta crea unas variables temporales para realizar las verificaciones de los límites del mapa y en caso de que el movimiento correspondiente este dentro del mapa se realiza el cambio a la dirección de memoria para efectuar el cambio correctamente.
+### Motor de de Trivia
+* **'Pregunta':** Entidad pura de datos (Enunciado, opciones, respuestas, estado).
+* **'Jugador':** Gestiona el estado de la sesión (vidas, nivel, puntaje).
+* **'MotorTrivia':** Administra los datos. Lee el '.txt', instancia los objetos 'Pregunta' en un 'std::vector' y valida las respuestas usando el objeto 'Jugador'.
 
-void procesomovE(movjug *PE,map*p2);
+### Frontend
+* **'maponW':** componente visual (hereda de 'QWidget') encargado exclusivamente de pintar cuadrados ussando 'QPainter' y emitir señales de teclado
+* **'MainWindow':** La ventana maestra que coordina la aplicacion entera
 
-“procesomovE” es un código totalmente analogo a “procesomov”, la única diferencia es que este cuenta con un “int” que sale de rand para un movimiento aleatorio del enemigo, este tiene 4 posibilidades “wasd” y si este movimiento cumple las verificaciones se realiza su cambio a la dirección de memoria.
+---
 
-//Aquí se explica el funcionamiento de las funciones del Backend de las preguntas.
-·	Pregunta* cargar_preguntas(const char archivo, int maxPreg);
-En esta función sirve para leer el archivo.txt y extraerle la información para guardarla dentro de la estructura de datos “Pregunta” con la intención de utilizarla a futuro en el código principal. Una vez terminada la lectura, y el traspaso a la estructura de datos se determina cuantas preguntas hay y se devuelve al stack mediante el uso de punteros para uso futuro.
+## Interfaz Desarrollada y Flujo de Uso
 
-•	int seleccionar_pregunta_aleatoria(Pregunta* b, int maxPreg, int nivelActual):
-Función con la intención de cambiar el orden en el cual va a ser seleccionada las preguntas para que no tengan el mismo orden que tienen en el archivo y que al momento de jugar no se tenga una sensación de repetitividad, el banco de las preguntas (Pregunta* b), el número de preguntas (obtenidas en la función anterior) y el nivel actual en el momento en el cual es llamada la función (de esta forma se asegura de la progresión por nivel). La función retorna un indicador para saber si esta pregunta ya fue usada para no repetir dos preguntas seguidas.
+**Objetivo UI:** dar una experiencia de escritorio inmersiva, eliminando la terminal y ofreciendo ventanas y dialogos nativos.
 
-•	int validar_respuesta(Jugador* j, Pregunta* p, char respuesta):
-función simple en la cual se recibe los datos del jugado, los datos de la pregunta respondida por el usuario y la respuesta elegida por el usuario. Esta función se encarga de comparar la respuesta elegida por el usuario con la respuesta correcta y cambiar los datos del usuario en función a esta comparación (quita vidas si fallas y te da puntos del nivel y general si acertaste). La función retorna un indicador si la respuesta fue correcta o no.
+* **Widgets Principales:** 'QStackedWidget' : Usado como adminstrador central para apilar las pantallas y alternar entre ellas sin abrir ventanas nuevas.
+  * 'QRadioButton' / 'QStackedWidget' : Para la seleccion de respuestas únicas en la trivia
+  * 'QMessegeBox' : Para el feedback inmediato (victorias y Derrotas)
+* **Parametrizacion:** El juego parametriza su estado en base al 'nivel' alcanzado. A mayor nivel, la dimencion del mapa se reduce, obligando a jugar en espacios más reducidos.
+* **Flujo de Uso:**
+  1. Pantalla de Menú (inicio)
+  2. Trasición al 'mapoW'
+  3. al chocar, señal inmediata a 'MainWindow' -> Muestra Pantalla Trivia.
+  4. Bloque de 5 preguntas -> al terminar, el enemigo desaparece y se vuelve al mapa.
+  5. Al alcanzar la meta, se sube de nivel y se reinicia el ciclo.
 
-•	void resetear_preguntas_nivel(Pregunta* b, int maxPreg, int nivel):
-Función complementaria de “seleccionar_pregunta_aleatria”, su función es resetear las banderas de cada pregunta que identificaban si ya fue usada, la intención de esta función es ser usada cuando todas las preguntas de un nivel ya han sido usadas y el juego no se trabe, recibe el banco de las preguntas, el numero de preguntas y el nivel en el cual fueron usadas todas sus preguntas.
+---
 
-•	void barajar_preguntas(Pregunta* b, int maxPreg):
-Función extra aparte de “seleccionar_pregunta_aleatoria” con la intención corregir un error el cual consistía que a pesar de que las preguntas se seleccionaban de manera aleatoria dentro de su nivel seguían siendo leídas en el mismo orden que el archivo .txt pero desde la primera pregunta aleatoria seleccionada. La función recibe el banco de preguntas y el total de preguntas.
+## Separación entre Lógica e Interfaz
+El proyecto respeta firmemente el patrón de arquitectura separada.
+* **La lógica es ciega:** Clases como 'MotorTrivia' o juego **no incluyen nada** relacionado a '<QWidget>' o '<QPushButton>'. Solo manejan enteros, booleanos y strings, retornando resultados en crudo.
+* **La interfaz es reactiva:** 'MainWindow' contiene instancias (punteros) hacia 'MotorTrivia' y 'juego'. Cuando el usuario hace clic en un botón, la interfaz extrae el valor del formulario, se lo envía a la lógica y, basándose en la respuesta, decide si pintar un mensaje de éxito o restar una vida
 
-•	int jugar_una_pregunta(Jugador* j, Pregunta* b, int maxPreg):
-Esta función tiene el objetivo comenzar el juego de las preguntas llamar a todas las otras funciones relacionadas el juego de las preguntas, al momento de ser llamado, la intención de esta función es modularizar el código principal para mantenerlo lo mas compacto posible y mejor control de errores al momento de someter el código a pruebas. Recibe los datos del jugados, el banco de las preguntas y el número de preguntas, además este devuelve un numero entero para avisar si la respuesta elegida por el usuario fue correcta o incorrecta (1,0), si salió con ‘Q’ (2) o pidió una pista (-1).
+---
 
-//Aquí se explicará el funcionamiento de las funciones del Frontend del código:
-•	void limpiar_patalla():
-Función simple para limpiar la pantalla de la terminal cada vez que es usada, la intención es poder limpiar la terminal tanto de Windows (system(“cls”)) como de MAC y Linux (system(“clear”)) para que el código sea lo más accesible posible (uno de nuestros objetivos específicos).
+## Compilación y Ejecución (Qt)
 
-•	void mostrar_encabezado (Jugador* j):
-Función para mostrar en terminal las estadísticas del jugador y su estado (vidas y pistas), recibe los datos del jugador.
+Debido al Hito 3, **ya no se usa GCC mediante línea de comandos pura**, sino el sistema de construcción de **CMake integrado con Qt**.
 
-•	void mostrar_pregunta (Pregunta* p):
-Función para mostrar en terminal los enunciados y las alternativas de la estructura de datos de la pregunta recibida.  
+1. **Requisitos Previos:** Tener instalado **Qt Creator** y **Qt 6** (o superior) junto con un compilador de C++17 (MinGW o MSVC).
+2. **Abrir el Proyecto:** * Abre Qt Creator y selecciona 'File -> Open File or Project...'
+   * Navega hasta la carpeta del proyecto y selecciona el archivo 'CMakeLists.txt'.
+   * En caso de no tener descargado el repositorio aquí tienes una pequeña guia:
+     * Descarga el repositorio en '<> Code' y luego 'Dowload ZIP'.
+     * Descomprimelo en donde quieras e identifica su direccion para seleccionar 'CMakeLists.txt'.
+3. **Configurar el Kit:** Selecciona el Kit correspondiente (ej. *Desktop Qt 6.x.x MinGW 64-bit*) y establece la carpeta 'build' como directorio de compilación (Este paso es opcional, ya que normalmente este kit esta por defaul).
+4. **Construir y Ejecutar:**
+   * Haz clic en el boton de **"Run"** (icono verde de "Play") en la esquina inferior izquierda o presiona 'Ctrl + R'.
+   * CMake compilará los meta-objetos ('MOC'), enlazara las bibliotecas y lanzará la ventana gráfica automáticamente.
+   * *Nota:* El archivo 'archivopregs.txt' se copia automáticamente al directorio 'build' gracias a una regla incorporada en nuestro 'CMakeLists.txt'.
 
-•	char obtener_respuesta ():
-Función básica en la cual captura y filtra el carácter ingresado por el usuario y una vez filtrado para evitar errores se devuelve este mismo carácter.
+---
 
-•	void mostrar_feadback (int esCorrecto, char respuesta_real):
-Función para mostrar una reacción visual a la respuesta del usuario después de verificar si es correcta o no, y si el usuario se equivoca muestra la respuesta real de la pregunta.
+//TODO: Ejemplos de ejecucion
 
-•	void pantalla_transicion (int tipo , int nivelactual); //Pantalla de si pasaste al siguiente nivel o perdiste
-Función que muestra una pantalla en función de si el jugador paso un nivel, perdió o completo el juego, la función recibe un identificador para saber cual de estrás tres pantallas quieren mostrarse y el nivel en el cual se actual en el cual es llamada esta función.
+---
 
-•	int menu_principal(int opcion_menu);
-Función para modularizar en el cual se muestra la pantalla del menú que debe de ser accesible en cualquier momento del juego para funcionar como una pausa. Se recibe y se devuelve el entero de la opción de este menú para saber si se sale del juego o se comienza/continua jugando.
+## 🧗 Principales Dificultades (Qt)
 
-•	void presionar_enter():
-Función simple, en la cual funciona como pantalla de transición mientras el usuario lee un mensaje y luego presionar [ENTER] sin necesidad de un temporizador.
+1. **El paradigma asíncrono:** Pasar de un 'cin >> opcion' que detenía el código mágicamente a un entorno de interfaz gráfica fue el mayor reto. Entender que no se puede pausar un método esperando a que el usuario haga clic obligo a aprender el uso de Signals y Slots.
+2. **QPainter y el PaintEvent:** Acostumbrarnos a que la interfaz solo se dibuja cuando el sistema operativo lo ordena, y aprender a forzar este redibujado utilizando la función 'update()' del widget.
+3. **Manejo del Foco del Teclado:** Asegurarnos de que el widget del mapa mantuviese el foco ('Qt::StrongFocus') para que las teclas WASD no fuesen capturadas por error por otros componentes de la ventana.
 
+---
 
-//Funcionamiento de las pruebas:
-Para comprobar el funcionamiento del minijuego de las preguntas antes de fusionar  con el código de movimiento, se decido trabajar en distintas ramas en la cual la idea original era tener en ramas distintas también el Frontend y el Backend de las preguntas, pero luego por conveniencia al final se mantuvieron ambas en la misma rama. 
+## ⚖️ Justificación de Cambios
 
-Dentro de la rama frontPreg y como se puede ver en la rama main existe un archivo llamado pruebasPreg.c en el cual se utilizo para comprobar el funcionamiento del minijuego como si fuera un juego por separado para hacer pruebas sin necesidad de depender de las funciones del movimiento. pruebasPreg.c comienza preparando la terminal para leer los caracteres del español, luego declarar las variables utilizadas y prepara las estructuras del banco de preguntas con punteros y los datos del jugados, después empieza el bucle principal del código en el cual dependiendo de la opción elegida en el menú principal este se acabara o continuara, dentro del bucle se crea un switch case para las opciones del menú para poder empezar el juego de las preguntas.
-Se ejecuta la función jugar_una_pregunta para comenzar el minijuego y dependiendo de las respuestas elegidas en el minijuego se verifica la reacción de del programa en función a su elección. Una vez terminado un nivel ya sea por perder todas las vidas o completar todas las preguntas para subir de nivel se verifica y se cambian los datos del jugador en función a ello. Una vez terminado el juego se libera la memoria del heap al cual el puntero del banco guardaba sus preguntas y luego se limpia este puntero para evitar memory leak y dangling pointer. 
+A medida que el proyecto escaló, el equipo acordó estratégicamente redefinir ciertos aspectos de las bases originales:
+1. **Trivia vs. Escritura de Código:** Se modificó la regla inicial de "escribir código C en la terminal" por un sistema de seleccion múltiple. *Justificación:* Procesar codigo escrito libremente por el usuario requería desarrollar un analizador léxico/sintáctico incrustado, escapando monumentalmente del alcance de tiempo de la asignatura. Las opciones multiples permiten centrarse en la lógica del juego (resumen: fantasmeada historica).
+2. **Abandono de Raylib por Qt:** En el hito 1 y 2 se menciono la intención de usar Raylib. *Justificación:* Qt framework demostró proveer herramientas más holísticas (widgets de formulario) idóneas para construir encuestas, a diferencia de Raylib, orientado 100% a canvas bruto que hubiese obligado a programar botones desde cero.
+3. **Plataformero a Top-Down Explorativo:** *Justificación:* Aplicar físicas vectoriales de gravedad requería cálculos intermedios de colision que entorpecían el núcleo educativo del programa (resumen: ni el Momo vendio tanto humo).
 
+---
 
-El newprueba.c se encargara de ejecutar el codigo de movi.c para ver si todo lo que es lógica de movimiento está funcionando correctamente
--comienza inicializando las variables correspondientes el movimiento del enemigo y el jugador , el mapa la tecla que irá poniendo el usuario y el nivel actual en el cual nos encontramos, luego se llama a la función iniciar mapa para que luego dibujar mapa sepa que poner en cada espacio, luego hacemos un ciclo while mientras la tecla que el usuario presione sea distinta de q luego se muestra un mini menú en la parte superior de la terminal y abajo se realizara la función dibujar mapa de la cual aparecerá el mapa en el cual se moverá tanto el enemigo como el personaje  luego se agrega unos printf para señalar ciertas acciones y se procesa el movimiento con las funciones procesomov y procesomovE y finalmente cuando el ciclo while termina se imprimirá “juego finalizado”.
+//TODO:Concljucion y posible mejora 
 
+---
 
-Compilación del código:
-Comando de compilación en el directorio Triple-C: gcc -I headers src/main/main.c src/preguntas/enginePreg.c src/mov/mov.c/movi.c -o build/triplec
-Comando de compilación en el directorio Triple-C/build: gcc -I../headers ../src/main/main.c ../src/preguntas/enginePreg.c ../src/mov/mov.c/movi.c -o triplec
-//Atención: el ejecutable debe de ser compilado en el directorio build, ya que el ejecutable debe de estar en el mismo directorio que archivopregs.txt (no se dio la dirección de este archivo al código por lo cual buscara en el mismo directorio en el cual el ejecutable este).
+## Documentos Adicionales, Anexos y referencias
 
-Requerimientos:
-Descarga el repositorio presionando code<> y luego Download ZIP.
-Descomprime el archivo zip e identifica el directorio del archivo descomprimido.
-A continuación se explicara paso a paso como compilar el código para todos los Sistemas operativos.
+* **Anexo PYPL:** https://pypl.github.io/PYPL.html
 
-Linux:
-Instalar GCC: Abrir terminal y escribir: (sudo apt install build-essential).
-Navegar y compilar: entra en la carpeta y ejecuta los comandos de compilación dependiendo en que directorio lo compiles.
-Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
+* **Anexo TIOBE:** https://www.tiobe.com/tiobe-index/
 
-MAC:
-Instalar Terminal tolos: Abrir la aplicación "Terminal" y escribir: xcode-select --install. para luego dale a "instalar".
-Navegar: en la terminal escribe cd seguido de un espacio y arrastrar la carpeta del repositorio descomprimido dentro de la terminal y luego presiona ENTER.
-Compilar: escribir los comandos de compilación dependiendo de el directorio en el que compiles.
-Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
-
-Windows:
-Instalar el Compilador: Descargar e instalar VS Code. y una vez echo esto instala la extencion dentro de VS Code C/C++, esto instala el programa para escribir código y el GCC al mismo tiempo.
-Abrir la carpeta descomprimida del repositorio: En VS Code busca la carpeta instalada File > Open Folder > Triple-C
-Compilar y correr: Abres una nueva terminal con Terminal > New Terminal y compilas el código con el comando dado dependiendo en que directorio estes.
-Ejecutar: en el directorio build escribe ./triplec y presiona ENTER.
-
-
-Cambios:
-Cambiamos los objetivos clave del proyecto al encontrarnos con varias dificultades con los tiempos y nuestras capacidades. por lo cual fueron cambiadas a unas mas básicas y simples para implementar.
-Problemática fue cambiada, no cambiando el problema planteado pero si añadiéndole contexto y profundidad para una mayor compresión.
-Se cambio la forma en la cual esta escrita el objetivo general para darle mas formalidad.
-Se cambio la idea de escribir el código en juego por un juego de preguntas por complicaciones en la implantación de esta función.
-La idea de un plataformero ah sido parcialmente descartada, ya que hasta el hito 1 solo se ah logrado un juego de movimiento en cuatro direcciones sin los aspectos plataformero que es posible que si pueda ser implementado en un futuro.
-
-
-
-HITO 2:
-
-//Documentacion de los cambios estructurales, las clases y sus metodos
-
-#MOVIMIENTO
-
-Cambios estructurales para la logica de movimiento y mapa: Los cambios estructurales realizados consistieron principalmente en la adopción de la estructura de clases, dividiendo el proyecto en tres componentes esenciales: entidad(para el movimiento), mapa (para gestionar el entorno) y juego (para encapsular la lógica principal y simplificar el código del archivo main). Además, a diferencia de la versión en C donde estructurábamos el mapa manualmente usando punteros y memoria dinámica, en esta iteración de C++ implementamos contenedores como std::vector, lo que facilita y hace más segura la creación del espacio.
-
-Clase Mapa: Se encarga de generar el espacio donde interactúan los personajes. Sus atributos incluyen un valor entero que define la dimensión del área (la cual se reduce progresivamente al avanzar de nivel) y una matriz basada en un vector de vectores.  sus métodos son  obtenerDimension, que devuelve el tamaño actual del mapa, y obtenercasilla(x, y), el cual retorna el valor de una coordenada específica, siendo clave para validar el movimiento.
-
-Clase Entidad: Funciona como la clase base para otorgar estructura a Jugador y Enemigo. Sus atributos protegidos almacenan las coordenadas de posición (x, y) y la cantidad de casillas de avance. Implementa un método virtual puro (mov) para obligar a las clases derivadas a definir su propio comportamiento de desplazamiento , el jugador utiliza  las teclas de control (WASD), mientras que el enemigo opera mediante un sistema de movimiento aleatorio. Adicionalmente, sus métodos son bastantes pequeños (obtenerX y obtenerY) para compartir su ubicación con la clase juego sin romper el encapsulamiento y finalmente el metodo set posicion para poder resetear posiciones
-
-Clase Juego: Esta clase se encarga de dibujar el mapa en la terminal y que se muestre el movimiento de las entidades. Posee instancias directas de las clases mencionadas anteriormente ademas esta clase que dictara cuando debe terminar la partida, la cual solo terminara si se presiona la tecla 'q'. Sus metodos se basan en verificar posicion, actualizar info , resetear la posicion del enemigo y dibujar el mapa actualizado
-
-Dificultades de la Migración La principal dificultad enfrentada durante esta entrega fue el proceso de traducción mental desde lo que era la estructura de C hacia la Programación Orientada a Objetos. Por lo que hubo un montón de errores de sintaxis iniciales y, más importante aún, se tuvo que reestructurar la arquitectura del código para darle la forma a la estructura de C++ ademas fue necesario diseñar nuevos métodos para la comunicación entre clases para lograr interacciones que antes resolvíamos directamente manipulando punteros
-
-Las pruebas de las mecánicas de movimiento se encuentran en el archivo pruebita.cpp. Al delegar la lógica pesada a la clase Juego, este ejecutable resulta bastante corto. Su compilación y ejecución permiten verificar en consola que el control por teclado (WASD) responde correctamente, que las posiciones de ambos personajes se actualizan en tiempo real y que el sistema de colisión previene  que las entidades atraviesen los límites del mapa
-
-
-
-#PREGUNTAS
-
-La transición fundamental en la adaptación estructural de C a C++ fu el cambio de paradigma procedural (estructurado) de C al paradigma de POO de C++. Las estructuras de datos pasaron de ser públicas y pasivas a ser clases encapsuladas con atributos privados y métodos públicos (getters y setters). Se reemplazo el uso de punteros con malloc/free por los operadores de memoria dinámica de C++ (new y delete), además de delegar el manejo de arreglos a la biblioteca estándar usando std::vector. Se eliminaros los arreglos de caracteres (char[]) y la librería <string.h>, adoptando std::string para un manejo mucho mas seguro y fiable. Se sustituyo la librería <stdio.h> (printf y scanf) por <iostream> (std::cout t std::cin).
-
-El código se modularizo aplicando el principio de separación de responsabilidades:
-- Pregunta: Clase de datos puros. Almacenan el enunciado, opciones, nivel y estado.
-- Jugador: Clase que maneja el estado del usuario(vidas, nivel actual, pistas y puntajes).
-- MotorTrivia(Backend): Es el controlador de las reglas. Relaciones: Contiene una lista de objetos Pregunta (Composición mediante std::vector) y administra un puntero al objeto Jugador gestionando dinámicamente.
-- Uireal (Frontend): Clase encargada exclusivamente de la terminal. Relaciones: Recibe un puntero a Motortrivia en su constructor (incluyendo dependencias), lo que le permite consultar datos sin procesar la lógica.
-
-Se diseño un flujo de ejecución en pruebaPreg.cpp para someter el código a pruebas de estrés y validación:
-- Prueba de pareo: Verificación de que el sistema ignora líneas vacías o mal formateadas en el archivo .txt sin colapsar
-- Prueba de limites: Jugar hasta agotar las vidas para detonar el Game Over, pedir pistas cuando el contador esta en 0 y responder correctamente hasta agotar las preguntas de un nivel para forzar el avance o la victoria.
-- Pruebas de robustez de entrada: Ingresar letras minúsculas, números o palabras completas en lugar de una sola letra (A, B, C, D) para asegurar que el buffer de std::cin se limpie correctamente y no genere un bucle infinito.
-
-Ejemplos:
-- Encapsulamiento:
-	En C se modifica el estado directamente p->estado = 1;.
-	En C++ se restringe el acceso mediante un método: pregunta.setEstado(true);.
-- Flujo de entrada:
-	En C la lectura de caracteres era frágil: scanf(" %c", &respuesta);.
-	En C++ el flujo es directo y s puede manipular su estado de error  : std::cin >> respuesta;.
-- Inicialización:
-	En C++ se aprovecho de la lista de inicialización de los constructores: Jugador::Jugador() : vidasActual(3), nivelActual(1) {}.
-
-Dificultades:
-- Rigidez en la lectura de archivos: en C, fscanf permitía leer formatos específicos fácilmente, pero era propenso a errores si el .txt variaba. En C++, hubo que constituir un parser manual usando std::strinfstrem y la función std::getline para tokenizar cada linea mediante el delimitador |, lo cual requiere más líneas de código, aunque es mucho mas seguro.
-- Limpieza del buffer de entrada: Evitar el clásico error del "doble enter" (Aun sigo con el mismo problema :( ) o el colapso por ingresos inválidos. Al pasar de Scanf a std::cin, fue necesario implementar rutinas de limpieza explicitas (std::cin.clear() y bucles de extracción de caracteres sobrantes) para garantizar que los menús no se volvieran locos si el usuario escriba una palabra en lugar de una letra.
-- Limitación autoimpuesta al C++ Clásico: para mantener alineación estricta con los fundamentos académicos solicitados, se debió evitar el uso de funciones de la industria moderna (como punteros inteligentes std::unique_ptr o la librería <random>). Esto obligó a gestionar la memoria dinámica "a mano" y crear un algoritm oque barajeo manual apoyado en el generador clásico de <cstdlib> (Razón real: que flojera documentar).
-
-
-###Compilacion###
-Para compilar el proyecto Manteniendo la estructura modular se debe de descargar el repositorio y descomprimirlo (Mismas instrucciones explicadas anteriormente) y ejecutar el siguiente comando en con una terminal abierta en el directorio Triple-C: 
-[ g++ -std=c++11 -Wall -I src_cpp\headerscpp\ src_cpp\maincpp\main.cpp  src_cpp\preguntascpp\pregBack.cpp  src_cpp\userinterface\pantallasreal.cpp  src_cpp\movcpp\entidades.cpp src_cpp\movcpp\juego.cpp src_cpp\movcpp\mapa.cpp -o build\TripleC ]
-Luego de compilar se ejecuta el programa usando ./tripleC.
-
-
-Con respecto al tercer hito, y ahora que contamos con un dominio mucho más claro de C++ y de la visión final de Triple-C, hemos tomado la decisión  de no utilizar la biblioteca gráfica Raylib. Si bien Raylib resultaba intuitiva para el manejo de interfaces, hemos optado por utilizar el framework de Qt Creator. Consideramos que las herramientas que provee este framework son más completas y nos permitirán alcanzar un estándar estético más profesional, logrando así la distinción visual y didáctica que buscamos para el proyecto.
-
-//ANEXOS
-
-https://pypl.github.io/PYPL.html
-
-https://www.tiobe.com/tiobe-index/
-TIOBE
-
-- Referencias
-Alzahrani, N., Vahid, F., et al. (2018). Python Versus C++: An Analysis of Student Struggle on Small Coding Exercises in Introductory Programming Courses. SIGCSE '18. DOI: 10.1145/3159450.3160586.
--link respectivo:https://dl.acm.org/doi/10.1145/3159450.3160586
+### Referencias
+* Alzahrani, N., Vahid, F., et al. (2018). Python Versus C++: An Analysis of Student Struggle on Small Coding Exercises in Introductory Programming Courses. SIGCSE '18. DOI: 10.1145/3159450.3160586.
+	* link respectivo:https://dl.acm.org/doi/10.1145/3159450.3160586
 
